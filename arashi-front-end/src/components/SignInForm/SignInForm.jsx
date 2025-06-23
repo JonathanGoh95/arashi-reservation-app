@@ -1,7 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import LoginIcon from "../../assets/images/login.svg";
-import styles from "./SignInForm.module.css";
 import { signIn } from "../../services/authService";
 
 import { UserContext } from "../../contexts/UserContext";
@@ -32,7 +31,7 @@ const SignInForm = () => {
   };
 
   return (
-    <main className={styles.container}>
+    <main>
       <section>
         <img src={LoginIcon} alt="An owl sitting on a sign" />
       </section>

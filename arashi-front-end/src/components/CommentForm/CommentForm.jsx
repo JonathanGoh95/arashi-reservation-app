@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
-import styles from "./CommentForm.module.css";
-import Icon from "../Icon/Icon";
 import * as hootService from "../../services/hootService";
 
 const CommentForm = ({ handleAddComment }) => {
@@ -39,7 +37,7 @@ const CommentForm = ({ handleAddComment }) => {
 
   if (hootId && commentId)
     return (
-      <main className={styles.container}>
+      <main>
         <form onSubmit={handleSubmit}>
           <h1>Edit Comment</h1>
           <label htmlFor="text-input">Your comment:</label>
@@ -51,9 +49,7 @@ const CommentForm = ({ handleAddComment }) => {
             value={formData.text}
             onChange={handleChange}
           />
-          <button type="submit">
-            <Icon category="Create" />
-          </button>
+          <button type="submit" />
         </form>
       </main>
     );

@@ -1,16 +1,8 @@
-import styles from "./Landing.module.css";
-import Stars from "../../assets/images/stars.svg";
-import Logotype from "../../assets/images/logotype.svg";
-
 const Landing = () => {
   return (
     <>
-      <main className={styles.container}>
-        <section className={styles.splash}>
-          <img src={Logotype} alt="A cute owl" />
-        </section>
-
-        <section className={styles.about}>
+      <main>
+        <section>
           <header>
             <h3>HOO WE ARE</h3>
             <h1>ABOUT US</h1>
@@ -31,7 +23,7 @@ const Landing = () => {
           </article>
         </section>
 
-        <section className={styles.testimonial}>
+        <section>
           <header>
             <h3>WHO GIVES A HOOT?</h3>
             <h1>TESTIMONIALS</h1>
@@ -47,14 +39,11 @@ const Landing = () => {
               lifestyle. The interface is so easy to use and makes it really
               convenient for me to write my blog posts at night.
             </p>
-            <footer>
-              <img src={Stars} alt="Four blue stars" />
-            </footer>
           </article>
         </section>
       </main>
 
-      <footer className={styles.footer}>
+      <footer>
         © 2025 HOOT INC. OWL RIGHTS RESERVED
       </footer>
     </>

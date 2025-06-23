@@ -1,7 +1,5 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
-import SignUpIcon from "../../assets/images/signup.svg";
-import styles from "./SignUpForm.module.css";
 import { signUp } from "../../services/authService";
 
 import { UserContext } from "../../contexts/UserContext";
@@ -39,9 +37,9 @@ const SignUpForm = () => {
   };
 
   return (
-    <main className={styles.container}>
+    <main>
       <section>
-        <img src={SignUpIcon} alt="An owl sitting on a sign" />
+        <img />
       </section>
       <section>
         <form onSubmit={handleSubmit}>
