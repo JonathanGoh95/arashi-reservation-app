@@ -9,6 +9,7 @@ function verifyToken(req, res, next) {
 
     next();
   } catch (err) {
+    console.error("JWT Verification Error:", err);
     res.status(401).json({ err: "Invalid token." });
   }
 }

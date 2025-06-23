@@ -8,7 +8,7 @@ const { loadUser } = require("../middleware/utils");
 
 router.get("/", verifyToken, async (req, res) => {
   try {
-    const users = await User.find({}, "username");
+    const users = await User.find({}, "email");
 
     res.json(users);
   } catch (err) {
