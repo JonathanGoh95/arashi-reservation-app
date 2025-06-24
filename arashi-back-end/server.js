@@ -9,7 +9,7 @@ const logger = require("morgan");
 
 // Import routers from controllers
 const authRouter = require("./routers/authRouter");
-const usersRouter = require("./routers/usersRouter");
+const userRouter = require("./routers/userRouter");
 const reservationRouter = require("./routers/reservationRouter");
 const branchRouter = require("./routers/branchRouter");
 
@@ -27,7 +27,7 @@ app.use(logger("dev"));
 
 // Routes Declaration
 app.use("/auth", authRouter);
-app.use("/users", usersRouter);
+app.use("/users", userRouter);
 app.use("/reservation", reservationRouter);
 app.use("/branch", branchRouter);
 

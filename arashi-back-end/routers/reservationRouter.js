@@ -6,3 +6,5 @@ router.post("/", verifyToken);
 router.put("/", verifyToken);
 router.get("/", verifyToken);
 router.delete("/", verifyToken);
+
+module.exports = router;
