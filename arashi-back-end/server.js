@@ -8,10 +8,10 @@ const cors = require("cors");
 const logger = require("morgan");
 
 // Import routers from controllers
-const authRouter = require("./controllers/auth");
-const usersRouter = require("./controllers/users");
-const reservationRouter = require("./controllers/reservations");
-const branchRouter = require("./controllers/branch");
+const authRouter = require("./routers/authRouter");
+const usersRouter = require("./routers/usersRouter");
+const reservationRouter = require("./routers/reservationRouter");
+const branchRouter = require("./routers/branchRouter");
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI);

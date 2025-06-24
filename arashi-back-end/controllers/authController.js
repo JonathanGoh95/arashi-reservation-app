@@ -1,5 +1,3 @@
-const express = require("express");
-const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -11,7 +9,7 @@ const createPayload = (user) => {
   return { username: user.username, _id: user._id };
 };
 
-router.post("/sign-up", async (req, res) => {
+const signUp = async (req, res) => {
   try {
     const userInDatabase = await User.findOne({ username: req.body.username });
 
@@ -34,9 +32,9 @@ router.post("/sign-up", async (req, res) => {
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
-});
+};
 
-router.post("/sign-in", async (req, res) => {
+const signIn = async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
     if (!user) {
@@ -45,7 +43,7 @@ router.post("/sign-in", async (req, res) => {
 
     const isPasswordCorrect = bcrypt.compareSync(
       req.body.password,
-      user.hashedPassword,
+      user.hashedPassword
     );
     if (!isPasswordCorrect) {
       return res.status(401).json({ err: "Invalid credentials." });
@@ -61,6 +59,6 @@ router.post("/sign-in", async (req, res) => {
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
-});
+};
 
-module.exports = router;
+module.exports = { signIn, signUp };
