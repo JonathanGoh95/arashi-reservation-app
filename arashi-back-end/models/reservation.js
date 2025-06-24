@@ -31,7 +31,11 @@ const reservationSchema = new Schema(
       maxValue: 8,
     },
     remarks: {
-      type: Number,
+      type: String,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
   },
