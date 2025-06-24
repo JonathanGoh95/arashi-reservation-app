@@ -7,6 +7,7 @@ const reservationSchema = new Schema(
     reservationName: {
       type: String,
       required: true,
+      trim: true,
     },
     reservationDate: {
       type: Date,
@@ -31,7 +32,7 @@ const reservationSchema = new Schema(
       maxValue: 8,
     },
     remarks: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
