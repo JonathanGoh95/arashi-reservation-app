@@ -6,19 +6,20 @@ const User = require("../models/user");
 const saltRounds = 12;
 
 const createPayload = (user) => {
-  return { username: user.username, _id: user._id };
+  return { email: user.email, _id: user._id, displayName: user.displayName };
 };
 
 const signUp = async (req, res) => {
   try {
-    const userInDatabase = await User.findOne({ username: req.body.username });
+    const userInDatabase = await User.findOne({ email: req.body.email });
 
     if (userInDatabase) {
       return res.status(409).json({ err: "Username already taken." });
     }
 
     const user = await User.create({
-      username: req.body.username,
+      email: req.body.email,
+      displayName: req.body.displayName,
       hashedPassword: bcrypt.hashSync(req.body.password, saltRounds),
     });
 
@@ -36,7 +37,7 @@ const signUp = async (req, res) => {
 
 const signIn = async (req, res) => {
   try {
-    const user = await User.findOne({ username: req.body.username });
+    const user = await User.findOne({ email: req.body.email });
     if (!user) {
       return res.status(401).json({ err: "Invalid credentials." });
     }

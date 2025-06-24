@@ -22,7 +22,6 @@ const userSchema = new Schema({
   },
   birthday: {
     type: Date,
-    required: true,
     validate: {
       validator: function (value) {
         return value < new Date();
