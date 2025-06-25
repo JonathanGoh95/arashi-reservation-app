@@ -21,6 +21,8 @@ const signUp = async (req, res) => {
       email: req.body.email,
       displayName: req.body.displayName,
       hashedPassword: bcrypt.hashSync(req.body.password, saltRounds),
+      birthday: req.body.birthday,
+      contactNumber: req.body.contactNumber,
     });
 
     const payload = createPayload(user);
