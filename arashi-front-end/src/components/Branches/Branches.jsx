@@ -14,11 +14,11 @@ const Branches = () => {
       setBranches(branchData);
     };
       fetchAllBranches();
-    }, [branches]);
+    }, []); // Branches Data will be fetched upon loading of this page
     
     const handleClick = () => {
         if (user){
-            navigate("/users/:userId/reservations/new")
+            navigate(`/users/${user._id}/reservations/new`)
         }
         else{
             navigate("/sign-in")

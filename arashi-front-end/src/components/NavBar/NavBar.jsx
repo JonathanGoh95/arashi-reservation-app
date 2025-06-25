@@ -12,20 +12,22 @@ console.log("nav",user)
 
   return (
       <nav>
-      {user ? (
-        <>
           <div>
             <Link to="/">ARASHI OMAKASE</Link>
           </div>
+          {user ? (
           <div>
-            <div>
             <Link to={`/users/${user._id}/reservations`}>Reservations</Link>
-            </div>
-            <div>
-            <Link to="/find-us">Find Us</Link>
-            </div>
-          </div>  
+          </div>) : (
           <div>
+            <Link to="/reservations">Reservations</Link>
+          </div>
+          )}
+          <div>
+            <Link to="/find-us">Find Us</Link>
+          </div>
+          <div>
+          {user ? (
             <ul>  
               <li>Welcome, {user.displayName}</li>
               <li>
@@ -36,35 +38,17 @@ console.log("nav",user)
                   Sign Out
                 </Link>
               </li>
+            </ul>) : (
+            <ul>
+              <li>
+                <Link to="/sign-up">SIGN UP</Link>
+              </li>
+              <li>
+                <Link to="/login">LOGIN</Link>
+              </li>
             </ul>
+            )}
           </div>
-        </>
-
-      ) : (
-        <>
-        <div>
-          <Link to="/">ARASHI OMAKASE</Link>
-        </div>
-        <div>
-          <div>
-          <Link to="/reservations">Reservations</Link>
-          </div>
-          <div>
-          <Link to="/find-us">Find Us</Link>
-          </div>
-        </div>
-        <div>
-          <ul>
-            <li>
-              <Link to="/sign-up">SIGN UP</Link>
-            </li>
-            <li>
-              <Link to="/login">LOGIN</Link>
-            </li>
-          </ul>
-        </div>
-        </>
-      )}
     </nav>
   );
 };

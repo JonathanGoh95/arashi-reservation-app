@@ -1,5 +1,5 @@
-import {  useContext } from "react";
-import {  useNavigate} from "react-router";
+import { useContext } from "react";
+import { useNavigate } from "react-router";
 
 import { UserContext } from "../contexts/UserContext";
 
@@ -7,7 +7,7 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
 
-  const { displayName, email,birthday } = user;
+  const { displayName, email, birthday } = user;
 
   console.log(user)
   return (

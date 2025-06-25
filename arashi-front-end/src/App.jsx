@@ -10,8 +10,8 @@ import Reservations from "./Reservations/Reservations";
 import ReservationForm from "./components/ReservationForm/ReservationForm";
 import ProfileForm from "./components/ProfileForm/ProfileForm";
 import Profile from "./components/Profile/Profile";
-import UserProfile from "./components/userProfile";
-
+// import UserProfile from "./components/userProfile";
+// Profile is the same as UserProfile. Check through again.
 const App = () => {
 
   return (
@@ -23,7 +23,6 @@ const App = () => {
             <Route path="/login" element={<SignInForm />} />
             <Route path="/reservations" element={<Reservations />} />
             <Route path="/find-us" element={<Branches />} />
-
             <Route path="/users/:userId/reservations" element={<Reservations />} />
             <Route path="/users/:userId/reservations/new" element={<ReservationForm />} />
             <Route path="/users/:userId/reservations/:reservationId/" element={<ReservationForm />} />
