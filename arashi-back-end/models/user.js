@@ -10,7 +10,10 @@ const userSchema = new Schema({
     lowercase: true,
     trim: true,
     unique: true,
-    match: [isEmail, "Please enter a valid email address"],
+    validate: {
+      validator: isEmail,
+      message: "Please enter a valid email address",
+    },
     //Reference: https://stackoverflow.com/questions/18022365/mongoose-validate-email-syntax
   },
   displayName: {
