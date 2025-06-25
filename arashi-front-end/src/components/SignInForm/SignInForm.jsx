@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
-import LoginIcon from "../../assets/images/login.svg";
 import { signIn } from "../../services/authService";
 
 import { UserContext } from "../../contexts/UserContext";
@@ -42,7 +41,7 @@ const SignInForm = () => {
           <div>
             <label>Email:
             <input
-              type="text"
+              type="email"
               autoComplete="off"
               id="email"
               value={formData.email}
