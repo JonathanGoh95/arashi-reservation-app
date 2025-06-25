@@ -18,6 +18,7 @@ const Profile = () => {
         <p>Contact Number: {user.contactNumber}</p>
     </article>
     }
+    <button onClick={() => navigate(`/users/${user._id}/edit`)}>Edit</button>
     <button onClick={() => navigate("/")}>Back</button>
     </>
   )

@@ -10,6 +10,7 @@ import Reservations from "./Reservations/Reservations";
 import ReservationForm from "./components/ReservationForm/ReservationForm";
 import ProfileForm from "./components/ProfileForm/ProfileForm";
 import Profile from "./components/Profile/Profile";
+import UserProfile from "./components/userProfile";
 
 const App = () => {
 
@@ -21,9 +22,12 @@ const App = () => {
             <Route path="/sign-up" element={<SignUpForm />} />
             <Route path="/login" element={<SignInForm />} />
             <Route path="/reservations" element={<Reservations />} />
-            <Route path="/reservations/new" element={<ReservationForm />} />
-            <Route path="/reservations/:reservationId/edit" element={<ReservationForm />} />
             <Route path="/find-us" element={<Branches />} />
+
+            <Route path="/users/:userId/reservations" element={<Reservations />} />
+            <Route path="/users/:userId/reservations/new" element={<ReservationForm />} />
+            <Route path="/users/:userId/reservations/:reservationId/" element={<ReservationForm />} />
+            <Route path="/users/:userId/reservations/:reservationId/edit" element={<ReservationForm />} />
             <Route path="/users/:userId/profile" element={<Profile />} />
             <Route path="/users/:userId/edit" element={<ProfileForm />} />
       </Routes>

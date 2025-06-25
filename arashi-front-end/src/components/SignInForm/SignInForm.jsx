@@ -26,7 +26,7 @@ const SignInForm = () => {
       console.log("signing in")
       const signedInUser = await signIn(formData);
       setUser(signedInUser);
-      navigate("/");
+      navigate(`/${signedInUser._id}/reservations`);
     } catch (err) {
       setMessage(err.message);
     }
