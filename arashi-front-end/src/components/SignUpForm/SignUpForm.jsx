@@ -36,7 +36,6 @@ const SignUpForm = () => {
   };
 
   const isFormInvalid = () => {
-    setMessage("Please check your input details again.")
     return !(displayName && email && password && password === passwordConf);
   };
 
