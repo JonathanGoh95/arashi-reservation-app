@@ -31,9 +31,11 @@ const updateUser = async (userId, userFormData) => {
     });
     if (!res.ok) throw new Error("Failed to update user details");
     const data = await res.json();
+
     if (data.err) {
       throw new Error(data.err);
     }
+
     return data;
   } catch (err) {
     console.log(err);
