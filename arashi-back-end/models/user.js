@@ -8,6 +8,7 @@ const userSchema = new Schema({
     required: true,
     unique: true,
     match: [/.+@.+\..+/, "Please enter a valid email address"],
+    //put reference for this
   },
   displayName: {
     type: String,
@@ -25,11 +26,13 @@ const userSchema = new Schema({
     validate: {
       validator: function (value) {
         return value < new Date();
+        //put reference for this
       },
     },
   },
   contactNumber: {
-    type: Number,
+    type: String,
+    //take into consideration for international number
   },
 });
 

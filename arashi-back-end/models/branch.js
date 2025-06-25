@@ -14,7 +14,7 @@ const branchSchema = new Schema({
     trim: true,
   },
   contactNumber: {
-    type: Number,
+    type: String,
     required: true,
   },
   businessHours: {
