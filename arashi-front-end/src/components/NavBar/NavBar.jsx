@@ -17,7 +17,7 @@ const NavBar = () => {
       </div>
       <div>
         <Link to="/reservation">Reservations</Link>
-        <Link to="/branch">Find Us</Link>
+        <Link to="/branches">Find Us</Link>
       </div>
       {user ? (
         <ul>  

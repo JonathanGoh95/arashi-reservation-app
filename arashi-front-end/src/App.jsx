@@ -47,7 +47,7 @@ const App = () => {
             <Route path="/reservation" element={<Reservations />} />
             <Route path="/reservation/new" element={<ReservationForm />} />
             <Route path="/reservation/:reservationId/edit" element={<ReservationForm />} />
-            <Route path="/branch" element={<Branches />} />
+            <Route path="/branches" element={<Branches />} />
             <Route path="/sign-up" element={<SignUpForm />} />
             <Route path="/sign-in" element={<SignInForm />} />
             <Route path="/users/:userId/profile" element={<Profile />} />

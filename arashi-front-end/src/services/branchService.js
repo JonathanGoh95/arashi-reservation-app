@@ -1,4 +1,4 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/branch`;
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/branches`;
 
 const showBranch = async () => {
   try {

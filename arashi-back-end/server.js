@@ -27,8 +27,8 @@ app.use(logger("dev"));
 
 // Routes Declaration
 app.use("/", authRouter); //auth is removed
-app.use("/reservation", reservationRouter);
-app.use("/branch", branchRouter);
+app.use("/reservations", reservationRouter);
+app.use("/branches", branchRouter);
 app.use("/users", userRouter);
 
 // Start the server and listen on port 3000
