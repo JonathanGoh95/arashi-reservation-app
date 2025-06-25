@@ -8,6 +8,8 @@ import Landing from "./components/Landing/Landing";
 import Branches from "./components/Branches/Branches";
 import Reservations from "./Reservations/Reservations";
 import ReservationForm from "./components/ReservationForm/ReservationForm";
+import ProfileForm from "./components/ProfileForm/ProfileForm";
+import Profile from "./components/Profile/Profile";
 // import HootForm from "./components/HootForm/HootForm";
 // import CommentForm from "./components/CommentForm/CommentForm";
 
@@ -48,6 +50,8 @@ const App = () => {
             <Route path="/branch" element={<Branches />} />
             <Route path="/sign-up" element={<SignUpForm />} />
             <Route path="/sign-in" element={<SignInForm />} />
+            <Route path="/users/:userId/profile" element={<Profile />} />
+            <Route path="/users/:userId/edit" element={<ProfileForm />} />
       </Routes>
     </>
   );

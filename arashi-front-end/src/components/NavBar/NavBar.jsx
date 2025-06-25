@@ -23,6 +23,16 @@ const NavBar = () => {
         <ul>  
           <li>Welcome, {user.displayName}</li>
           <li>
+            <Link to={`/users/${user._id}`}>
+              View Profile
+            </Link>
+          </li>
+          <li>
+            <Link to={`/users/${user._id}/edit`}>
+              Edit Profile
+            </Link>
+          </li>
+          <li>
             <Link to="/" onClick={handleSignOut}>
               Sign Out
             </Link>

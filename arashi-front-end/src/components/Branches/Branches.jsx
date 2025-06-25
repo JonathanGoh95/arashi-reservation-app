@@ -27,6 +27,7 @@ const Branches = () => {
 
     return(
         <main>
+            <h1>Find Us</h1>
             {branches.map((branch)=>(
                 <article key = {branch._id}>
                     <h2>{branch.location.split(" - ")[1]}</h2>
@@ -38,6 +39,8 @@ const Branches = () => {
                         <button onClick={handleClick}>Reserve Now</button>
                 </article>
             ))}
+            <button onClick={() => navigate("/")}>Back</button>
+            <button onClick={() => navigate(`/users/${user._id}/edit`)}>Edit Profile</button>
         </main>
     )
 }
