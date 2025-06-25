@@ -2,6 +2,21 @@ const User = require("../models/user");
 
 const { loadUser } = require("../middleware/utils");
 
+const getUser = async (req, res) => {
+  try {
+    const currentUser = loadUser(req);
+    const { userId } = req.params;
+    if (currentUser._id !== userId) {
+      res.status(403).send("Unauthorized User");
+    }
+
+    const User = await User.findById(userId);
+    res.status(200).json(User);
+  } catch (error) {
+    res.status(500).json({ err: error.message });
+  }
+};
+
 const updateUser = async (req, res) => {
   try {
     const currentUser = loadUser(req);
@@ -34,4 +49,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { updateUser, deleteUser };
+module.exports = { getUser, updateUser, deleteUser };
