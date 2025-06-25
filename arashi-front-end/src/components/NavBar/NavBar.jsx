@@ -15,12 +15,10 @@ const NavBar = () => {
       <div>
         <Link to="/">ARASHI OMAKASE</Link>
       </div>
-      <li>
+      <div>
         <Link to="/reservation">Reservations</Link>
-      </li>
-      <li>
         <Link to="/branch">Find Us</Link>
-      </li>
+      </div>
       {user ? (
         <ul>  
           <li>Welcome, {user.displayName}</li>
