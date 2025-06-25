@@ -29,6 +29,7 @@ app.use(logger("dev"));
 app.use("/", authRouter); //auth is removed
 app.use("/reservation", reservationRouter);
 app.use("/branch", branchRouter);
+app.use("/users", userRouter);
 
 // Start the server and listen on port 3000
 app.listen(3000, () => {

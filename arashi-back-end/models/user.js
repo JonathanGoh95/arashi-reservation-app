@@ -1,3 +1,4 @@
+const { isEmail } = require("validator");
 const mongoose = require("mongoose");
 
 const { Schema, model } = mongoose;
@@ -6,9 +7,11 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
+    lowercase: true,
+    trim: true,
     unique: true,
-    match: [/.+@.+\..+/, "Please enter a valid email address"],
-    //put reference for this
+    match: [isEmail, "Please enter a valid email address"],
+    //Reference: https://stackoverflow.com/questions/18022365/mongoose-validate-email-syntax
   },
   displayName: {
     type: String,
@@ -26,13 +29,14 @@ const userSchema = new Schema({
     validate: {
       validator: function (value) {
         return value < new Date();
-        //put reference for this
+        //Reference same as above
       },
+      message: "Your birthday must be in the past.",
     },
   },
   contactNumber: {
     type: String,
-    //take into consideration for international number
+    //Includes the case for international numbers
   },
 });
 
