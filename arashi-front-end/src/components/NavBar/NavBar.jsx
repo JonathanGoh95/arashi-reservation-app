@@ -12,20 +12,18 @@ const NavBar = () => {
 
   return (
     <nav>
-      <Link to="/">
-        <img />
-      </Link>
+      <div>
+        <Link to="/">ARASHI OMAKASE</Link>
+      </div>
+      <li>
+        <Link to="/reservation">Reservations</Link>
+      </li>
+      <li>
+        <Link to="/branch">Find Us</Link>
+      </li>
       {user ? (
-        <ul>
-          <li>
-            <Link to="/">HOME</Link>
-          </li>
-          <li>
-            <Link to="/hoots">HOOTS</Link>
-          </li>
-          <li>
-            <Link to="/hoots/new">NEW HOOT</Link>
-          </li>
+        <ul>  
+          <li>Welcome, {user.displayName}</li>
           <li>
             <Link to="/" onClick={handleSignOut}>
               Sign Out
@@ -33,17 +31,14 @@ const NavBar = () => {
           </li>
         </ul>
       ) : (
-        <ul>
-          <li>
-            <Link to="/">HOME</Link>
-          </li>
-          <li>
-            <Link to="/sign-in">SIGN IN</Link>
-          </li>
-          <li>
-            <Link to="/sign-up">SIGN UP</Link>
-          </li>
-        </ul>
+          <ul>
+            <li>
+              <Link to="/sign-up">SIGN UP</Link>
+            </li>
+            <li>
+              <Link to="/sign-in">LOGIN</Link>
+            </li>
+          </ul>
       )}
     </nav>
   );
