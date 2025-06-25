@@ -1,4 +1,4 @@
-const { isEmail } = require("validator");
+const { isEmail, isLength } = require("validator");
 const mongoose = require("mongoose");
 
 const { Schema, model } = mongoose;
@@ -19,7 +19,7 @@ const userSchema = new Schema({
   displayName: {
     type: String,
     required: true,
-    minlength: 2,
+    minlength: 3,
     maxlength: 50,
   },
   hashedPassword: {

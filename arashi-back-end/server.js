@@ -26,9 +26,9 @@ app.use(express.json());
 app.use(logger("dev"));
 
 // Routes Declaration
-app.use("/", authRouter); //auth is removed
+app.use("/", authRouter);
 app.use("/reservation", reservationRouter);
-app.use("/branch", branchRouter);
+app.use("/find-us", branchRouter);
 app.use("/users", userRouter);
 
 // Start the server and listen on port 3000

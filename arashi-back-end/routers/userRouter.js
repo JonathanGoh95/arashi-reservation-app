@@ -7,6 +7,8 @@ const {
   deleteUser,
 } = require("../controllers/userController");
 
+// Create User Details
+
 // Get User Details
 router.get("/:userId", verifyToken, getUser);
 // Update User Details

@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
-import { Link } from "react-router";
-import { useNavigate } from "react-router";
+import { Link , useNavigate} from "react-router";
 import { signUp } from "../../services/authService";
 
 import { UserContext } from "../../contexts/UserContext";
@@ -25,11 +24,12 @@ const SignUpForm = () => {
   };
 
   const handleSubmit = async (evt) => {
+    console.log("signing up")
     evt.preventDefault();
     try {
       const newUser = await signUp(formData);
-      setUser(newUser);
-      navigate("/");
+      // setUser(newUser); //do we log the user in after they sign up?
+      navigate("/login");
     } catch (err) {
       setMessage(err.message);
     }
@@ -37,17 +37,18 @@ const SignUpForm = () => {
 
   const isFormInvalid = () => {
     setMessage("Please check your input details again.")
-    return !(displayName && email && password && password === passwordConf);
+    !(displayName && email && password && password === passwordConf);
+    //this line has error
   };
 
   return (
     <main>
       <section>
+        <h1>Sign Up as a New User</h1>
+        <p>{message}</p>
         <form onSubmit={handleSubmit}>
-          <h1>Sign Up as a New User</h1>
-          <p>{message}</p>
           <div>
-            <label htmlFor="displayName">Display Name:</label>
+            <label>Display Name:
             <input
               type="text"
               id="displayName"
@@ -55,10 +56,11 @@ const SignUpForm = () => {
               name="displayName"
               onChange={handleChange}
               required
-            />
+              />
+              </label>
           </div>
           <div>
-            <label htmlFor="email">Email:</label>
+            <label>Email:
             <input
               type="email"
               id="email"
@@ -67,9 +69,10 @@ const SignUpForm = () => {
               onChange={handleChange}
               required
             />
+            </label>
           </div>
           <div>
-            <label htmlFor="password">Password:</label>
+            <label>Password:
             <input
               type="password"
               id="password"
@@ -78,9 +81,10 @@ const SignUpForm = () => {
               onChange={handleChange}
               required
             />
+            </label>
           </div>
           <div>
-            <label htmlFor="confirm">Confirm Password:</label>
+            <label>Confirm Password:
             <input
               type="password"
               id="confirm"
@@ -89,9 +93,10 @@ const SignUpForm = () => {
               onChange={handleChange}
               required
             />
+            </label>
           </div>
           <div>
-            <label htmlFor="birthday">Birthday:</label>
+            <label>Birthday:
             <input
               type="date"
               id="birthday"
@@ -99,13 +104,14 @@ const SignUpForm = () => {
               name="birthday"
               onChange={handleChange}
             />
-          </div>
+            </label>
+          </div><br/>
           <div>
-            <button disabled={isFormInvalid()}>Sign Up</button>
+            <button>Sign Up</button><br/>
             <button onClick={() => navigate("/")}>Cancel</button>
-            <Link to="/sign-in">Already have an account? Sign In Here</Link>
           </div>
         </form>
+        <Link to="/sign-in">Already have an account? Sign In Here</Link>
       </section>
     </main>
   );

@@ -10,7 +10,7 @@ const SignInForm = () => {
   const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -20,8 +20,11 @@ const SignInForm = () => {
   };
 
   const handleSubmit = async (evt) => {
+    console.log("submitting")
+
     evt.preventDefault();
     try {
+      console.log("signing in")
       const signedInUser = await signIn(formData);
       setUser(signedInUser);
       navigate("/");
@@ -32,27 +35,25 @@ const SignInForm = () => {
 
   return (
     <main>
-      <section>
-        <img src={LoginIcon} alt="An owl sitting on a sign" />
-      </section>
-      <section>
-        <form autoComplete="off" onSubmit={handleSubmit}>
           <h1>Sign In</h1>
           <p>{message}</p>
+      <section>
+        <form autoComplete="off" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email">Username:</label>
+            <label>Email:
             <input
               type="text"
               autoComplete="off"
-              id="username"
-              value={formData.username}
-              name="username"
+              id="email"
+              value={formData.email}
+              name="email"
               onChange={handleChange}
               required
             />
+            </label>
           </div>
           <div>
-            <label htmlFor="password">Password:</label>
+            <label>Password:
             <input
               type="password"
               autoComplete="off"
@@ -62,12 +63,13 @@ const SignInForm = () => {
               onChange={handleChange}
               required
             />
+            </label>
           </div>
+          <button type="submit">Sign In</button>
+        </form>
           <div>
-            <button>Sign In</button>
             <button onClick={() => navigate("/")}>Cancel</button>
           </div>
-        </form>
       </section>
     </main>
   );

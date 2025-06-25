@@ -3,6 +3,7 @@ const router = express.Router();
 const verifyToken = require("../middleware/verify-token");
 const { getBranches } = require("../controllers/branchController");
 
-router.get("/", verifyToken, getBranches);
+// dont need to verify token for find-us page
+router.get("/", getBranches);
 
 module.exports = router;

@@ -16,14 +16,18 @@ const NavBar = () => {
         <Link to="/">ARASHI OMAKASE</Link>
       </div>
       <li>
-        <Link to="/reservation">Reservations</Link>
+        <Link to="/reservations">Reservations</Link>
       </li>
       <li>
-        <Link to="/branch">Find Us</Link>
+        <Link to="/find-us">Find Us</Link>
       </li>
+      
       {user ? (
         <ul>  
           <li>Welcome, {user.displayName}</li>
+          <li>
+            <Link to="/users/:userId/profile">{user.displayName}'s Profile</Link>
+          </li>
           <li>
             <Link to="/" onClick={handleSignOut}>
               Sign Out
@@ -36,7 +40,7 @@ const NavBar = () => {
               <Link to="/sign-up">SIGN UP</Link>
             </li>
             <li>
-              <Link to="/sign-in">LOGIN</Link>
+              <Link to="/login">LOGIN</Link>
             </li>
           </ul>
       )}

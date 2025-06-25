@@ -10,8 +10,8 @@ const getUser = async (req, res) => {
       res.status(403).send("Unauthorized User");
     }
 
-    const User = await User.findById(userId);
-    res.status(200).json(User);
+    const user = await User.findById(userId);
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ err: error.message });
   }
