@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
-import LoginIcon from "../../assets/images/login.svg";
 import { signIn } from "../../services/authService";
 
 import { UserContext } from "../../contexts/UserContext";
@@ -10,9 +9,11 @@ const SignInForm = () => {
   const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
+
+  const { email, password } = formData;
 
   const handleChange = (evt) => {
     setMessage("");
@@ -33,20 +34,17 @@ const SignInForm = () => {
   return (
     <main>
       <section>
-        <img src={LoginIcon} alt="An owl sitting on a sign" />
-      </section>
-      <section>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <h1>Sign In</h1>
           <p>{message}</p>
           <div>
-            <label htmlFor="email">Username:</label>
+            <label htmlFor="email">Email:</label>
             <input
-              type="text"
+              type="email"
               autoComplete="off"
-              id="username"
-              value={formData.username}
-              name="username"
+              id="email"
+              value={email}
+              name="email"
               onChange={handleChange}
               required
             />
@@ -57,7 +55,7 @@ const SignInForm = () => {
               type="password"
               autoComplete="off"
               id="password"
-              value={formData.password}
+              value={password}
               name="password"
               onChange={handleChange}
               required
