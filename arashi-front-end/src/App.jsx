@@ -44,9 +44,9 @@ const App = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<Landing />} />
-            <Route path="/reservation" element={<Reservations />} />
-            <Route path="/reservation/new" element={<ReservationForm />} />
-            <Route path="/reservation/:reservationId/edit" element={<ReservationForm />} />
+            <Route path="/reservations" element={<Reservations />} />
+            <Route path="/reservations/new" element={<ReservationForm />} />
+            <Route path="/reservations/:reservationId/edit" element={<ReservationForm />} />
             <Route path="/branches" element={<Branches />} />
             <Route path="/sign-up" element={<SignUpForm />} />
             <Route path="/sign-in" element={<SignInForm />} />

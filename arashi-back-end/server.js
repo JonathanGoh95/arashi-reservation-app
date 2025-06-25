@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(logger("dev"));
 
 // Routes Declaration
-app.use("/", authRouter); //auth is removed
+app.use("/auth", authRouter);
 app.use("/reservations", reservationRouter);
 app.use("/branches", branchRouter);
 app.use("/users", userRouter);
