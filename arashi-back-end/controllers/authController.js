@@ -14,19 +14,21 @@ const signUp = async (req, res) => {
     const userInDatabase = await User.findOne({ email: req.body.email });
 
     if (userInDatabase) {
-      return res.status(409).json({ err: "Username already taken." });
+      return res.status(409).json({ err: "Email Address already taken." });
     }
 
     const user = await User.create({
       email: req.body.email,
       displayName: req.body.displayName,
       hashedPassword: bcrypt.hashSync(req.body.password, saltRounds),
+      birthday: req.body.birthday,
+      contactNumber: req.body.contactNumber,
     });
 
     const payload = createPayload(user);
 
     const token = jwt.sign({ payload }, process.env.JWT_SECRET, {
-      expiresIn: "1 day",
+      expiresIn: "1hr",
     });
 
     res.status(201).json({ token });
@@ -53,7 +55,7 @@ const signIn = async (req, res) => {
     const payload = createPayload(user);
 
     const token = jwt.sign({ payload }, process.env.JWT_SECRET, {
-      expiresIn: "1 day",
+      expiresIn: "1hr",
     });
 
     res.status(200).json({ token });
