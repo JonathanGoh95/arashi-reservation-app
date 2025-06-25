@@ -13,7 +13,9 @@ const signUp = async (req, res) => {
   try {
     const userInDatabase = await User.findOne({ email: req.body.email });
     if (userInDatabase) {
-      return res.status(409).json({ err: "Email has already taken." });
+      return res
+        .status(409)
+        .json({ err: "This Email has already been taken." });
     }
 
     const user = await User.create({
@@ -27,7 +29,7 @@ const signUp = async (req, res) => {
     const payload = createPayload(user);
 
     const token = jwt.sign({ payload }, process.env.JWT_SECRET, {
-      expiresIn: "1 day",
+      expiresIn: "1hr",
     });
 
     res.status(201).json({ token });
@@ -54,7 +56,7 @@ const signIn = async (req, res) => {
     const payload = createPayload(user);
 
     const token = jwt.sign({ payload }, process.env.JWT_SECRET, {
-      expiresIn: "1 day",
+      expiresIn: "1hr",
     });
 
     res.status(200).json({ token }).redirect("/users/:userId");

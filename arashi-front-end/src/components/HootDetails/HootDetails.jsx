@@ -67,7 +67,9 @@ const HootDetails = ({ handleDeleteHoot }) => {
               <div>
                 {comment.author._id === user._id && (
                   <>
-                    <Link to={`/hoots/${hootId}/comments/${comment._id}/edit`} />
+                    <Link
+                      to={`/hoots/${hootId}/comments/${comment._id}/edit`}
+                    />
                     <button onClick={() => handleDeleteComment(comment._id)} />
                   </>
                 )}

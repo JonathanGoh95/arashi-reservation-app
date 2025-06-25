@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Link , useNavigate} from "react-router";
+import { Link, useNavigate } from "react-router";
 import { signUp } from "../../services/authService";
 
 import { UserContext } from "../../contexts/UserContext";
@@ -24,12 +24,12 @@ const SignUpForm = () => {
   };
 
   const handleSubmit = async (evt) => {
-    console.log("signing up")
+    console.log("signing up");
     evt.preventDefault();
     try {
       const newUser = await signUp(formData);
-      // setUser(newUser); //do we log the user in after they sign up?
-      navigate("/login");
+      setUser(newUser);
+      navigate(`/${newUser._id}/reservations`);
     } catch (err) {
       setMessage(err.message);
     }
@@ -46,66 +46,73 @@ const SignUpForm = () => {
         <p>{message}</p>
         <form onSubmit={handleSubmit}>
           <div>
-            <label>Display Name:
-            <input
-              type="text"
-              id="displayName"
-              value={displayName}
-              name="displayName"
-              onChange={handleChange}
-              required
+            <label>
+              Display Name:
+              <input
+                type="text"
+                id="displayName"
+                value={displayName}
+                name="displayName"
+                onChange={handleChange}
+                required
               />
-              </label>
-          </div>
-          <div>
-            <label>Email:
-            <input
-              type="email"
-              id="email"
-              value={email}
-              name="email"
-              onChange={handleChange}
-              required
-            />
             </label>
           </div>
           <div>
-            <label>Password:
-            <input
-              type="password"
-              id="password"
-              value={password}
-              name="password"
-              onChange={handleChange}
-              required
-            />
+            <label>
+              Email:
+              <input
+                type="email"
+                id="email"
+                value={email}
+                name="email"
+                onChange={handleChange}
+                required
+              />
             </label>
           </div>
           <div>
-            <label>Confirm Password:
-            <input
-              type="password"
-              id="confirm"
-              value={passwordConf}
-              name="passwordConf"
-              onChange={handleChange}
-              required
-            />
+            <label>
+              Password:
+              <input
+                type="password"
+                id="password"
+                value={password}
+                name="password"
+                onChange={handleChange}
+                required
+              />
             </label>
           </div>
           <div>
-            <label>Birthday:
-            <input
-              type="date"
-              id="birthday"
-              value={birthday}
-              name="birthday"
-              onChange={handleChange}
-            />
+            <label>
+              Confirm Password:
+              <input
+                type="password"
+                id="confirm"
+                value={passwordConf}
+                name="passwordConf"
+                onChange={handleChange}
+                required
+              />
             </label>
-          </div><br/>
+          </div>
           <div>
-            <button>Sign Up</button><br/>
+            <label>
+              Birthday:
+              <input
+                type="date"
+                id="birthday"
+                value={birthday}
+                name="birthday"
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <br />
+          <div>
+            <button disabled={() => isFormInvalid()}>Sign Up</button>
+            <br />
             <button onClick={() => navigate("/")}>Cancel</button>
           </div>
         </form>

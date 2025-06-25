@@ -19,11 +19,11 @@ const SignInForm = () => {
   };
 
   const handleSubmit = async (evt) => {
-    console.log("submitting")
+    console.log("submitting");
 
     evt.preventDefault();
     try {
-      console.log("signing in")
+      console.log("signing in");
       const signedInUser = await signIn(formData);
       setUser(signedInUser);
       navigate(`/${signedInUser._id}/reservations`);
@@ -34,41 +34,43 @@ const SignInForm = () => {
 
   return (
     <main>
-          <h1>Sign In</h1>
-          <p>{message}</p>
+      <h1>Sign In</h1>
+      <p>{message}</p>
       <section>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <div>
-            <label>Email:
-            <input
-              type="email"
-              autoComplete="off"
-              id="email"
-              value={formData.email}
-              name="email"
-              onChange={handleChange}
-              required
-            />
+            <label>
+              Email:
+              <input
+                type="email"
+                autoComplete="off"
+                id="email"
+                value={formData.email}
+                name="email"
+                onChange={handleChange}
+                required
+              />
             </label>
           </div>
           <div>
-            <label>Password:
-            <input
-              type="password"
-              autoComplete="off"
-              id="password"
-              value={formData.password}
-              name="password"
-              onChange={handleChange}
-              required
-            />
+            <label>
+              Password:
+              <input
+                type="password"
+                autoComplete="off"
+                id="password"
+                value={formData.password}
+                name="password"
+                onChange={handleChange}
+                required
+              />
             </label>
           </div>
           <button type="submit">Sign In</button>
         </form>
-          <div>
-            <button onClick={() => navigate("/")}>Cancel</button>
-          </div>
+        <div>
+          <button onClick={() => navigate("/")}>Cancel</button>
+        </div>
       </section>
     </main>
   );

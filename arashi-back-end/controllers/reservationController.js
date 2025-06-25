@@ -61,7 +61,7 @@ router.put("/:hootId", verifyToken, async (req, res) => {
     const updatedHoot = await Hoot.findByIdAndUpdate(
       req.params.hootId,
       req.body,
-      { new: true }
+      { new: true },
     );
     // Append req.user to the author property
     updatedHoot._doc.author = req.user;

@@ -40,7 +40,7 @@ const reservationSchema = new Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Reservation = model("Reservation", reservationSchema);

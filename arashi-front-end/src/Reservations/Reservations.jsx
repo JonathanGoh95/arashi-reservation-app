@@ -1,8 +1,5 @@
 const Reservations = () => {
+  return <h1>Reservations</h1>;
+};
 
-    return(
-        <h1>Reservations</h1>
-    )
-}
-
-export default Reservations
+export default Reservations;

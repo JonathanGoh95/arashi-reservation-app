@@ -43,9 +43,7 @@ const Landing = () => {
         </section>
       </main>
 
-      <footer>
-        © 2025 HOOT INC. OWL RIGHTS RESERVED
-      </footer>
+      <footer>© 2025 HOOT INC. OWL RIGHTS RESERVED</footer>
     </>
   );
 };

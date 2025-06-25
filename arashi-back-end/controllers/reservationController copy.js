@@ -58,7 +58,7 @@ const editReservation = async (req, res) => {
     const reservation = await Reservation.findByIdAndUpdate(
       reservationId,
       req.body,
-      { new: true }
+      { new: true },
     )
       .populate({ path: "user", select: "displayName" })
       .populate({ path: "branch", select: "location" });
