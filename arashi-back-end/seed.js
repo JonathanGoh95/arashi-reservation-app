@@ -36,21 +36,21 @@ const createUsers = async () => {
       email: "joannekjy@hotmail.com",
       birthday: "2001-03-04",
       hashedPassword: bcrypt.hashSync("111", saltRounds),
-      contactNumber: 88888888,
+      contactNumber: "88888888",
     },
     {
       displayName: "Kristie",
       email: "kristieabc@gmail.com",
       birthday: "1865-12-26",
       hashedPassword: bcrypt.hashSync("444", saltRounds),
-      contactNumber: 66666666,
+      contactNumber: "66666666",
     },
     {
       displayName: "Simon",
       email: "simon123@gmail.com",
       birthday: "1996-07-16",
       hashedPassword: bcrypt.hashSync("666", saltRounds),
-      contactNumber: 44444444,
+      contactNumber: "44444444",
     },
   ];
 
@@ -67,40 +67,42 @@ const createBranches = async () => {
       address: "bugis",
       contactNumber: "88888888",
       businessHours: "10am - 8pm",
-      totalTables: "2",
-      totalCapacity: "8",
+      totalTables: 4,
+      totalCapacity: 8,
     },
     {
       location: "Orchard - Orchard 313",
       address: "orchard",
       contactNumber: "77777777",
       businessHours: "10am - 8pm",
-      totalTables: "2",
-      totalCapacity: "8",
+      totalTables: 4,
+      totalCapacity: 8,
     },
     {
       location: "Tampines - Tampines 1",
       address: "tampines",
       contactNumber: "66666666",
       businessHours: "10am - 8pm",
-      totalTables: "2",
-      totalCapacity: "8",
+      totalTables: 4,
+      //what will happen if someone make a reservations? will this reduce?
+      totalCapacity: 8,
+      //8 seats per slot
     },
     {
       location: "Jurong East - Jem",
       address: "jurong",
       contactNumber: "55555555",
       businessHours: "10am - 8pm",
-      totalTables: "2",
-      totalCapacity: "8",
+      totalTables: 4,
+      totalCapacity: 8,
     },
     {
       location: "Yishun - Northpoint",
       address: "yishun",
       contactNumber: "44444444",
       businessHours: "10am - 8pm",
-      totalTables: "2",
-      totalCapacity: "8",
+      totalTables: 4,
+      totalCapacity: 8,
     },
   ];
 
@@ -113,14 +115,6 @@ const createBranches = async () => {
 const createReservations = async () => {
   const users = await User.find({});
   const branches = await Branch.find({});
-  // const hootsData = _.range(10).map(() => {
-  //   return {
-  //     title: faker.food.dish(),
-  //     text: faker.food.description(),
-  //     category: faker.helpers.arrayElement(CATEGORIES),
-  //     author: faker.helpers.arrayElement(users)._id,
-  //   };
-  // });
 
   const reservationsData = [
     {
