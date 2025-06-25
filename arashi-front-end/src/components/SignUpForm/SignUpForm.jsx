@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { Link } from "react-router";
 import { useNavigate } from "react-router";
 import { signUp } from "../../services/authService";
 
@@ -9,12 +10,14 @@ const SignUpForm = () => {
   const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
-    username: "",
+    displayName: "",
+    email: "",
     password: "",
     passwordConf: "",
+    birthday: "",
   });
 
-  const { username, password, passwordConf } = formData;
+  const { displayName, email, password, passwordConf, birthday } = formData;
 
   const handleChange = (evt) => {
     setMessage("");
@@ -33,25 +36,34 @@ const SignUpForm = () => {
   };
 
   const isFormInvalid = () => {
-    return !(username && password && password === passwordConf);
+    setMessage("Please check your input details again.")
+    return !(displayName && email && password && password === passwordConf);
   };
 
   return (
     <main>
       <section>
-        <img />
-      </section>
-      <section>
         <form onSubmit={handleSubmit}>
-          <h1>Sign Up</h1>
+          <h1>Sign Up as a New User</h1>
           <p>{message}</p>
           <div>
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="displayName">Display Name:</label>
             <input
               type="text"
-              id="name"
-              value={username}
-              name="username"
+              id="displayName"
+              value={displayName}
+              name="displayName"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              name="email"
               onChange={handleChange}
               required
             />
@@ -79,8 +91,19 @@ const SignUpForm = () => {
             />
           </div>
           <div>
+            <label htmlFor="birthday">Birthday:</label>
+            <input
+              type="date"
+              id="birthday"
+              value={birthday}
+              name="birthday"
+              onChange={handleChange}
+            />
+          </div>
+          <div>
             <button disabled={isFormInvalid()}>Sign Up</button>
             <button onClick={() => navigate("/")}>Cancel</button>
+            <Link to="/sign-in">Already have an account? Sign In Here</Link>
           </div>
         </form>
       </section>
