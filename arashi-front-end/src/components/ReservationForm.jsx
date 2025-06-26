@@ -1,4 +1,5 @@
 const ReservationForm = () => {
+  
   return (
   <div>
     <h1>Reservation Form</h1>
@@ -30,17 +31,22 @@ const ReservationForm = () => {
       <div>
       <label>
         Reservation Date:
-        <input type="date"></input>
+        <input type="date"
+        min={minDate}></input>
       </label>      
       </div>
       <div>
       <label>
         Reservation Time:
         <select>
-          <option>11.00am</option>
-          <option>1.00pm</option>
-          <option>5.00pm</option>
-          <option>7.00pm</option>
+        <optgroup label="Lunch session">
+          <option value="11.00am">11.00am</option>
+          <option value="1.00pm">1.00pm</option>
+        </optgroup>
+        <optgroup label="Dinner session">
+          <option value="5.00pm">5.00pm</option>
+          <option value="7.00pm">7.00pm</option>
+        </optgroup>
         </select>
       </label>      
       </div>

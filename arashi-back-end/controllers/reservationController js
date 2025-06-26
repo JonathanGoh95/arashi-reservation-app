@@ -23,7 +23,7 @@ const viewReservations = async (req, res) => {
     const reservations = await Reservation.find({ user: userId })
       .populate({ path: "user", select: "displayName" })
       .populate({ path: "branch", select: "location" })
-      .sort({ reservationDate: "desc" });
+      .sort({ reservationDate: "asc" });
     console.log(reservations);
     res.status(200).json(reservations);
   } catch (err) {

@@ -6,7 +6,7 @@ import SignInForm from "./components/SignInForm";
 import Landing from "./components/Landing";
 import Branches from "./components/Branches";
 import Reservations from "./components/Reservations";
-import ReservationForm from "./components/ReservationForm/ReservationForm";
+import ReservationForm from "./components/ReservationForm";
 import ProfileForm from "./components/ProfileForm";
 import Profile from "./components/Profile";
 
