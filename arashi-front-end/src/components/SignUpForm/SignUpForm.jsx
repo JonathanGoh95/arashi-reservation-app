@@ -39,15 +39,21 @@ const SignUpForm = () => {
     return !(displayName && email && password && password === passwordConf);
   };
 
+  const year = String(Number(new Date().toISOString().split('T')[0].split('-')[0]) - 18)
+  const month = new Date().toISOString().split('T')[0].split('-')[1]
+  const day = new Date().toISOString().split('T')[0].split('-')[2]
+  const min18 = `${year}-${month}-${day}`
+
   return (
     <main>
       <section>
         <h1>Sign Up as a New User</h1>
         <p>{message}</p>
+        <p>Fields marked with * are required</p>
         <form onSubmit={handleSubmit}>
           <div>
             <label>
-              Display Name:
+              Display Name*:
               <input
                 type="text"
                 id="displayName"
@@ -60,7 +66,7 @@ const SignUpForm = () => {
           </div>
           <div>
             <label>
-              Email:
+              Email*:
               <input
                 type="email"
                 id="email"
@@ -73,7 +79,7 @@ const SignUpForm = () => {
           </div>
           <div>
             <label>
-              Password:
+              Password*:
               <input
                 type="password"
                 id="password"
@@ -86,7 +92,7 @@ const SignUpForm = () => {
           </div>
           <div>
             <label>
-              Confirm Password:
+              Confirm Password*:
               <input
                 type="password"
                 id="confirm"
@@ -106,12 +112,13 @@ const SignUpForm = () => {
                 value={birthday}
                 name="birthday"
                 onChange={handleChange}
+                max={min18}
               />
             </label>
           </div>
           <br />
           <div>
-            <button disabled={() => isFormInvalid()}>Sign Up</button>
+            <button disabled={isFormInvalid()}>Sign Up</button>
             <br />
             <button onClick={() => navigate("/")}>Cancel</button>
           </div>
