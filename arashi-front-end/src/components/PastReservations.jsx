@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState} from "react";
-import { useNavigate } from "react-router";
 import { useParams } from "react-router";
 import { UserContext } from "../contexts/UserContext";
 import * as reservationService from "../services/reservationService"
 import dayjs from 'dayjs';
 
 const PastReservations = () => {
-  const navigate = useNavigate();
+
   const { userId } = useParams();
   const { user } = useContext(UserContext);
   const [reservations,setReservations] = useState(null)
