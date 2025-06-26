@@ -1,4 +1,3 @@
-const express = require("express");
 const Reservation = require("../models/reservation.js");
 const Branch = require("../models/branch.js");
 
@@ -26,21 +25,6 @@ const viewReservations = async (req, res) => {
       .sort({ reservationDate: "asc" });
     console.log(reservations);
     res.status(200).json(reservations);
-  } catch (err) {
-    res.status(500).json({ err: err.message });
-  }
-};
-
-// Read One Reservation
-const viewOneReservation = async (req, res) => {
-  try {
-    const { reservationId } = req.params;
-    const reservation = await Reservation.findOne({
-      _id: reservationId,
-    })
-      .populate({ path: "user", select: "displayName" })
-      .populate({ path: "branch", select: "location" });
-    res.status(200).json(reservation);
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
@@ -89,7 +73,6 @@ const deleteReservation = async (req, res) => {
 module.exports = {
   createReservation,
   viewReservations,
-  viewOneReservation,
   editReservation,
   deleteReservation,
 };

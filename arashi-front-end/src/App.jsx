@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router";
+import { useState } from "react";
 
 import NavBar from "./components/NavBar";
 import SignUpForm from "./components/SignUpForm";
@@ -7,10 +8,15 @@ import Landing from "./components/Landing";
 import Branches from "./components/Branches";
 import Reservations from "./components/Reservations";
 import ReservationForm from "./components/ReservationForm";
+import PastReservations from "./components/PastReservations";
+import UpcomingReservations from "./components/UpcomingReservations";
 import ProfileForm from "./components/ProfileForm";
 import Profile from "./components/Profile";
 
 const App = () => {
+  const [past,setPast] = useState(false)
+  const [upcoming,setUpcoming] = useState(false)
+
   return (
     <>
       <NavBar />
@@ -20,13 +26,11 @@ const App = () => {
         <Route path="/login" element={<SignInForm />} />
         <Route path="/find-us" element={<Branches />} />
         <Route path="/reservations" element={<Reservations />} />
-        <Route path="/users/:userId/reservations" element={<Reservations />} />
+        <Route path="/users/:userId/reservations" element={<Reservations setPast={setPast} setUpcoming={setUpcoming}/>} />
+        <Route path="/users/:userId/reservations/past" element={<PastReservations past={past}/>} />
+        <Route path="/users/:userId/reservations/upcoming" element={<UpcomingReservations upcoming={upcoming}/>} />
         <Route
           path="/users/:userId/reservations/new"
-          element={<ReservationForm />}
-        />
-        <Route
-          path="/users/:userId/reservations/:reservationId/"
           element={<ReservationForm />}
         />
         <Route
