@@ -1,14 +1,14 @@
 import { Routes, Route } from "react-router";
 
-import NavBar from "./components/NavBar/NavBar";
-import SignUpForm from "./components/SignUpForm/SignUpForm";
-import SignInForm from "./components/SignInForm/SignInForm";
-import Landing from "./components/Landing/Landing";
-import Branches from "./components/Branches/Branches";
-import Reservations from "./Reservations/Reservations";
+import NavBar from "./components/NavBar";
+import SignUpForm from "./components/SignUpForm";
+import SignInForm from "./components/SignInForm";
+import Landing from "./components/Landing";
+import Branches from "./components/Branches";
+import Reservations from "./components/Reservations";
 import ReservationForm from "./components/ReservationForm/ReservationForm";
-import ProfileForm from "./components/ProfileForm/ProfileForm";
-import Profile from "./components/Profile/Profile";
+import ProfileForm from "./components/ProfileForm";
+import Profile from "./components/Profile";
 
 const App = () => {
   return (
@@ -18,9 +18,8 @@ const App = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/login" element={<SignInForm />} />
-        <Route path="/reservations" element={<Reservations />} />
         <Route path="/find-us" element={<Branches />} />
-
+        <Route path="/reservations" element={<Reservations />} />
         <Route path="/users/:userId/reservations" element={<Reservations />} />
         <Route
           path="/users/:userId/reservations/new"

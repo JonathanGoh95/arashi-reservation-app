@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
-import * as branchService from "../../services/branchService";
-import { UserContext } from "../../contexts/UserContext";
+import * as branchService from "../services/branchService";
+import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router";
 
 const Branches = () => {

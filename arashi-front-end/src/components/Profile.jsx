@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router";
 import { useContext } from "react";
-import { UserContext } from "../../contexts/UserContext";
+import { UserContext } from "../contexts/UserContext";
 
 const Profile = () => {
   const navigate = useNavigate();
