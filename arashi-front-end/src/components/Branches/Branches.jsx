@@ -10,11 +10,11 @@ const Branches = () => {
 
   useEffect(() => {
     const fetchAllBranches = async () => {
-      const branchData = await branchService.showBranch();
+      const branchData = await branchService.indexBranch();
       setBranches(branchData);
     };
     fetchAllBranches();
-  }, [branches]);
+  }, []);
 
   const handleClick = () => {
     if (user) {
@@ -27,7 +27,7 @@ const Branches = () => {
   return (
     <main>
       <h1>Find Us</h1>
-      {branches.map((branch) => (
+      {branches && branches.map((branch) => (
         <article key={branch._id}>
           <h2>{branch.location.split(" - ")[1]}</h2>
           <p>Address: {branch.address}</p>
@@ -38,10 +38,6 @@ const Branches = () => {
           <button onClick={handleClick}>Reserve Now</button>
         </article>
       ))}
-      <button onClick={() => navigate("/")}>Back</button>
-      <button onClick={() => navigate(`/users/${user._id}/edit`)}>
-        Edit Profile
-      </button>
     </main>
   );
 };

@@ -7,6 +7,7 @@ const Profile = () => {
   const { userId } = useParams();
   const { user } = useContext(UserContext);
 
+  console.log(user)
   return (
     <>
       {user._id !== userId ? (
