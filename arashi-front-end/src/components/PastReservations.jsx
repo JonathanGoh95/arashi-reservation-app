@@ -10,19 +10,12 @@ const PastReservations = () => {
   const { userId } = useParams();
   const { user } = useContext(UserContext);
   const [reservations,setReservations] = useState(null)
-//   const [today,setToday] = useState(new Date())
 
 useEffect(() => {
-    // const today = new Date()
     const fetchReservations = async () => {
     const reservationData = await reservationService.viewReservations(userId)
-    console.log("bef", reservationData)
-
-    reservationData.filter(item => dayjs(item.reservationDate.split("T")[0]).isBefore(dayjs().startOf('day')))
-
-    console.log("aft reservationData", reservationData)
-
-    setReservations(reservationData);
+    const filteredReservations = reservationData.filter(item => dayjs(item.reservationDate).isBefore(dayjs().startOf('day')))
+    setReservations(filteredReservations);
     };
     fetchReservations();
   }, [userId]);

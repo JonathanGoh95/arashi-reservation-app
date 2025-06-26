@@ -9,11 +9,11 @@ const Reservations = () => {
   const { userId } = useParams();
   const { user } = useContext(UserContext);
 
-  const handlePast = () => {
+  const handleUpcoming = () => {
     user._id !== userId ? setMessage('Not Authorised') : navigate(`/users/${userId}/reservations/upcoming`)
   }
   
-  const handleUpcoming = () => {
+  const handlePast = () => {
     user._id !== userId ? setMessage('Not Authorised') : navigate(`/users/${userId}/reservations/past`)
   }
  
@@ -27,9 +27,13 @@ const Reservations = () => {
     <p>{message}</p>
     {user ? (
       <>
-        <button onClick={handleNewReservation}>Make a Reservations</button>
-        <button onClick={handlePast}>Upcoming Reservations</button>
-        <button onClick={handleUpcoming}>Past Reservations</button>
+        <div>
+          <button onClick={handlePast}>Past Reservations</button>
+          <button onClick={handleUpcoming}>Upcoming Reservations</button>
+        </div>
+        <div>
+          <button onClick={handleNewReservation}>Make a New Reservation</button>
+        </div>
       </>
     ) : (
       <h2>Please log in to see your reservations</h2>
