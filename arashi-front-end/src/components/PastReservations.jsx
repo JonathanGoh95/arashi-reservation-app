@@ -11,7 +11,7 @@ const PastReservations = () => {
   const { user } = useContext(UserContext);
   const [reservations,setReservations] = useState(null)
 
-useEffect(() => {
+  useEffect(() => {
     const fetchReservations = async () => {
     const reservationData = await reservationService.viewReservations(userId)
     const filteredReservations = reservationData.filter(item => dayjs(item.reservationDate).isBefore(dayjs().startOf('day')))
@@ -19,11 +19,6 @@ useEffect(() => {
     };
     fetchReservations();
   }, [userId]);
-
-
-    const handleEdit = (reservationId) => {
-        navigate(`/users/${user._id}/reservations/${reservationId}/edit`)
-    }
 
     const handleDelete = async (reservationId) => {
         await reservationService.deleteReservation(user._id,reservationId)
@@ -61,7 +56,7 @@ useEffect(() => {
                     <th>{reservation.pax}</th>
                     <th>{reservation.branch.location}</th>
                     <th>{reservation.remarks}</th>
-                    <th><button onClick={() => handleEdit(reservation._id)}>Edit</button><button onClick={() => handleDelete(reservation._id)}>Delete</button></th>
+                    <th><button onClick={() => handleDelete(reservation._id)}>Delete</button></th>
                 </tr>
             ))}
             </tbody>
