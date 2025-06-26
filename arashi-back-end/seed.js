@@ -157,6 +157,16 @@ const createReservations = async () => {
       remarks: "",
       user: users[0]._id,
     },
+    {
+      reservationName: users[0].displayName,
+      reservationDate: "2025-05-29",
+      reservationTime: "6:00pm",
+      contactNumber: users[0].contactNumber,
+      branch: branches[3]._id,
+      pax: 2,
+      remarks: "",
+      user: users[0]._id,
+    },
   ];
 
   await Reservation.deleteMany({});

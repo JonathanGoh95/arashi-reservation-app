@@ -8,7 +8,8 @@ const month = new Date().toISOString().split('T')[0].split('-')[1]
 const day = String(Number(new Date().toISOString().split('T')[0].split('-')[2]) +1)
 const minDate = `${year}-${month}-${day}`
 
-const ReservationForm = () => {
+
+const ReservationForm = ({reservationId}) => {
   const navigate = useNavigate();
   const {user }= useContext(UserContext);
   const branches = ["Bugis - Bugis+" ,"Orchard - Orchard 313","Tampines - Tampines 1", "Jurong East - JEM", "Yishun - Northpoint City"]
@@ -26,22 +27,19 @@ const ReservationForm = () => {
       user: user._id,
   });
 
+  const isEditing = reservationId ? true : false;
+
   const { reservationName, reservationDate, reservationTime,contactNumber, branch,pax, remarks } = formData;
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
-    console.log(formData)
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(formData)
-
       const newReservation = await createReservation(user._id, formData);
       setReservation(newReservation);
-      console.log(newReservation)
-
       navigate(`/user/${user._id}/reservations/upcoming`);
     } catch (err) {
       setMessage(err.message);

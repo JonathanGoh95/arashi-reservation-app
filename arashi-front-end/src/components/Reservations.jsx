@@ -3,25 +3,21 @@ import { UserContext } from "../contexts/UserContext";
 import { useNavigate, useParams } from "react-router";
 import Disclaimer from "./Disclaimer";
 
-const Reservations = ({setPast,setUpcoming}) => {
+const Reservations = () => {
   const navigate = useNavigate();
   const [message,setMessage] = useState('')
   const { userId } = useParams();
   const { user } = useContext(UserContext);
-  const [newReservation,setNewReservation] = useState(false)
 
   const handlePast = () => {
-    setPast(true)
-    user._id !== userId ? setMessage('Not Authorised') : navigate(`/users/${userId}/reservations/past`)
+    user._id !== userId ? setMessage('Not Authorised') : navigate(`/users/${userId}/reservations/upcoming`)
   }
   
   const handleUpcoming = () => {
-    setUpcoming(true)
-    user._id !== userId ? setMessage('Not Authorised') : navigate(`/users/${userId}/reservations/upcoming`)
+    user._id !== userId ? setMessage('Not Authorised') : navigate(`/users/${userId}/reservations/past`)
   }
  
   const handleNewReservation = () => {
-    setNewReservation(true)
     user._id !== userId ? setMessage('Not Authorised') : navigate(`/users/${userId}/reservations/new`)
   }
 

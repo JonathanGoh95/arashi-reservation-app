@@ -14,8 +14,6 @@ import ProfileForm from "./components/ProfileForm";
 import Profile from "./components/Profile";
 
 const App = () => {
-  const [past,setPast] = useState(false)
-  const [upcoming,setUpcoming] = useState(false)
 
   return (
     <>
@@ -26,9 +24,9 @@ const App = () => {
         <Route path="/login" element={<SignInForm />} />
         <Route path="/find-us" element={<Branches />} />
         <Route path="/reservations" element={<Reservations />} />
-        <Route path="/users/:userId/reservations" element={<Reservations setPast={setPast} setUpcoming={setUpcoming}/>} />
-        <Route path="/users/:userId/reservations/past" element={<PastReservations past={past}/>} />
-        <Route path="/users/:userId/reservations/upcoming" element={<UpcomingReservations upcoming={upcoming}/>} />
+        <Route path="/users/:userId/reservations" element={<Reservations/>} />
+        <Route path="/users/:userId/reservations/past" element={<PastReservations/>} />
+        <Route path="/users/:userId/reservations/upcoming" element={<UpcomingReservations/>} />
         <Route
           path="/users/:userId/reservations/new"
           element={<ReservationForm />}
