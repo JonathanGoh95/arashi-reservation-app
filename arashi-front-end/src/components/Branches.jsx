@@ -20,7 +20,7 @@ const Branches = () => {
     if (user) {
       navigate("/users/:userId/reservations/new");
     } else {
-      navigate("/sign-in");
+      navigate("/login");
     }
   };
 
