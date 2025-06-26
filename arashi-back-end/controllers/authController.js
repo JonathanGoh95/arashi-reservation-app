@@ -59,7 +59,7 @@ const signIn = async (req, res) => {
       expiresIn: "1hr",
     });
 
-    res.status(200).json({ token }).redirect("/users/:userId");
+    res.status(200).json({ token });
   } catch (err) {
     res.status(500).json({ err: err.message });
   }

@@ -7,25 +7,25 @@ const {
   viewOneReservation,
   editReservation,
   deleteReservation,
-} = require("../controllers/reservationController copy");
+} = require("../controllers/reservationController js");
 
 router.post("/:userId/reservations/new", verifyToken, createReservation);
 router.put(
   "/:userId/reservations/:reservationId/edit",
   verifyToken,
-  editReservation,
+  editReservation
 );
 router.get(
   "/:userId/reservations/:reservationId",
   verifyToken,
-  viewOneReservation,
+  viewOneReservation
 );
 
 router.get("/:userId/reservations", verifyToken, viewReservations);
 router.delete(
   "/:userId/reservations/:reservationId",
   verifyToken,
-  deleteReservation,
+  deleteReservation
 );
 
 module.exports = router;
