@@ -10,7 +10,6 @@ import Reservations from "./Reservations/Reservations";
 import ReservationForm from "./components/ReservationForm/ReservationForm";
 import ProfileForm from "./components/ProfileForm/ProfileForm";
 import Profile from "./components/Profile/Profile";
-import UserProfile from "./components/userProfile";
 
 const App = () => {
   return (

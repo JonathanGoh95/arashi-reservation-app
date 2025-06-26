@@ -6,7 +6,13 @@ const User = require("../models/user");
 const saltRounds = 12;
 
 const createPayload = (user) => {
-  return { email: user.email, _id: user._id, displayName: user.displayName };
+  return {
+    email: user.email,
+    _id: user._id,
+    displayName: user.displayName,
+    birthday: user.birthday,
+    contactNumber: user.contactNumber,
+  };
 };
 
 const signUp = async (req, res) => {

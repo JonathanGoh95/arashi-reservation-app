@@ -1,9 +1,12 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/find-us`;
 
-const showBranch = async () => {
+const indexBranch = async () => {
   try {
     const res = await fetch(BASE_URL, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
     });
     if (!res.ok) throw new Error("Failed to show branch details");
     const data = await res.json();
@@ -19,4 +22,4 @@ const showBranch = async () => {
   }
 };
 
-export { showBranch };
+export { indexBranch };
