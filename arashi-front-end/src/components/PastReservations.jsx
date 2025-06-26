@@ -26,7 +26,7 @@ const PastReservations = () => {
 
     return (
         <>
-        <h1>My Reservations</h1>
+        <h1>My Past Reservations</h1>
         {!user || user._id !== userId ? (
             <h2>You are not authorised to view this page</h2>
         ) : 
