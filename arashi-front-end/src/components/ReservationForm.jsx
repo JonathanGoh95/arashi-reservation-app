@@ -29,28 +29,32 @@ const ReservationForm = ({reservationId}) => {
   });
   
   useEffect(()=>{
-    const fetchBranches = async () =>{
-      const branchesData = await indexBranch()
-      console.log(branchesData)
-      setBranches(branchesData);
+    if(isEditing){
+      const fetchBranches = async () =>{
+        const branchesData = await indexBranch()
+        console.log(branchesData)
+        setBranches(branchesData);
+      }
+      const fetchReservation = async () =>{
+        console.log(reservationId)
+        
+        const reservation = await viewOneReservation(reservationId)
+        console.log(reservation)
+        setFormData({
+          reservationName: reservation.reservationName,
+          reservationDate: (reservation.reservationDate).split("T")[0],
+          reservationTime: reservation.reservationTime,
+          contactNumber: reservation.contactNumber,
+          branch: reservation.branch.location,
+          pax: reservation.pax,
+          remarks: reservation.remarks,
+          user: reservation.user._id,
+        });
+      }
+      fetchBranches()
+      fetchReservation()
     }
-    const fetchReservation = async () =>{
-      const reservation = await viewOneReservation(reservationId)
-      console.log(reservation)
-      setFormData({
-        reservationName: reservation.reservationName,
-        reservationDate: (reservation.reservationDate).split("T")[0],
-        reservationTime: reservation.reservationTime,
-        contactNumber: reservation.contactNumber,
-        branch: reservation.branch.location,
-        pax: reservation.pax,
-        remarks: reservation.remarks,
-        user: reservation.user._id,
-      });
-    }
-    fetchBranches()
-    fetchReservation()
-  },[user._id, reservationId])
+  },[isEditing, user._id, reservationId])
 
 
   const { reservationName, reservationDate, reservationTime,contactNumber, branch,pax, remarks } = formData;
@@ -63,12 +67,12 @@ const ReservationForm = ({reservationId}) => {
     event.preventDefault();
     try {
       if(isEditing){
-        await editReservation(user._id, formData);
+        await editReservation(reservationId, formData);
       }else{
-        await createReservation(user._id, formData);
+        await createReservation(formData);
 
       }
-      navigate(`/upcoming`);
+      navigate(`/reservations/upcoming`);
     } catch (err) {
       setMessage(err.message);
     }

@@ -21,7 +21,7 @@ const UpcomingReservations = () => {
     }
 
     const handleDelete = async (reservationId) => {
-        await reservationService.deleteReservation(user._id,reservationId)
+        await reservationService.deleteReservation(reservationId)
         setReservations(reservations.filter((reservation) => reservationId !== reservation._id))
     }
 

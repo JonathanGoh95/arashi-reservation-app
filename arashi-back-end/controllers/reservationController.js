@@ -92,17 +92,10 @@ const editReservation = async (req, res) => {
 // Delete Reservation
 const deleteReservation = async (req, res) => {
   try {
-    const { userId } = req.params;
-
-    // Check for permissions (Note the syntax)
-    if (userId !== req.user._id) {
-      res.status(403).send("Unauthorized User");
-    }
-
     const { reservationId } = req.params;
     const deleteReservation =
       await Reservation.findByIdAndDelete(reservationId);
-    res.status(204).json(deleteReservation);
+    res.status(200).json(deleteReservation);
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
