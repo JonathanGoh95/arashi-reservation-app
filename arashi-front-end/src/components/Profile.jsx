@@ -10,7 +10,7 @@ const Profile = () => {
   console.log(user)
   return (
     <>
-      {!user._id ? (
+      {!user ? (
         <h1>Unauthorized User</h1>
       ) : (
         <article>

@@ -1,8 +1,8 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/users`;
 
-const showUser = async (userId) => {
+const getUser = async (userId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}`, {
+    const res = await fetch(`${BASE_URL}/${userId}/edit`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
     if (!res.ok) throw new Error("Failed to show user details");
@@ -63,4 +63,4 @@ const deleteUser = async (userId) => {
   }
 };
 
-export { showUser, updateUser, deleteUser };
+export { getUser, updateUser, deleteUser };

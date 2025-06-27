@@ -21,9 +21,11 @@ const Reservations = () => {
 
   return (
   <>
-    <h1>{user.displayName}'s Reservations</h1>
-    {user ? (
+    {!user ? (
+      <h2>Please log in to see your reservations</h2>
+    ):(
       <>
+      <h1>{user.displayName}'s Reservations</h1>
         <div>
           <button onClick={handlePast}>Past Reservations</button>
           <button onClick={handleUpcoming}>Upcoming Reservations</button>
@@ -32,9 +34,7 @@ const Reservations = () => {
           <button onClick={handleNewReservation}>Make a New Reservation</button>
         </div>
       </>
-    ) : (
-      <h2>Please log in to see your reservations</h2>
-    )}
+    ) }
     <Disclaimer />
   </>
 )};

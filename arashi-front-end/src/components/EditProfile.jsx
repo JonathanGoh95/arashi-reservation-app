@@ -1,8 +1,10 @@
 import SignUpForm from "./SignUpForm";
-import { useParams } from "react-router";
+import { useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 const EditProfile = () =>{
-    const { userId } = useParams();
+    const { user } = useContext(UserContext);
+    const userId = user._id
     return <SignUpForm userId={userId} />;
   }
 
