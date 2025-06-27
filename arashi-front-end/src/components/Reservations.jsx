@@ -21,7 +21,7 @@ const Reservations = () => {
 
   return (
   <>
-    <h1>My Reservations</h1>
+    <h1>{user.displayName}'s Reservations</h1>
     {user ? (
       <>
         <div>

@@ -27,27 +27,27 @@ const PastReservations = () => {
 
     return (
         <>
-        <h1>My Past Reservations</h1>
+        <h1>{user.displayName}'s Past Reservations</h1>
         {!user ? (
             <h2>You are not authorised to view this page</h2>
         ) : 
         (
-            reservations && reservations.length !== 0 ? (<table>
+            reservations && reservations.length !== 0 ? (
+            <table>
                 <thead>  
-            <tr>
-                <th>Reservation Name</th>
-                <th>Reservation Date</th>
-                <th>Reservation Time</th>
-                <th>Contact No.</th>
-                <th>Pax</th>
-                <th>Branch</th>
-                <th>Remarks</th>
-                <th>Actions</th>
-            </tr>
+                    <tr>
+                        <th>Reservation Name</th>
+                        <th>Reservation Date</th>
+                        <th>Reservation Time</th>
+                        <th>Contact No.</th>
+                        <th>Pax</th>
+                        <th>Branch</th>
+                        <th>Remarks</th>
+                        <th>Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
-
-            {reservations.map((reservation)=>(
+                {reservations.map((reservation)=>(
                 <tr key={reservation._id}>
                     <th>{reservation.reservationName}</th>
                     <th>{new Date(reservation.reservationDate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}</th>

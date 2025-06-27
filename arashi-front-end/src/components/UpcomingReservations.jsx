@@ -31,7 +31,7 @@ const UpcomingReservations = () => {
 
     return (
         <>
-        <h1>My Upcoming Reservations</h1>
+        <h1>{user.displayName}'s Upcoming Reservations</h1>
         {!user ? (
             <h2>You are not authorised to view this page</h2>
         ) : 
