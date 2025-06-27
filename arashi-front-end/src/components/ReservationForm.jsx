@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { UserContext } from "../contexts/UserContext";
 import { createReservation } from "../services/reservationService";
 
@@ -9,25 +9,39 @@ const day = String(Number(new Date().toISOString().split('T')[0].split('-')[2]) 
 const minDate = `${year}-${month}-${day}`
 
 
-const ReservationForm = ({reservationId}) => {
+const ReservationForm = () => {
   const navigate = useNavigate();
+  const reservationId = useParams()
   const {user }= useContext(UserContext);
   const branches = ["Bugis - Bugis+" ,"Orchard - Orchard 313","Tampines - Tampines 1", "Jurong East - JEM", "Yishun - Northpoint City"]
   const timeSlots = ["11.00am", "1.00pm", "5.00pm", "7.00pm"]
   const [message, setMessage] = useState("");
   const [reservation, setReservation] = useState("");
+  const isEditing = reservationId ? true : false;
   const [formData, setFormData] = useState({
     reservationName: user.displayName,
-      reservationDate: "",
-      reservationTime: timeSlots[0],
-      contactNumber: user.contactNumber,
-      branch: branches[0],
-      pax: "",
-      remarks: "",
-      user: user._id,
+    reservationDate: "",
+    reservationTime: timeSlots[0],
+    contactNumber: user.contactNumber,
+    branch: branches[0],
+    pax: "",
+    remarks: "",
+    user: user._id,
   });
 
-  const isEditing = reservationId ? true : false;
+  if(isEditing){
+    setFormData({
+      reservationName: user.reservationName,
+      reservationDate: user.reservationDate,
+      reservationTime: user.reservationTime,
+      contactNumber: user.contactNumber,
+      branch: user.branch,
+      pax: user.pax,
+      remarks: user.remarks,
+      user: user._id,
+    });
+  }
+
 
   const { reservationName, reservationDate, reservationTime,contactNumber, branch,pax, remarks } = formData;
 
@@ -40,7 +54,7 @@ const ReservationForm = ({reservationId}) => {
     try {
       const newReservation = await createReservation(user._id, formData);
       setReservation(newReservation);
-      navigate(`/user/${user._id}/reservations/upcoming`);
+      navigate(`/users/${user._id}/reservations/upcoming`);
     } catch (err) {
       setMessage(err.message);
     }
@@ -107,7 +121,7 @@ const ReservationForm = ({reservationId}) => {
         <input type="string" name="remarks" value={remarks} onChange={handleChange}></input>
       </label>      
       </div>
-      <button type="submit">Submit Reservation</button>
+      <button type="submit">{isEditing ? "Update Reservation" :"Submit Reservation"}</button>
     </form>
   </div>
 
