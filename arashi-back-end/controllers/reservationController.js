@@ -110,7 +110,9 @@ const deleteReservation = async (req, res) => {
 
 module.exports = {
   createReservation,
-  viewReservations,
+  viewPastReservations,
+  viewUpcomingReservations,
+  viewOneReservation,
   editReservation,
   deleteReservation,
 };

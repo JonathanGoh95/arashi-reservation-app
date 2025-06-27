@@ -32,7 +32,7 @@ const PastReservations = () => {
             <h2>You are not authorised to view this page</h2>
         ) : 
         (
-            reservations ? (<table>
+            reservations.length !== 0 ? (<table>
                 <thead>  
             <tr>
                 <th>Reservation Name</th>
