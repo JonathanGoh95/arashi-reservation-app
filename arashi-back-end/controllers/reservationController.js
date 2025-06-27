@@ -15,11 +15,34 @@ const createReservation = async (req, res) => {
   }
 };
 
-// Read Reservations
-const viewReservations = async (req, res) => {
+// Read Past Reservations
+const viewPastReservations = async (req, res) => {
   try {
     const { userId } = req.params;
-    const reservations = await Reservation.find({ user: userId })
+    const today = new Date();
+    const reservations = await Reservation.find({
+      user: userId,
+      reservationDate: { $lt: today },
+    })
+      .populate({ path: "user", select: "displayName" })
+      .populate({ path: "branch", select: "location" })
+      .sort({ reservationDate: "desc" });
+    console.log(reservations);
+    res.status(200).json(reservations);
+  } catch (err) {
+    res.status(500).json({ err: err.message });
+  }
+};
+
+// Read Upcoming Reservations
+const viewUpcomingReservations = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const today = new Date();
+    const reservations = await Reservation.find({
+      user: userId,
+      reservationDate: { $gt: today },
+    })
       .populate({ path: "user", select: "displayName" })
       .populate({ path: "branch", select: "location" })
       .sort({ reservationDate: "asc" });
@@ -72,7 +95,8 @@ const deleteReservation = async (req, res) => {
 
 module.exports = {
   createReservation,
-  viewReservations,
+  viewPastReservations,
+  viewUpcomingReservations,
   editReservation,
   deleteReservation,
 };

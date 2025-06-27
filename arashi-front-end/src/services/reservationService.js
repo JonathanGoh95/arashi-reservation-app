@@ -1,20 +1,32 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/users`;
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/reservations`;
 
-const viewReservations = async (userId) => {
+const viewPastReservations = async (userId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/reservations`, {
+    const res = await fetch(`${BASE_URL}/${userId}/past`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
-    if (!res.ok) throw new Error("Failed to retrieve Reservations");
+    if (!res.ok) throw new Error("Failed to retrieve Past Reservations");
     return res.json();
   } catch (error) {
     console.log(error);
   }
 };
 
-const createReservation = async (userId, reservationFormData) => {
+const viewUpcomingReservations = async (userId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/reservations/new`, {
+    const res = await fetch(`${BASE_URL}/${userId}/upcoming`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    if (!res.ok) throw new Error("Failed to retrieve Upcoming Reservations");
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const createReservation = async (reservationFormData) => {
+  try {
+    const res = await fetch(`${BASE_URL}/new`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -29,9 +41,9 @@ const createReservation = async (userId, reservationFormData) => {
   }
 };
 
-const editReservation = async (userId, reservationId, reservationFormData) => {
+const editReservation = async (reservationId, reservationFormData) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/${reservationId}/edit`, {
+    const res = await fetch(`${BASE_URL}/${reservationId}/edit`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -46,17 +58,14 @@ const editReservation = async (userId, reservationId, reservationFormData) => {
   }
 };
 
-const deleteReservation = async (userId, reservationId) => {
+const deleteReservation = async (reservationId) => {
   try {
-    const res = await fetch(
-      `${BASE_URL}/${userId}/reservations/${reservationId}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    const res = await fetch(`${BASE_URL}/${reservationId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
     if (!res.ok) throw new Error("Failed to delete Reservation");
     return res.json();
   } catch (error) {
@@ -66,7 +75,8 @@ const deleteReservation = async (userId, reservationId) => {
 
 export {
   createReservation,
-  viewReservations,
+  viewPastReservations,
+  viewUpcomingReservations,
   editReservation,
   deleteReservation,
 };

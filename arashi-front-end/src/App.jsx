@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router";
-import { useState } from "react";
 
 import NavBar from "./components/NavBar";
 import SignUpForm from "./components/SignUpForm";
@@ -14,7 +13,6 @@ import ProfileForm from "./components/ProfileForm";
 import Profile from "./components/Profile";
 
 const App = () => {
-
   return (
     <>
       <NavBar />
@@ -24,15 +22,14 @@ const App = () => {
         <Route path="/login" element={<SignInForm />} />
         <Route path="/find-us" element={<Branches />} />
         <Route path="/reservations" element={<Reservations />} />
-        <Route path="/users/:userId/reservations" element={<Reservations/>} />
-        <Route path="/users/:userId/reservations/past" element={<PastReservations/>} />
-        <Route path="/users/:userId/reservations/upcoming" element={<UpcomingReservations/>} />
+        <Route path="/reservations/past" element={<PastReservations/>} />
+        <Route path="/reservations/upcoming" element={<UpcomingReservations/>} />
         <Route
-          path="/users/:userId/reservations/new"
+          path="/reservations/new"
           element={<ReservationForm />}
         />
         <Route
-          path="/users/:userId/reservations/:reservationId/edit"
+          path="/reservations/:reservationId/edit"
           element={<ReservationForm />}
         />
         <Route path="/users/:userId/profile" element={<Profile />} />

@@ -27,7 +27,7 @@ app.use(logger("dev"));
 
 // Routes Declaration
 app.use("/", authRouter);
-app.use("/users", reservationRouter);
+app.use("/reservations", reservationRouter);
 app.use("/find-us", branchRouter);
 app.use("/users", userRouter);
 

@@ -1,27 +1,23 @@
-import { useContext, useEffect, useState} from "react";
-import { useParams } from "react-router";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router";
 import * as reservationService from "../services/reservationService"
-import dayjs from 'dayjs';
 
 const UpcomingReservations = () => {
     const navigate = useNavigate();
-    const { userId } = useParams();
     const { user } = useContext(UserContext);
     const [reservations,setReservations] = useState(null)
     
     useEffect(() => {
-        const fetchReservations = async () => {
-        const reservationData = await reservationService.viewReservations(userId)
-        const filteredReservations = reservationData.filter(item => dayjs(item.reservationDate).isAfter(dayjs().startOf('day')))
-        setReservations(filteredReservations);
+        const fetchUpcomingReservations = async () => {
+        const upcomingReservationData = await reservationService.viewUpcomingReservations(user._id)
+        setReservations(upcomingReservationData);
         };
-        fetchReservations();
-    }, [userId]);
+        fetchUpcomingReservations();
+    }, [user._id]);
     
     const handleEdit = (reservationId) => {
-        navigate(`/users/${user._id}/reservations/${reservationId}/edit`)
+        navigate(`/reservations/${reservationId}/edit`)
     }
 
     const handleDelete = async (reservationId) => {
@@ -29,10 +25,14 @@ const UpcomingReservations = () => {
         setReservations(reservations.filter((reservation) => reservationId !== reservation._id))
     }
 
+    const handleBack = () => {
+        navigate('/reservations')
+    }
+
     return (
         <>
         <h1>My Upcoming Reservations</h1>
-        {!user || user._id !== userId ? (
+        {!user ? (
             <h2>You are not authorised to view this page</h2>
         ) : 
         (
@@ -66,6 +66,7 @@ const UpcomingReservations = () => {
             </tbody>
             </table>) : (<h2>You do not have any <strong>past</strong> reservations</h2>)
         )}
+        <button onClick={handleBack}>Back</button>
         </>
     )
 }

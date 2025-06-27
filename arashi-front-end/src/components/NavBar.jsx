@@ -15,18 +15,12 @@ const NavBar = () => {
         <Link to="/">ARASHI OMAKASE</Link>
       </div>
       <div>
-        {user ? (
-          <div>
-            <Link to={`/users/${user._id}/reservations`}>Reservations</Link>
-          </div>
-        ) : (
-          <div>
-            <Link to="/reservations">Reservations</Link>
-          </div>
-        )}
-        <div>
-          <Link to="/find-us">Find Us</Link>
-        </div>
+      <div>
+        <Link to="/reservations">Reservations</Link>
+      </div>
+      <div>
+        <Link to="/find-us">Find Us</Link>
+      </div>
       </div>
       <div>
         {user ? (

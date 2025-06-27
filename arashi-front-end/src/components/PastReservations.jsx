@@ -1,33 +1,34 @@
-import { useContext, useEffect, useState} from "react";
-import { useParams } from "react-router";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { UserContext } from "../contexts/UserContext";
 import * as reservationService from "../services/reservationService"
-import dayjs from 'dayjs';
 
 const PastReservations = () => {
-
-  const { userId } = useParams();
+  const navigate = useNavigate();
   const { user } = useContext(UserContext);
   const [reservations,setReservations] = useState(null)
 
   useEffect(() => {
-    const fetchReservations = async () => {
-    const reservationData = await reservationService.viewReservations(userId)
-    const filteredReservations = reservationData.filter(item => dayjs(item.reservationDate).isBefore(dayjs().startOf('day')))
-    setReservations(filteredReservations);
+    const fetchPastReservations = async () => {
+    const pastReservationData = await reservationService.viewPastReservations(user._id)
+    setReservations(pastReservationData);
     };
-    fetchReservations();
-  }, [userId]);
+    fetchPastReservations();
+  }, [user._id]);
 
     const handleDelete = async (reservationId) => {
         await reservationService.deleteReservation(user._id,reservationId)
         setReservations(reservations.filter((reservation) => reservationId !== reservation._id))
     }
 
+    const handleBack = () => {
+        navigate('/reservations')
+    }
+
     return (
         <>
         <h1>My Past Reservations</h1>
-        {!user || user._id !== userId ? (
+        {!user ? (
             <h2>You are not authorised to view this page</h2>
         ) : 
         (
@@ -59,8 +60,10 @@ const PastReservations = () => {
                 </tr>
             ))}
             </tbody>
-            </table>) : (<h2>You do not have any <strong>past</strong> reservations</h2>)
+            </table>   
+        ) : (<h2>You do not have any <strong>past</strong> reservations</h2>)
         )}
+        <button onClick={handleBack}>Back</button>
         </>
     )
 }

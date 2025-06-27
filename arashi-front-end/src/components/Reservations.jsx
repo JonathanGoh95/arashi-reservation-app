@@ -1,30 +1,27 @@
-import { useContext,useState } from "react";
+import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import Disclaimer from "./Disclaimer";
 
 const Reservations = () => {
   const navigate = useNavigate();
-  const [message,setMessage] = useState('')
-  const { userId } = useParams();
   const { user } = useContext(UserContext);
 
   const handleUpcoming = () => {
-    user._id !== userId ? setMessage('Not Authorised') : navigate(`/users/${userId}/reservations/upcoming`)
+    navigate(`/reservations/upcoming`)
   }
   
   const handlePast = () => {
-    user._id !== userId ? setMessage('Not Authorised') : navigate(`/users/${userId}/reservations/past`)
+   navigate(`/reservations/past`)
   }
  
   const handleNewReservation = () => {
-    user._id !== userId ? setMessage('Not Authorised') : navigate(`/users/${userId}/reservations/new`)
+    navigate(`/reservations/new`)
   }
 
   return (
   <>
     <h1>My Reservations</h1>
-    <p>{message}</p>
     {user ? (
       <>
         <div>
