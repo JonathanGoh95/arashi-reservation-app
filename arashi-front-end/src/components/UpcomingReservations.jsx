@@ -31,13 +31,15 @@ const UpcomingReservations = () => {
 
     return (
         <>
-        <h1>{user.displayName}'s Upcoming Reservations</h1>
         {!user ? (
             <h2>You are not authorised to view this page</h2>
         ) : 
         (
-            reservations && reservations.length !== 0 ? (<table>
-                <thead>  
+            reservations && reservations.length !== 0 ? (
+            <>
+            <h1>{user.displayName}'s Upcoming Reservations</h1>
+            <table>
+            <thead>  
             <tr>
                 <th>Reservation Name</th>
                 <th>Reservation Date</th>
@@ -60,11 +62,12 @@ const UpcomingReservations = () => {
                     <th>{reservation.pax}</th>
                     <th>{reservation.branch.location}</th>
                     <th>{reservation.remarks}</th>
-                    <th><button onClick={() => handleEdit(reservation._id)}>Edit</button><button onClick={() => handleDelete(reservation._id)}>Delete</button></th>
+                    <th><div><button onClick={() => handleEdit(reservation._id)}>Edit</button><button onClick={() => handleDelete(reservation._id)}>Delete</button></div></th>
                 </tr>
             ))}
             </tbody>
-            </table>) : (<h2>You do not have any <strong>past</strong> reservations</h2>)
+            </table>
+            </>) : (<h2>You do not have any <strong>past</strong> reservations</h2>)
         )}
         <button onClick={handleBack}>Back</button>
         </>
