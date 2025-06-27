@@ -24,6 +24,21 @@ const viewUpcomingReservations = async (userId) => {
   }
 };
 
+const viewOneReservation = async (userId, reservationId) => {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/${userId}/reservations/${reservationId}/edit`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    if (!res.ok) throw new Error("Failed to retrieve Reservation");
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const createReservation = async (reservationFormData) => {
   try {
     const res = await fetch(`${BASE_URL}/new`, {
@@ -77,6 +92,7 @@ export {
   createReservation,
   viewPastReservations,
   viewUpcomingReservations,
+  viewOneReservation,
   editReservation,
   deleteReservation,
 };

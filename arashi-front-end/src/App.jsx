@@ -11,6 +11,7 @@ import PastReservations from "./components/PastReservations";
 import UpcomingReservations from "./components/UpcomingReservations";
 import ProfileForm from "./components/ProfileForm";
 import Profile from "./components/Profile";
+import EditReservation from "./components/EditReservation";
 
 const App = () => {
   return (
@@ -30,7 +31,7 @@ const App = () => {
         />
         <Route
           path="/reservations/:reservationId/edit"
-          element={<ReservationForm />}
+          element={< EditReservation />}
         />
         <Route path="/users/:userId/profile" element={<Profile />} />
         <Route path="/users/:userId/edit" element={<ProfileForm />} />
