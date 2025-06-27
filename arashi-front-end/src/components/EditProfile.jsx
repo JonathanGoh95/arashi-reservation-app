@@ -1,9 +1,9 @@
-import ReservationForm from "./ReservationForm";
+import SignUpForm from "./SignUpForm";
 import { useParams } from "react-router";
 
 const EditProfile = () =>{
     const { userId } = useParams();
-    return <ReservationForm userId={userId} />;
+    return <SignUpForm userId={userId} />;
   }
 
   export default EditProfile

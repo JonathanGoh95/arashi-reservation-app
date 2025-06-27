@@ -27,7 +27,7 @@ const NavBar = () => {
           <ul>
             <li>Welcome, {user.displayName}</li>
             <li>
-              <Link to={`/users/${user._id}/profile`}>
+              <Link to={`/profile`}>
                 {user.displayName}'s Profile
               </Link>
             </li>

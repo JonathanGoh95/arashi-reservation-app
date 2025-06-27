@@ -4,7 +4,7 @@ import { signUp } from "../services/authService";
 
 import { UserContext } from "../contexts/UserContext";
 
-const SignUpForm = () => {
+const SignUpForm = ({userId}) => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState("");

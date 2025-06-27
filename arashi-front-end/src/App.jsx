@@ -9,9 +9,9 @@ import Reservations from "./components/Reservations";
 import ReservationForm from "./components/ReservationForm";
 import PastReservations from "./components/PastReservations";
 import UpcomingReservations from "./components/UpcomingReservations";
-import ProfileForm from "./components/ProfileForm";
 import Profile from "./components/Profile";
 import EditReservation from "./components/EditReservation";
+import EditProfile from "./components/EditProfile";
 
 const App = () => {
   return (
@@ -33,9 +33,10 @@ const App = () => {
           path="/reservations/:reservationId/edit"
           element={< EditReservation />}
         />
-        <Route path="/users/:userId/profile" element={<Profile />} />
-        <Route path="/users/:userId/edit" element={<ProfileForm />} />
-      </Routes>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/edit" element={<EditProfile />} />
+    
+        </Routes>
     </>
   );
 };
