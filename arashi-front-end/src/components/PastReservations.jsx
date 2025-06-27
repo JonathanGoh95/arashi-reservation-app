@@ -16,23 +16,19 @@ const PastReservations = () => {
     fetchPastReservations();
   }, [user._id]);
 
-    const handleDelete = async (reservationId) => {
-        await reservationService.deleteReservation(user._id,reservationId)
-        setReservations(reservations.filter((reservation) => reservationId !== reservation._id))
-    }
-
     const handleBack = () => {
         navigate('/reservations')
     }
 
     return (
         <>
-        <h1>{user.displayName}'s Past Reservations</h1>
         {!user ? (
             <h2>You are not authorised to view this page</h2>
         ) : 
         (
             reservations && reservations.length !== 0 ? (
+            <>
+            <h1>{user.displayName}'s Past Reservations</h1>
             <table>
                 <thead>  
                     <tr>
@@ -43,7 +39,6 @@ const PastReservations = () => {
                         <th>Pax</th>
                         <th>Branch</th>
                         <th>Remarks</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,11 +51,11 @@ const PastReservations = () => {
                     <th>{reservation.pax}</th>
                     <th>{reservation.branch.location}</th>
                     <th>{reservation.remarks}</th>
-                    <th><button onClick={() => handleDelete(reservation._id)}>Delete</button></th>
                 </tr>
             ))}
             </tbody>
-            </table>   
+            </table>
+            </>   
         ) : (<h2>You do not have any <strong>past</strong> reservations</h2>)
         )}
         <button onClick={handleBack}>Back</button>
