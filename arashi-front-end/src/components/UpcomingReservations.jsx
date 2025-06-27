@@ -36,7 +36,7 @@ const UpcomingReservations = () => {
             <h2>You are not authorised to view this page</h2>
         ) : 
         (
-            reservations.length !== 0 ? (<table>
+            reservations && reservations.length !== 0 ? (<table>
                 <thead>  
             <tr>
                 <th>Reservation Name</th>
