@@ -30,11 +30,26 @@ const viewReservations = async (req, res) => {
   }
 };
 
+// Read One ReservationAdd commentMore actions
+const viewOneReservation = async (req, res) => {
+  try {
+    const { reservationId } = req.params;
+    const reservation = await Reservation.findOne({
+      _id: reservationId,
+    })
+      .populate({ path: "user", select: "displayName" })
+      .populate({ path: "branch", select: "location" });
+    res.status(200).json(reservation);
+  } catch (err) {
+    res.status(500).json({ err: err.message });
+  }
+};
+
 // Edit Reservation
 const editReservation = async (req, res) => {
   try {
     const { reservationId } = req.params;
-    const branch = await Branch.findOne({ location: req.body.branch });
+    const branch = await Branch.findOne({ location: req.body.branch }); //check if can use branch id
     req.body.user = req.user._id;
     req.body.branch = branch._id;
     const reservation = await Reservation.findByIdAndUpdate(
@@ -73,6 +88,7 @@ const deleteReservation = async (req, res) => {
 module.exports = {
   createReservation,
   viewReservations,
+  viewOneReservation,
   editReservation,
   deleteReservation,
 };

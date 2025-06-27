@@ -1,7 +1,7 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { UserContext } from "../contexts/UserContext";
-import { createReservation } from "../services/reservationService";
+import { createReservation,editReservation, viewOneReservation } from "../services/reservationService";
 
 const year = new Date().toISOString().split('T')[0].split('-')[0]
 const month = new Date().toISOString().split('T')[0].split('-')[1]
@@ -9,14 +9,12 @@ const day = String(Number(new Date().toISOString().split('T')[0].split('-')[2]) 
 const minDate = `${year}-${month}-${day}`
 
 
-const ReservationForm = () => {
+const ReservationForm = ({reservationId}) => {
   const navigate = useNavigate();
-  const reservationId = useParams()
   const {user }= useContext(UserContext);
   const branches = ["Bugis - Bugis+" ,"Orchard - Orchard 313","Tampines - Tampines 1", "Jurong East - JEM", "Yishun - Northpoint City"]
   const timeSlots = ["11.00am", "1.00pm", "5.00pm", "7.00pm"]
   const [message, setMessage] = useState("");
-  const [reservation, setReservation] = useState("");
   const isEditing = reservationId ? true : false;
   const [formData, setFormData] = useState({
     reservationName: user.displayName,
@@ -26,21 +24,26 @@ const ReservationForm = () => {
     branch: branches[0],
     pax: "",
     remarks: "",
-    user: user._id,
+    user: user._id
   });
-
-  if(isEditing){
-    setFormData({
-      reservationName: user.reservationName,
-      reservationDate: user.reservationDate,
-      reservationTime: user.reservationTime,
-      contactNumber: user.contactNumber,
-      branch: user.branch,
-      pax: user.pax,
-      remarks: user.remarks,
-      user: user._id,
-    });
-  }
+  
+  useEffect(()=>{
+    const fetchReservation = async () =>{
+      const reservation = await viewOneReservation(user._id, reservationId)
+      console.log(reservation)   
+      setFormData({
+        reservationName: reservation.reservationName,
+        reservationDate: (reservation.reservationDate).split("T")[0],
+        reservationTime: reservation.reservationTime,
+        contactNumber: reservation.contactNumber,
+        branch: reservation.branch.location,
+        pax: reservation.pax,
+        remarks: reservation.remarks,
+        user: reservation.user._id,
+      });
+    }
+    fetchReservation()
+  },[user._id, reservationId])
 
 
   const { reservationName, reservationDate, reservationTime,contactNumber, branch,pax, remarks } = formData;
@@ -52,9 +55,13 @@ const ReservationForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const newReservation = await createReservation(user._id, formData);
-      setReservation(newReservation);
-      navigate(`/users/${user._id}/reservations/upcoming`);
+      if(isEditing){
+        await editReservation(user._id, formData);
+      }else{
+        await createReservation(user._id, formData);
+
+      }
+      navigate(`/upcoming`);
     } catch (err) {
       setMessage(err.message);
     }
@@ -62,7 +69,7 @@ const ReservationForm = () => {
 
   return (
   <div>
-    <h1>Reservation Form</h1>
+    <h1>{isEditing ? "Edit Reservation" :"Make a Reservation"}</h1>
     <form onSubmit={handleSubmit}>
       <div>
       <label>
@@ -118,7 +125,7 @@ const ReservationForm = () => {
       <div>
       <label>
         Remarks (optional):
-        <input type="string" name="remarks" value={remarks} onChange={handleChange}></input>
+        <textarea type="string" name="remarks" value={remarks} onChange={handleChange}></textarea>
       </label>      
       </div>
       <button type="submit">{isEditing ? "Update Reservation" :"Submit Reservation"}</button>

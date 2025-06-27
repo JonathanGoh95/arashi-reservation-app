@@ -15,6 +15,7 @@ const PastReservations = () => {
     const reservationData = await reservationService.viewReservations(userId)
     const filteredReservations = reservationData.filter(item => dayjs(item.reservationDate).isBefore(dayjs().startOf('day')))
     setReservations(filteredReservations);
+    //filter before we fetch data
     };
     fetchReservations();
   }, [userId]);
