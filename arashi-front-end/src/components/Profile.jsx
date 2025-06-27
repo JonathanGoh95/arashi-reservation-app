@@ -17,11 +17,11 @@ const Profile = () => {
           <h1>{user.displayName}'s Profile</h1>
           <p>Display Name: {user.displayName}</p>
           <p>Email: {user.email}</p>
-          <p>Birthday: {user.birthday}</p>
+          <p>Birthday: {new Date(user.birthday).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
           <p>Contact Number: {user.contactNumber}</p>
         </article>
       )}
-      <button onClick={() => navigate(`/users/${user._id}/edit`)}>Edit</button>
+      <button onClick={() => navigate(`/users/${user._id}/edit`)}>Edit Profile</button>
       <button onClick={() => navigate("/")}>Back</button>
     </>
   );
