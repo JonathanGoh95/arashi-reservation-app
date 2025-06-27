@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { UserContext } from "../contexts/UserContext";
 import { createReservation,editReservation, viewOneReservation } from "../services/reservationService";
+import { indexBranch } from "../services/branchService";
 
 const year = new Date().toISOString().split('T')[0].split('-')[0]
 const month = new Date().toISOString().split('T')[0].split('-')[1]
@@ -12,7 +13,7 @@ const minDate = `${year}-${month}-${day}`
 const ReservationForm = ({reservationId}) => {
   const navigate = useNavigate();
   const {user }= useContext(UserContext);
-  const branches = ["Bugis - Bugis+" ,"Orchard - Orchard 313","Tampines - Tampines 1", "Jurong East - JEM", "Yishun - Northpoint City"]
+  const [branches,setBranches] = useState("");
   const timeSlots = ["11.00am", "1.00pm", "5.00pm", "7.00pm"]
   const [message, setMessage] = useState("");
   const isEditing = reservationId ? true : false;
@@ -28,9 +29,14 @@ const ReservationForm = ({reservationId}) => {
   });
   
   useEffect(()=>{
+    const fetchBranches = async () =>{
+      const branchesData = await indexBranch()
+      console.log(branchesData)
+      setBranches(branchesData);
+    }
     const fetchReservation = async () =>{
-      const reservation = await viewOneReservation(user._id, reservationId)
-      console.log(reservation)   
+      const reservation = await viewOneReservation(reservationId)
+      console.log(reservation)
       setFormData({
         reservationName: reservation.reservationName,
         reservationDate: (reservation.reservationDate).split("T")[0],
@@ -42,6 +48,7 @@ const ReservationForm = ({reservationId}) => {
         user: reservation.user._id,
       });
     }
+    fetchBranches()
     fetchReservation()
   },[user._id, reservationId])
 
@@ -70,6 +77,7 @@ const ReservationForm = ({reservationId}) => {
   return (
   <div>
     <h1>{isEditing ? "Edit Reservation" :"Make a Reservation"}</h1>
+    <p>{message}</p>
     <form onSubmit={handleSubmit}>
       <div>
       <label>
@@ -93,8 +101,8 @@ const ReservationForm = ({reservationId}) => {
       <label>
         Branch:
         <select required type="string" name="branch" value={branch} onChange={handleChange}>
-        {branches.map((branchName)=>(
-          <option key={branchName} value={branchName}>{branchName}</option>
+        {branches && branches.map((branchName)=>(
+          <option key={branchName.location} value={branchName.location}>{branchName.location}</option>
         ))}
         </select>
       </label>      

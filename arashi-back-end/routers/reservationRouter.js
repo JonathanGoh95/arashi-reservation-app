@@ -12,11 +12,7 @@ const {
 
 router.post("/new", verifyToken, createReservation);
 router.get("/:userId/past", verifyToken, viewPastReservations);
-router.get(
-  "/:userId/reservations/:reservationId/edit",
-  verifyToken,
-  viewOneReservation
-);
+router.get("/:reservationId/edit", verifyToken, viewOneReservation);
 router.get("/:userId/upcoming", verifyToken, viewUpcomingReservations);
 router.put("/:reservationId/edit", verifyToken, editReservation);
 router.delete("/:reservationId", verifyToken, deleteReservation);
