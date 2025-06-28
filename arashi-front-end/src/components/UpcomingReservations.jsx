@@ -53,8 +53,8 @@ const UpcomingReservations = () => {
           )}
 
           {!loading && reservations && reservations.length !== 0 && (
-            <div className="is-flex is-justify-content-center">
-              <table className="table is-bordered has-text-centered is-size-3">
+              <div className="table-container is-centered is-flex is-flex-direction-row is-justify-content-space-around p-6 ">
+              <table className="table is-bordered has-text-centered is-size-5">
                 <thead>
                   <tr>
                     <th>Reservation Name</th>
@@ -105,8 +105,8 @@ const UpcomingReservations = () => {
                   ))}
                 </tbody>
               </table>
-            </div>
-          )}
+              </div>
+            )}
 
           {!loading && reservations && reservations.length === 0 && (
             <h2 className="has-text-centered">

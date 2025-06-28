@@ -14,7 +14,7 @@ const NavBar = () => {
       <nav className="navbar">
         <div className="navbar-start">
           <Link
-            className="navbar-item is-size-3 px-4 py-4 is-italic has-text-link"
+            className="navbar-item has-text-weight-bold is-size-3 px-4 py-4 is-italic has-text-link"
             to="/"
           >
             ARASHI RESERVATIONS
@@ -36,7 +36,7 @@ const NavBar = () => {
       </nav>
       <div className="is-flex is-justify-content-flex-end is-italic">
         {user ? (
-          <ul className="is-flex is-size-4 ">
+          <ul className="is-flex is-size-5 ">
             <li className="px-4">Welcome, {user.displayName}</li>
             <li className="px-4">
               <Link className="has-text-link" to={`/profile`}>

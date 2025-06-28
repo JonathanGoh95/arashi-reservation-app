@@ -22,13 +22,14 @@ const ReservationForm = ({ reservationId }) => {
   const timeSlots = ["11.00am", "1.00pm", "5.00pm", "7.00pm"];
   const [message, setMessage] = useState("");
   const isEditing = reservationId ? true : false;
+
   const [formData, setFormData] = useState({
     reservationName: user.displayName,
-    reservationDate: "",
+    reservationDate: minDate,
     reservationTime: timeSlots[0],
     contactNumber: user.contactNumber,
     branch: branches[0],
-    pax: "",
+    pax: "1",
     remarks: "",
     user: user._id,
   });
@@ -36,9 +37,7 @@ const ReservationForm = ({ reservationId }) => {
   useEffect(() => {
     if (isEditing) {
       const fetchReservation = async () => {
-        console.log(reservationId);
         const reservation = await viewOneReservation(reservationId);
-        console.log(reservation);
         setFormData({
           reservationName: reservation.reservationName,
           reservationDate: reservation.reservationDate.split("T")[0],
@@ -52,12 +51,11 @@ const ReservationForm = ({ reservationId }) => {
       };
       fetchReservation();
     }
-  }, [isEditing, user._id, reservationId]);
+  }, [isEditing, reservationId]);
 
   useEffect(() => {
       const fetchBranches = async () => {
         const branchesData = await indexBranch();
-        console.log(branchesData);
         setBranches(branchesData);
       };
       fetchBranches();
@@ -127,6 +125,7 @@ const ReservationForm = ({ reservationId }) => {
             <input className="input"
               required
               type="number"
+              min="1"
               max="8"
               name="pax"
               value={pax}

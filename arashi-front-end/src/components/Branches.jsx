@@ -20,7 +20,7 @@ const Branches = () => {
 
   const handleClick = () => {
     if (user) {
-      navigate("/users/:userId/reservations/new");
+      navigate("/reservations/new");
     } else {
       navigate("/login");
     }
@@ -31,26 +31,24 @@ const Branches = () => {
       <h1 className="is-flex is-justify-content-center m-4 is-size-2">
         Find Us
       </h1>
+      <p className="has-text-centered has-text-grey">{user ? "" : "Login to make a reservation!"}</p>
       {loading && (
         <div className="is-flex is-justify-content-center m-6 is-size-2">
           <progress className="progress is-link"/>
         </div>
       )}
-      <div className="is-flex">
+      <div className=" container is-flex ">
         {branches &&
           branches.map((branch) => (
             <div className="card columns m-2" key={branch._id}>
-              <div className="card-content is-flex is-flex-direction-column is-align-items-center">
-                <p className="is-size-4 has-text-weight-bold has-text-white">
-                  {branch.location.split(" - ")[1]}
+              <div className="card-content is-flex is-flex-direction-column is-justify-content-space-between has-text-centered">
+                <p className="is-size-4 has-text-weight-bold has-text-black">
+                  {branch.location.split(" - ")[1]} @ {branch.location.split(" - ")[0]}
                 </p>
-                <p>Address: {branch.address}</p>
-                <p>Tel: {branch.contactNumber}</p>
-                <p>Nearest MRT Station: {branch.location.split(" - ")[0]}</p>
-                <p className="is-size-4 has-text-weight-bold has-text-white">
-                  -Business Hours-
-                </p>
-                <p>Opens from {branch.businessHours} Daily</p>
+                <p><span className="is-size-6 has-text-weight-semibold has-text-grey">-Address-</span><br/>{branch.address}</p>
+                <p><span className="is-size-6 has-text-weight-semibold has-text-grey">-Tel-</span><br/>{branch.contactNumber}</p>
+                <p><span className="is-size-6 has-text-weight-semibold has-text-grey">-Nearest MRT Station-</span><br/>{branch.location.split(" - ")[0]}</p>
+                <p><span className="is-size-6 has-text-weight-semibold has-text-grey">-Business Hours-</span><br/>Opens from {branch.businessHours} Daily</p>
                 <div className="is-flex is-justify-content-center">
                   <button className="button is-primary" onClick={handleClick}>
                     Reserve Now

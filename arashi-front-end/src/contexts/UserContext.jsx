@@ -19,3 +19,4 @@ console.log(user)
 }
 
 export { getUserFromToken, UserProvider, UserContext };
+
