@@ -42,8 +42,9 @@ const signIn = async (formData) => {
 
     if (data.token) {
       localStorage.setItem("token", data.token);
-      //this token doesnt contain of birthday
-      return JSON.parse(atob(data.token.split(".")[1])).payload;
+      const payload = JSON.parse(atob(data.token.split(".")[1])).payload;
+      console.log(payload);
+      return payload;
     }
 
     throw new Error("Invalid response from server");

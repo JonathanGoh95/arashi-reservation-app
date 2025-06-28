@@ -12,10 +12,10 @@ const getUserFromToken = () => {
 
 function UserProvider({ children }) {
   const [user, setUser] = useState(getUserFromToken());
-
+console.log(user)
   const value = { user, setUser };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
-export { UserProvider, UserContext };
+export { getUserFromToken, UserProvider, UserContext };

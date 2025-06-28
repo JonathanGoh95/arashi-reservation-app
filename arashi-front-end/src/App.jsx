@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router";
 
 import NavBar from "./components/NavBar";
-import SignUpForm from "./components/SignUpForm";
 import SignInForm from "./components/SignInForm";
 import Landing from "./components/Landing";
 import Branches from "./components/Branches";
@@ -12,6 +11,7 @@ import UpcomingReservations from "./components/UpcomingReservations";
 import Profile from "./components/Profile";
 import EditReservation from "./components/EditReservation";
 import EditProfile from "./components/EditProfile";
+import UserDetailForm from "./components/UserDetailForm";
 
 const App = () => {
   return (
@@ -19,7 +19,7 @@ const App = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/sign-up" element={<SignUpForm />} />
+        <Route path="/sign-up" element={<UserDetailForm />} />
         <Route path="/login" element={<SignInForm />} />
         <Route path="/find-us" element={<Branches />} />
         <Route path="/reservations" element={<Reservations />} />

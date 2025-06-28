@@ -1,18 +1,26 @@
+import { getUserFromToken } from "../contexts/UserContext";
+
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/users`;
 
 const getUser = async (userId) => {
+  // userId is from userContext where we setUser during signin.
+  // currentUser is get from token when we save suring signin.
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/edit`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    });
-    if (!res.ok) throw new Error("Failed to show user details");
-    const data = await res.json();
+    const currentUser = getUserFromToken();
+    if (currentUser._id !== userId) {
+      throw new Error("Unauthorized");
+    } else {
+      const res = await fetch(`${BASE_URL}/${userId}/edit`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
 
-    if (data.err) {
-      throw new Error(data.err);
+      if (!res.ok) throw new Error("Failed to show user details");
+      const data = await res.json();
+      if (data.err) {
+        throw new Error(data.err);
+      }
+      return data;
     }
-
-    return data;
   } catch (err) {
     console.log(err);
     throw new Error(err);

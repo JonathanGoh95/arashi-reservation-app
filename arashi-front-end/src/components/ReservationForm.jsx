@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { UserContext } from "../contexts/UserContext";
 import { createReservation,editReservation, viewOneReservation } from "../services/reservationService";
 import { indexBranch } from "../services/branchService";

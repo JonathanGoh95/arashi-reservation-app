@@ -1,12 +1,11 @@
 import { useState, useContext,useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import { signUp } from "../services/authService";
-import { updateUser } from "../services/userService";
+import { getUser, updateUser , deleteUser } from "../services/userService";
 import { UserContext } from "../contexts/UserContext";
-import { getUser } from "../services/userService";
 
 
-const SignUpForm = ({userId}) => {
+const UserDetailForm = ({userId}) => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState("");
@@ -25,7 +24,6 @@ const SignUpForm = ({userId}) => {
       const userProfile = await getUser(userId)
       setFormData({
         displayName: userProfile.displayName,
-        email: userProfile.email,
         birthday: (userProfile.birthday).split("T")[0],
         contactNumber: userProfile.contactNumber,
       });
@@ -59,6 +57,13 @@ const SignUpForm = ({userId}) => {
     }
   };
 
+  const handleDelete = async (evt) => {
+    evt.preventDefault();
+    console.log("deleting account");
+    const deleteUser = await deleteUser(userId);
+    setUser("");
+    navigate(`/`);
+  }
   const isFormInvalid = () => {
     return !(displayName && email && password && password === passwordConf);
   };
@@ -160,22 +165,24 @@ const SignUpForm = ({userId}) => {
           </div>
           <br />
           {isEditing ?             
-          (<div>
-          <button type="submit">Update profile</button> 
-          <br />
-            <button onClick={() => navigate("/profile")}>Cancel</button>
-          </div>): 
-          (<div>
+          ( <>
+            <button type="submit">Update profile</button> 
+            <br />
+            <button onClick={handleDelete}>Delete profile</button>
+          </>): 
+          (
+          <>
             <button type="submit" disabled={isFormInvalid()}>Sign Up</button>
             <br />
             <button onClick={() => navigate("/")}>Cancel</button>
-          </div>
+          </>
           )}
           </form>
+
           {isEditing ? "" : <Link to="/sign-in">Already have an account? Sign In Here</Link>}
         </section>
     </main>
   );
 };
 
-export default SignUpForm;
+export default UserDetailForm;

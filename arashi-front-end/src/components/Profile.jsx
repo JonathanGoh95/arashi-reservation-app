@@ -1,10 +1,9 @@
-import { useParams, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 
 const Profile = () => {
   const navigate = useNavigate();
-  // const { userId } = useParams();
   const { user } = useContext(UserContext);
 
   console.log(user)
