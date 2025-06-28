@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router";
-
+import "bulma/css/bulma.min.css";
 import NavBar from "./components/NavBar";
 import SignInForm from "./components/SignInForm";
 import Landing from "./components/Landing";
@@ -23,20 +23,19 @@ const App = () => {
         <Route path="/login" element={<SignInForm />} />
         <Route path="/find-us" element={<Branches />} />
         <Route path="/reservations" element={<Reservations />} />
-        <Route path="/reservations/past" element={<PastReservations/>} />
-        <Route path="/reservations/upcoming" element={<UpcomingReservations/>} />
+        <Route path="/reservations/past" element={<PastReservations />} />
         <Route
-          path="/reservations/new"
-          element={<ReservationForm />}
+          path="/reservations/upcoming"
+          element={<UpcomingReservations />}
         />
+        <Route path="/reservations/new" element={<ReservationForm />} />
         <Route
           path="/reservations/:reservationId/edit"
-          element={< EditReservation />}
+          element={<EditReservation />}
         />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/edit" element={<EditProfile />} />
-    
-        </Routes>
+      </Routes>
     </>
   );
 };

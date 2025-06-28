@@ -10,45 +10,61 @@ const NavBar = () => {
   };
 
   return (
-    <nav>
-      <div>
-        <Link to="/">ARASHI OMAKASE</Link>
-      </div>
-      <div>
-      <div>
-        <Link to="/reservations">Reservations</Link>
-      </div>
-      <div>
-        <Link to="/find-us">Find Us</Link>
-      </div>
-      </div>
-      <div>
+    <>
+      <nav className="navbar">
+        <div className="navbar-start">
+          <Link
+            className="navbar-item is-size-3 px-4 py-4 is-italic has-text-link"
+            to="/"
+          >
+            ARASHI RESERVATIONS
+          </Link>
+        </div>
+        <div>
+          <div className="navbar-end is-size-3 is-italic">
+            <Link
+              className="navbar-item px-4 py-4 has-text-link"
+              to="/reservations"
+            >
+              Reservations
+            </Link>
+            <Link className="navbar-item px-4 py-4 has-text-link" to="/find-us">
+              Find Us
+            </Link>
+          </div>
+        </div>
+      </nav>
+      <div className="is-flex is-justify-content-flex-end is-italic">
         {user ? (
-          <ul>
-            <li>Welcome, {user.displayName}</li>
-            <li>
-              <Link to={`/profile`}>
+          <ul className="is-flex is-size-4 ">
+            <li className="px-4">Welcome, {user.displayName}</li>
+            <li className="px-4">
+              <Link className="has-text-link" to={`/profile`}>
                 {user.displayName}'s Profile
               </Link>
             </li>
-            <li>
-              <Link to="/" onClick={handleSignOut}>
+            <li className="px-4">
+              <Link className="has-text-link" to="/" onClick={handleSignOut}>
                 Sign Out
               </Link>
             </li>
           </ul>
         ) : (
-          <ul>
-            <li>
-              <Link to="/sign-up">SIGN UP</Link>
+          <ul className="is-flex is-size-4">
+            <li className="px-4">
+              <Link className="has-text-link" to="/sign-up">
+                SIGN UP
+              </Link>
             </li>
-            <li>
-              <Link to="/login">LOGIN</Link>
+            <li className="px-4">
+              <Link className="has-text-link" to="/login">
+                LOGIN
+              </Link>
             </li>
           </ul>
         )}
       </div>
-    </nav>
+    </>
   );
 };
 

@@ -32,46 +32,48 @@ const SignInForm = () => {
   };
 
   return (
-    <main>
+    <div className="content is-flex is-flex-direction-column is-align-items-center is-size-4">
       <h1>Sign In</h1>
       <p>{message}</p>
       <section>
         <form autoComplete="off" onSubmit={handleSubmit}>
-          <div>
-            <label>
-              Email:
-              <input
-                type="email"
-                autoComplete="off"
-                id="email"
-                value={formData.email}
-                name="email"
-                onChange={handleChange}
-                required
-              />
-            </label>
+          <div className="field">
+            <label className="label is-size-5">Email:</label>
+            <input
+              className="input"
+              type="email"
+              autoComplete="off"
+              id="email"
+              value={formData.email}
+              name="email"
+              onChange={handleChange}
+              required
+            />
           </div>
-          <div>
-            <label>
-              Password:
-              <input
-                type="password"
-                autoComplete="off"
-                id="password"
-                value={formData.password}
-                name="password"
-                onChange={handleChange}
-                required
-              />
-            </label>
+          <div className="field">
+            <label className="label is-size-5">Password:</label>
+            <input
+              className="input"
+              type="password"
+              autoComplete="off"
+              id="password"
+              value={formData.password}
+              name="password"
+              onChange={handleChange}
+              required
+            />
           </div>
-          <button type="submit">Sign In</button>
+          <div className="is-flex is-justify-content-center">
+            <button className="button m-3 is-primary" type="submit">
+              Sign In
+            </button>
+            <button className="button m-3 is-danger" onClick={() => navigate("/")}>
+              Cancel
+            </button>
+          </div>
         </form>
-        <div>
-          <button onClick={() => navigate("/")}>Cancel</button>
-        </div>
       </section>
-    </main>
+    </div>
   );
 };
 

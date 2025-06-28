@@ -1,8 +1,9 @@
-import { useState, useContext,useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import { signUp } from "../services/authService";
-import { getUser, updateUser , deleteUser } from "../services/userService";
+import { getUser, updateUser } from "../services/userService";
 import { UserContext } from "../contexts/UserContext";
+import { deleteUser } from "../services/userService";
 
 
 const UserDetailForm = ({userId}) => {
@@ -19,20 +20,27 @@ const UserDetailForm = ({userId}) => {
 
   const isEditing = userId ? true : false;
 
-  useEffect(()=> {
-    const fetchUserProfile = async () =>{
-      const userProfile = await getUser(userId)
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      const userProfile = await getUser(userId);
       setFormData({
         displayName: userProfile.displayName,
-        birthday: (userProfile.birthday).split("T")[0],
+        email: userProfile.email,
+        birthday: userProfile.birthday.split("T")[0],
         contactNumber: userProfile.contactNumber,
       });
-    }
-    fetchUserProfile()
-  },[userId])
+    };
+    fetchUserProfile();
+  }, [userId]);
 
-
-  const { displayName, email, password, passwordConf, birthday, contactNumber } = formData;
+  const {
+    displayName,
+    email,
+    password,
+    passwordConf,
+    birthday,
+    contactNumber,
+  } = formData;
 
   const handleChange = (evt) => {
     setMessage("");
@@ -43,11 +51,11 @@ const UserDetailForm = ({userId}) => {
     console.log("signing up");
     evt.preventDefault();
     try {
-      if(isEditing){
-        const updatedUser = await updateUser(userId, formData);
-        setUser(updatedUser);
+      if (isEditing) {
+        const updateProfile = await updateUser(userId, formData);
+        setUser(updateProfile);
         navigate(`/profile`);
-      }else{
+      } else {
         const newUser = await signUp(formData);
         setUser(newUser);
         navigate(`/reservations`);
@@ -60,7 +68,7 @@ const UserDetailForm = ({userId}) => {
   const handleDelete = async (evt) => {
     evt.preventDefault();
     console.log("deleting account");
-    const deleteUser = await deleteUser(userId);
+     await deleteUser(userId);
     setUser("");
     navigate(`/`);
   }
@@ -68,39 +76,39 @@ const UserDetailForm = ({userId}) => {
     return !(displayName && email && password && password === passwordConf);
   };
 
-  const year = String(Number(new Date().toISOString().split('T')[0].split('-')[0]) - 18)
-  const month = new Date().toISOString().split('T')[0].split('-')[1]
-  const day = new Date().toISOString().split('T')[0].split('-')[2]
-  const min18 = `${year}-${month}-${day}`
+  const year = String(
+    Number(new Date().toISOString().split("T")[0].split("-")[0]) - 18,
+  );
+  const month = new Date().toISOString().split("T")[0].split("-")[1];
+  const day = new Date().toISOString().split("T")[0].split("-")[2];
+  const min18 = `${year}-${month}-${day}`;
 
   return (
-    <main>
-      <section>
-        
-        <h1>{isEditing ? "Edit your profile" : "Sign Up as a New User"}</h1>
-        <p>{message}</p>
-        <p>Fields marked with * are required</p>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>
-              Display Name*:
-              <input
-                type="text"
-                id="displayName"
-                value={displayName}
-                name="displayName"
-                onChange={handleChange}
-                required
-              />
-            </label>
-          </div>
-          {isEditing ? "" : 
-          (
+    <div className="content is-flex is-flex-direction-column is-align-items-center is-size-4">
+      <h1 className="m-4">
+        {isEditing ? "Edit your Profile" : "Sign Up as a New User"}
+      </h1>
+      <p className="is-size-5">{message}</p>
+      <p className="is-size-5">Fields marked with * are required</p>
+      <form onSubmit={handleSubmit}>
+        <div className="field">
+          <label className="label is-size-5">Display Name*:</label>
+          <input
+            className="input"
+            type="text"
+            id="displayName"
+            value={displayName}
+            name="displayName"
+            onChange={handleChange}
+            required
+          />
+        </div>
+        {!isEditing && (
           <>
-          <div>
-            <label>
-              Email*:
+            <div className="field">
+              <label className="label is-size-5">Email*:</label>
               <input
+                className="input"
                 type="email"
                 id="email"
                 value={email}
@@ -108,80 +116,86 @@ const UserDetailForm = ({userId}) => {
                 onChange={handleChange}
                 required
               />
-            </label>
-          </div>
-          <div>
-            <label>
-              Password*:
+            </div>
+            <div className="field">
+              <label className="label is-size-5">Password*:</label>
               <input
+                className="input"
                 type="password"
                 id="password"
                 value={password}
                 name="password"
                 onChange={handleChange}
                 required
-                />
-            </label>
-          </div>
-          <div>
-            <label>
-              Confirm Password*:
+              />
+            </div>
+            <div className="field">
+              <label className="label is-size-5">Confirm Password*:</label>
               <input
+                className="input"
                 type="password"
                 id="confirm"
                 value={passwordConf}
                 name="passwordConf"
                 onChange={handleChange}
                 required
-                />
-            </label>
-          </div>
-          </>
-          )}
-          <div>
-            <label>
-              Birthday:
-              <input
-                type="date"
-                id="birthday"
-                value={birthday}
-                name="birthday"
-                onChange={handleChange}
-                max={min18}
               />
-            </label>
-          </div>
-          <div>
-            <label>
-              Contact Number:
-              <input
-                type="String"
-                id="contactNumber"
-                value={contactNumber}
-                name="contactNumber"
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-          <br />
-          {isEditing ?             
-          ( <>
-            <button type="submit">Update profile</button> 
-            <br />
-            <button onClick={handleDelete}>Delete profile</button>
-          </>): 
-          (
-          <>
-            <button type="submit" disabled={isFormInvalid()}>Sign Up</button>
-            <br />
-            <button onClick={() => navigate("/")}>Cancel</button>
+            </div>
           </>
-          )}
-          </form>
-
-          {isEditing ? "" : <Link to="/sign-in">Already have an account? Sign In Here</Link>}
-        </section>
-    </main>
+        )}
+        <div className="field">
+          <label className="label is-size-5">Birthday:</label>
+          <input
+            className="input"
+            type="date"
+            id="birthday"
+            value={birthday}
+            name="birthday"
+            onChange={handleChange}
+            max={min18}
+          />
+        </div>
+        <div className="field">
+          <label className="label is-size-5">Contact Number:</label>
+          <input
+            className="input"
+            type="String"
+            id="contactNumber"
+            value={contactNumber}
+            name="contactNumber"
+            onChange={handleChange}
+          />
+        </div>
+        {isEditing ? (
+          <div className="is-flex is-justify-content-center">
+            <button className="button m-3" type="submit">
+              Update profile
+            </button>
+            <button className="button m-3 is-danger" onClick={handleDelete}>
+              Delete Profile
+            </button>
+          </div>
+        ) : (
+          <div className="is-flex is-justify-content-center">
+            <button
+              className="button m-3 is-primary"
+              type="submit"
+              disabled={isFormInvalid()}
+            >
+              Sign Up
+            </button>
+            <button className="button m-3 is-danger" onClick={() => navigate("/")}>
+              Cancel
+            </button>
+          </div>
+        )}
+      </form>
+      {!isEditing && (
+        <Link className="is-italic m-3" to="/login">
+          Already have an account? Login Here
+        </Link>
+      )}
+    </div>
   );
 };
 
