@@ -1,49 +1,30 @@
 const Landing = () => {
   return (
     <>
-      <main>
-        <section>
-          <header>
-            <h3>HOO WE ARE</h3>
-            <h1>ABOUT US</h1>
-          </header>
-          <article>
-            <p>
-              Not everyone is a morning person. That's why we're building Hoot,
-              an open and inclusive place for night owls to share their ideas,
-              thoughts, and knowledge with one another. We provide a platform
-              for people to share ideas in the early hours of the morning when
-              owl brains work best. Hoot is a community of self-identifying owls
-              like you, that wants to make sure you always have something
-              interesting to say no matter what time of day it is. You no longer
-              have to worry about your troubles keeping you up during the day.
-              You can now blog about your favorite topics and connect with other
-              owls at night. With Hoot, it's never too late to post.
-            </p>
-          </article>
-        </section>
-
-        <section>
-          <header>
-            <h3>WHO GIVES A HOOT?</h3>
-            <h1>TESTIMONIALS</h1>
-          </header>
-          <article>
-            <header>
-              <h4>Ben Manley</h4>
-              <p>Software Engineer</p>
-            </header>
-            <p>
-              I found Hoot through a friend of mine, and I'm so glad I did. As a
-              night owl, I have a hard time finding blogging apps that fit my
-              lifestyle. The interface is so easy to use and makes it really
-              convenient for me to write my blog posts at night.
-            </p>
-          </article>
-        </section>
-      </main>
-
-      <footer>© 2025 HOOT INC. OWL RIGHTS RESERVED</footer>
+      <div className="content">
+        <div className="is-flex is-flex-direction-column is-align-items-center">
+          <h1 className="is-italic m-5 is-underlined">
+            WELCOME TO ARASHI RESERVATIONS!
+          </h1>
+          <h1 className="m-5 is-italic">ABOUT US</h1>
+          <p className="is-size-5">
+            Arashi Reservation App is a streamlined booking platform that allows
+            users to easily reserve tables at our branches, view upcoming/past
+            reservations, and manage bookings—all in one intuitive interface.
+            Designed for speed, simplicity, and convenience.
+          </p>
+          <p className="has-text-white is-size-4 has-text-weight-bold is-italic">
+            Sign Up/Login and Click on 'Reservations' to start making a
+            reservation with us!
+          </p>
+          <p className="has-text-white is-size-4 has-text-weight-bold is-italic m-(-2)">
+            Click on 'Find Us' to view specific details of our outlets!
+          </p>
+        </div>
+      </div>
+      <footer className="is-flex is-justify-content-center">
+        © 2025 ARASHI RESERVATIONS, ALL RIGHTS RESERVED
+      </footer>
     </>
   );
 };

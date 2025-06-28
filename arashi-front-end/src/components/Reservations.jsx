@@ -8,35 +8,51 @@ const Reservations = () => {
   const { user } = useContext(UserContext);
 
   const handleUpcoming = () => {
-    navigate(`/reservations/upcoming`)
-  }
-  
+    navigate(`/reservations/upcoming`);
+  };
+
   const handlePast = () => {
-   navigate(`/reservations/past`)
-  }
- 
+    navigate(`/reservations/past`);
+  };
+
   const handleNewReservation = () => {
-    navigate(`/reservations/new`)
-  }
+    navigate(`/reservations/new`);
+  };
 
   return (
-  <>
-    {!user ? (
-      <h2>Please log in to see your reservations</h2>
-    ):(
-      <>
-      <h1>{user.displayName}'s Reservations</h1>
-        <div>
-          <button onClick={handlePast}>Past Reservations</button>
-          <button onClick={handleUpcoming}>Upcoming Reservations</button>
+    <>
+      {!user ? (
+        <div className="is-flex is-justify-content-center">
+          <div
+            className="content card has-text-centered mb-6"
+            style={{ width: "650px" }}
+          >
+            <h2 className="pt-4">
+              Please login to view/edit your reservations
+            </h2>
+          </div>
         </div>
-        <div>
-          <button onClick={handleNewReservation}>Make a New Reservation</button>
+      ) : (
+        <div className="content">
+          <h1 className="has-text-centered m-5">
+            {user.displayName}'s Reservations
+          </h1>
+          <div className="is-flex is-justify-content-space-evenly my-6">
+            <button className="button is-size-4 is-link" onClick={handlePast}>
+              Past Reservations
+            </button>
+            <button className="button is-size-4 is-link" onClick={handleUpcoming}>
+              Upcoming Reservations
+            </button>
+            <button className="button is-size-4 is-link" onClick={handleNewReservation}>
+              Make a New Reservation
+            </button>
+          </div>
         </div>
-      </>
-    ) }
-    <Disclaimer />
-  </>
-)};
+      )}
+      <Disclaimer />
+    </>
+  );
+};
 
 export default Reservations;
