@@ -10,41 +10,39 @@ const NavBar = () => {
   };
 
   return (
-    <>
-      <nav className="navbar">
+    <div>
+      <nav className="navbar has-background-inherit is-light is-flex flex-direction-row is-justify-content-space-between px-6">
         <div className="navbar-start">
           <Link
-            className="navbar-item has-text-weight-bold is-size-3 px-4 py-4 is-italic has-text-link"
+            className="navbar-item has-text-weight-bold is-size-3 px-4 py-4 is-italic"
             to="/"
           >
             ARASHI RESERVATIONS
           </Link>
         </div>
-        <div>
-          <div className="navbar-end is-size-3 is-italic">
+          <div className="navbar-end is-size-3 is-italic is-flex flex-direction-row">
             <Link
-              className="navbar-item px-4 py-4 has-text-link"
+              className="navbar-item px-4 py-4"
               to="/reservations"
             >
               Reservations
             </Link>
-            <Link className="navbar-item px-4 py-4 has-text-link" to="/find-us">
+            <Link className="navbar-item px-4 py-4" to="/find-us">
               Find Us
             </Link>
           </div>
-        </div>
-      </nav>
-      <div className="is-flex is-justify-content-flex-end is-italic">
+          </nav>
+      <nav className="navbar has-background-inherit is-light is-flex is-justify-content-flex-end is-italic px-6">
         {user ? (
           <ul className="is-flex is-size-5 ">
-            <li className="px-4">Welcome, {user.displayName}</li>
-            <li className="px-4">
-              <Link className="has-text-link" to={`/profile`}>
+            <li className="navbar-item px-4">Welcome, {user.displayName}</li>
+            <li className=" px-4">
+              <Link className="navbar-item" to={`/profile`}>
                 {user.displayName}'s Profile
               </Link>
             </li>
-            <li className="px-4">
-              <Link className="has-text-link" to="/" onClick={handleSignOut}>
+            <li className=" px-4">
+              <Link className="navbar-item" to="/" onClick={handleSignOut}>
                 Sign Out
               </Link>
             </li>
@@ -52,19 +50,19 @@ const NavBar = () => {
         ) : (
           <ul className="is-flex is-size-4">
             <li className="px-4">
-              <Link className="has-text-link" to="/sign-up">
+              <Link to="/sign-up">
                 SIGN UP
               </Link>
             </li>
             <li className="px-4">
-              <Link className="has-text-link" to="/login">
+              <Link to="/login">
                 LOGIN
               </Link>
             </li>
           </ul>
         )}
-      </div>
-    </>
+      </nav>
+    </div>
   );
 };
 

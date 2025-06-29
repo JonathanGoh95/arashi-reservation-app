@@ -22,7 +22,7 @@ const Reservations = () => {
   return (
     <>
       {!user ? (
-        <div className="is-flex is-justify-content-center mt-4">
+        <div className=" is-flex is-justify-content-center mt-4">
           <div
             className="content card has-text-centered mb-6"
             style={{ width: "650px" }}

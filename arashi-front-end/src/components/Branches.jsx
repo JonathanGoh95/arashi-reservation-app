@@ -34,7 +34,7 @@ const Branches = () => {
       <p className="has-text-centered has-text-grey">{user ? "" : "Login to make a reservation!"}</p>
       {loading && (
         <div className="is-flex is-justify-content-center m-6 is-size-2">
-          <progress className="progress is-link"/>
+          <progress className="is-dark"/>
         </div>
       )}
       <div className=" container is-flex ">

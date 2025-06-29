@@ -12,10 +12,29 @@ import Profile from "./components/Profile";
 import EditReservation from "./components/EditReservation";
 import EditProfile from "./components/EditProfile";
 import UserDetailForm from "./components/UserDetailForm";
+import background from "../images/background.jpg"
+
+const styleBackground = {
+  position : "absolute",
+  width:  "100vw",
+  height: " 100vh",
+
+  backgroundImage: `url(${background})`,
+  backgroundSize: "cover",
+  backgroundRepeat: "repeat",
+}
+const styleMain = {
+  position : "absolute",
+  width:  "100vw",
+  height: " 100vh",
+}
 
 const App = () => {
   return (
     <>
+    <div style={styleMain}>
+    <div style={styleBackground}>
+
       <NavBar />
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -27,15 +46,20 @@ const App = () => {
         <Route
           path="/reservations/upcoming"
           element={<UpcomingReservations />}
-        />
+          />
         <Route path="/reservations/new" element={<ReservationForm />} />
         <Route
           path="/reservations/:reservationId/edit"
           element={<EditReservation />}
-        />
+          />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/edit" element={<EditProfile />} />
       </Routes>
+      <footer className="is-flex is-justify-content-center is-align-item-flex-end">
+        © 2025 ARASHI RESERVATIONS, ALL RIGHTS RESERVED
+      </footer>
+    </div>
+    </div>
     </>
   );
 };
