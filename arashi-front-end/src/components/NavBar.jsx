@@ -35,14 +35,14 @@ const NavBar = () => {
       <nav className="navbar has-background-inherit is-light is-flex is-justify-content-flex-end is-italic px-6">
         {user ? (
           <ul className="is-flex is-size-5 ">
-            <li className="navbar-item px-4">Welcome, {user.displayName}</li>
+            <li className="navbar-item px-4 has-text-black">Welcome, {user.displayName}</li>
             <li className=" px-4">
-              <Link className="navbar-item" to={`/profile`}>
+              <Link className="navbar-item has-text-black" to={`/profile`}>
                 {user.displayName}'s Profile
               </Link>
             </li>
             <li className=" px-4">
-              <Link className="navbar-item" to="/" onClick={handleSignOut}>
+              <Link className="navbar-item has-text-black" to="/" onClick={handleSignOut}>
                 Sign Out
               </Link>
             </li>
@@ -50,12 +50,12 @@ const NavBar = () => {
         ) : (
           <ul className="is-flex is-size-4">
             <li className="px-4">
-              <Link to="/sign-up">
+              <Link className="navbar-item has-text-black" to="/sign-up">
                 SIGN UP
               </Link>
             </li>
             <li className="px-4">
-              <Link to="/login">
+              <Link className="navbar-item has-text-black" to="/login">
                 LOGIN
               </Link>
             </li>

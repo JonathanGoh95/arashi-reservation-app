@@ -17,8 +17,8 @@ import background from "../images/background.jpg"
 const styleBackground = {
   position : "absolute",
   width:  "100vw",
-  height: " 100vh",
-
+  height: "100vh",
+  overflow: "auto",
   backgroundImage: `url(${background})`,
   backgroundSize: "cover",
   backgroundRepeat: "repeat",
@@ -26,9 +26,17 @@ const styleBackground = {
 const styleMain = {
   position : "absolute",
   width:  "100vw",
-  height: " 100vh",
+  height: "100vh",
 }
 
+const styleFooter={
+  position : "fixed",
+  bottom: "0",
+  display: "center",
+  textAlign: "center",
+  width: "100%",
+  padding: "10px"
+}
 const App = () => {
   return (
     <>
@@ -55,7 +63,7 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/edit" element={<EditProfile />} />
       </Routes>
-      <footer className="is-flex is-justify-content-center is-align-item-flex-end">
+      <footer style={styleFooter} className="is-flex is-justify-content-center is-align-item-flex-end">
         © 2025 ARASHI RESERVATIONS, ALL RIGHTS RESERVED
       </footer>
     </div>

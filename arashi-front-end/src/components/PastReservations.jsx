@@ -38,7 +38,7 @@ const PastReservations = () => {
 
           {loading && (
             <div className="is-flex is-justify-content-center m-6 is-size-2">
-              <progress className="progress is-link"/>
+              <progress className="is-link"/>
             </div>
           )}
 
