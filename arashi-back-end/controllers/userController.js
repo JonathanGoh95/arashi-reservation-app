@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const { createPayload } = require("../middleware/utils");
+const jwt = require("jsonwebtoken");
 
 const { loadUser } = require("../middleware/utils");
 
@@ -31,6 +33,13 @@ const updateUser = async (req, res) => {
       { runValidators: true },
       { new: true }
     );
+
+    const payload = createPayload(updatedUser);
+
+    const token = jwt.sign({ payload }, process.env.JWT_SECRET, {
+      expiresIn: "1hr",
+    });
+
     res.status(200).json(updatedUser);
   } catch (error) {
     res.status(500).json({ err: error.message });

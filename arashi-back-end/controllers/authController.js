@@ -1,19 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
 const User = require("../models/user");
+const { createPayload } = require("../middleware/utils");
 
 const saltRounds = 12;
-
-const createPayload = (user) => {
-  return {
-    email: user.email,
-    _id: user._id,
-    displayName: user.displayName,
-    birthday: user.birthday,
-    contactNumber: user.contactNumber,
-  };
-};
 
 const signUp = async (req, res) => {
   try {
@@ -53,7 +43,7 @@ const signIn = async (req, res) => {
 
     const isPasswordCorrect = bcrypt.compareSync(
       req.body.password,
-      user.hashedPassword,
+      user.hashedPassword
     );
     if (!isPasswordCorrect) {
       return res.status(401).json({ err: "Invalid credentials." });

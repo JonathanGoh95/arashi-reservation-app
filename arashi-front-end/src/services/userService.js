@@ -14,7 +14,7 @@ const getUser = async (userId) => {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
 
-      if (!res.ok) throw new Error("Failed to show user details");
+      // if (!res.ok) throw new Error("Failed to show user details");
       const data = await res.json();
       if (data.err) {
         throw new Error(data.err);
@@ -40,12 +40,12 @@ const updateUser = async (userId, userFormData) => {
 
     const data = await res.json();
 
-    // if (data.token) {
-    //   localStorage.setItem("token", data.token);
-    //   const payload = JSON.parse(atob(data.token.split(".")[1])).payload;
-    //   console.log(payload);
-    //   return data;
-    // }
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+      const payload = JSON.parse(atob(data.token.split(".")[1])).payload;
+      console.log(payload);
+      return data;
+    }
 
     if (data.err) {
       throw new Error(data.err);

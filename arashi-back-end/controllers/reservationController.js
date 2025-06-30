@@ -58,10 +58,22 @@ const viewOneReservation = async (req, res) => {
 const createReservation = async (req, res) => {
   try {
     const branch = await Branch.findOne({ location: req.body.branch });
+    if (!branch) {
+      throw new Error("Branch not found!");
+    }
+
+    if (branch.totalCapacity < req.body.pax) {
+      throw new Error("Not enough capcity at this branch!");
+    }
+
+    branch.totalCapacity -= req.body.pax;
+    await branch.save();
+
     req.body.user = req.user._id;
     req.body.branch = branch._id;
 
     const reservation = await Reservation.create(req.body); // Create the new hoot document in the database
+
     res.status(201).json(reservation);
   } catch (err) {
     res.status(500).json({ err: err.message });

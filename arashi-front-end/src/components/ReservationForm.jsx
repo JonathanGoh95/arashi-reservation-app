@@ -29,7 +29,6 @@ const ReservationForm = ({ reservationId }) => {
     branch: "",
     pax: "1",
     remarks: "",
-    user: user._id,
   });
 
   useEffect(() => {
@@ -44,7 +43,6 @@ const ReservationForm = ({ reservationId }) => {
           branch: reservation.branch.location,
           pax: reservation.pax,
           remarks: reservation.remarks,
-          user: reservation.user._id,
         });
       };
       fetchReservation();
