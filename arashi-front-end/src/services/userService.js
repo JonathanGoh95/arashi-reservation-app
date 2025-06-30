@@ -10,7 +10,7 @@ const getUser = async (userId) => {
     if (currentUser._id !== userId) {
       throw new Error("Unauthorized");
     } else {
-      const res = await fetch(`${BASE_URL}/${userId}/edit`, {
+      const res = await fetch(`${BASE_URL}/${userId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
 
@@ -42,9 +42,8 @@ const updateUser = async (userId, userFormData) => {
 
     if (data.token) {
       localStorage.setItem("token", data.token);
-      const payload = JSON.parse(atob(data.token.split(".")[1])).payload;
-      console.log(payload);
-      return data;
+      const payload = getUserFromToken();
+      return payload;
     }
 
     if (data.err) {
@@ -65,7 +64,6 @@ const deleteUser = async (userId) => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    if (!res.ok) throw new Error("Failed to delete user");
     const data = await res.json();
     if (data.err) {
       throw new Error(data.err);

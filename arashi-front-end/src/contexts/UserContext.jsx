@@ -4,6 +4,7 @@ const UserContext = createContext();
 
 const getUserFromToken = () => {
   const token = localStorage.getItem("token");
+  console.log("token",token)
 
   if (!token) return null;
 
@@ -12,7 +13,7 @@ const getUserFromToken = () => {
 
 function UserProvider({ children }) {
   const [user, setUser] = useState(getUserFromToken());
-console.log(user)
+  console.log("user",user)
   const value = { user, setUser };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

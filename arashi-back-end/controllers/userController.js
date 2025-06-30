@@ -27,12 +27,10 @@ const updateUser = async (req, res) => {
       res.status(403).send("Unauthorized User");
     }
 
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      req.body,
-      { runValidators: true },
-      { new: true }
-    );
+    const updatedUser = await User.findByIdAndUpdate(userId, req.body, {
+      new: true,
+      runValidators: true,
+    });
 
     const payload = createPayload(updatedUser);
 
@@ -40,7 +38,7 @@ const updateUser = async (req, res) => {
       expiresIn: "1hr",
     });
 
-    res.status(200).json(updatedUser);
+    res.status(200).json({ token, payload });
   } catch (error) {
     res.status(500).json({ err: error.message });
   }
