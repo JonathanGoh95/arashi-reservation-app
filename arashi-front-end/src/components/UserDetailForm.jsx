@@ -24,7 +24,7 @@ const UserDetailForm = ({userId}) => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       const userProfile = await getUser(userId);
-      console.log(userProfile)
+      console.log("getProfile", userProfile)
       setFormData({
         displayName: userProfile.displayName,
         email: userProfile.email,
@@ -50,15 +50,16 @@ const UserDetailForm = ({userId}) => {
   };
 
   const handleSubmit = async (evt) => {
-    console.log("signing up");
     evt.preventDefault();
     try {
       if (isEditing) {
+        console.log("editing");
         const updateProfile = await updateUser(userId, formData);
         setUser(updateProfile);
         navigate(`/profile`);
         toast.success("Account Successfully Updated")
       } else {
+        console.log("signing up");
         const newUser = await signUp(formData);
         setUser(newUser);
         navigate(`/reservations`);

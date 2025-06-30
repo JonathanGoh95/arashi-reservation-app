@@ -8,10 +8,14 @@ import {
 } from "../services/reservationService";
 import { indexBranch } from "../services/branchService";
 import { ToastContainer, toast } from "react-toastify";
+
 const today = new Date();
 let tomorrow = new Date(today)
 tomorrow.setDate(tomorrow.getDate() + 1);
 let minDate = new Date(tomorrow).toISOString().split("T")[0];
+
+tomorrow.setDate(tomorrow.getDate() + 30);
+let maxDate = new Date(tomorrow).toISOString().split("T")[0];
 
 const ReservationForm = ({ reservationId }) => {
   const navigate = useNavigate();
@@ -78,11 +82,9 @@ const ReservationForm = ({ reservationId }) => {
     try {
       if (isEditing) {
         await editReservation(reservationId, formData);
-        console.log(formData)
         toast.success("Reservation Successfully Edited")
       } else {
         await createReservation(formData);
-        console.log(formData)
         toast.success("Reservation Successfully Created")
       }
       navigate(`/reservations/upcoming`);
@@ -91,9 +93,10 @@ const ReservationForm = ({ reservationId }) => {
     }
   };
 
-  // const isFormInvalid = () => {
-  //   return !(username && password && password === passwordConf);
-  // };
+  const isFormInvalid = () => {
+    return !(reservationName.length >2 && reservationDate && reservationTime && contactNumber.length > 7 && branch && pax);
+  };
+
   return (
     <>
     <div className="content is-flex is-flex-direction-column is-align-items-center is-size-4">
@@ -109,6 +112,7 @@ const ReservationForm = ({ reservationId }) => {
               type="string"
               name="reservationName"
               value={reservationName}
+              minLength={3}
               onChange={handleChange}
             ></input>
         </div>
@@ -121,6 +125,7 @@ const ReservationForm = ({ reservationId }) => {
               type="string"
               name="contactNumber"
               value={contactNumber}
+              minLength={8}
               onChange={handleChange}
             ></input>
         </div>
@@ -166,6 +171,7 @@ const ReservationForm = ({ reservationId }) => {
             <input className="input"
               type="date"
               min={minDate}
+              max={maxDate}
               required
               name="reservationDate"
               value={reservationDate}
@@ -207,7 +213,7 @@ const ReservationForm = ({ reservationId }) => {
           
         </div>
         <div className="is-flex is-justify-content-center">
-          <button className="button is-primary mx-4 my-3" type="submit" onClick={handleSubmit}>
+          <button disabled={isFormInvalid()} className="button is-primary mx-4 my-3" type="submit" onClick={handleSubmit}>
             {isEditing ? "Update Reservation" : "Submit Reservation"}
           </button>
         </div>

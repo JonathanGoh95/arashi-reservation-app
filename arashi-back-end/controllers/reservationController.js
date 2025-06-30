@@ -13,7 +13,6 @@ const viewPastReservations = async (req, res) => {
       .populate({ path: "user", select: "displayName" })
       .populate({ path: "branch", select: "location" })
       .sort({ reservationDate: "desc" });
-    console.log(reservations);
     res.status(200).json(reservations);
   } catch (err) {
     res.status(500).json({ err: err.message });
@@ -32,7 +31,6 @@ const viewUpcomingReservations = async (req, res) => {
       .populate({ path: "user", select: "displayName" })
       .populate({ path: "branch", select: "location" })
       .sort({ reservationDate: "asc" });
-    console.log(reservations);
     res.status(200).json(reservations);
   } catch (err) {
     res.status(500).json({ err: err.message });
@@ -90,8 +88,7 @@ const editReservation = async (req, res) => {
     const reservation = await Reservation.findByIdAndUpdate(
       reservationId,
       req.body,
-      { runValidators: true },
-      { new: true }
+      { new: true, runValidators: true }
     )
       .populate({ path: "user", select: "displayName" })
       .populate({ path: "branch", select: "location" });

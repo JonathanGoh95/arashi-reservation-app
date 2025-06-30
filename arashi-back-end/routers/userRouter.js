@@ -10,7 +10,7 @@ const {
 // Create User Details
 
 // Get User Details
-router.get("/:userId/edit", verifyToken, getUser);
+router.get("/:userId", verifyToken, getUser);
 // Update User Details
 router.put("/:userId/edit", verifyToken, updateUser);
 // Delete User Profile

@@ -6,7 +6,6 @@ const Profile = () => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
 
-  console.log(user);
   return (
     <div className="is-flex is-justify-content-center">
       {!user ? (

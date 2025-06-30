@@ -48,7 +48,7 @@ const signIn = async (req, res) => {
     if (!isPasswordCorrect) {
       return res.status(401).json({ err: "Invalid credentials." });
     }
-
+    //to save the req.user as user
     const payload = createPayload(user);
 
     const token = jwt.sign({ payload }, process.env.JWT_SECRET, {
