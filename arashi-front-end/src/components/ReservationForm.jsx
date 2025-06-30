@@ -8,13 +8,10 @@ import {
 } from "../services/reservationService";
 import { indexBranch } from "../services/branchService";
 import { ToastContainer, toast } from "react-toastify";
-
-const year = new Date().toISOString().split("T")[0].split("-")[0];
-const month = new Date().toISOString().split("T")[0].split("-")[1];
-const day = String(
-  Number(new Date().toISOString().split("T")[0].split("-")[2]) + 1,
-);
-const minDate = `${year}-${month}-${day}`;
+const today = new Date();
+let tomorrow = new Date(today)
+tomorrow.setDate(tomorrow.getDate() + 1);
+let minDate = new Date(tomorrow).toISOString().split("T")[0];
 
 const ReservationForm = ({ reservationId }) => {
   const navigate = useNavigate();
@@ -57,6 +54,7 @@ const ReservationForm = ({ reservationId }) => {
   useEffect(() => {
       const fetchBranches = async () => {
         const branchesData = await indexBranch();
+        setFormData({...formData, branch: branchesData[0].location})
         setBranches(branchesData);
       };
       fetchBranches();
@@ -92,6 +90,9 @@ const ReservationForm = ({ reservationId }) => {
     }
   };
 
+  // const isFormInvalid = () => {
+  //   return !(username && password && password === passwordConf);
+  // };
   return (
     <>
     <div className="content is-flex is-flex-direction-column is-align-items-center is-size-4">

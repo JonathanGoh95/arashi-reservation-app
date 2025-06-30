@@ -46,10 +46,17 @@ const createReservation = async (reservationFormData) => {
       },
       body: JSON.stringify(reservationFormData),
     });
-    if (!res.ok) throw new Error("Failed to create Reservation");
-    return res.json();
-  } catch (error) {
-    console.log(error);
+
+    const data = await res.json();
+
+    if (data.err) {
+      throw new Error(data.err);
+    }
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -63,10 +70,17 @@ const editReservation = async (reservationId, reservationFormData) => {
       },
       body: JSON.stringify(reservationFormData),
     });
-    if (!res.ok) throw new Error("Failed to update Reservation");
-    return res.json();
-  } catch (error) {
-    console.log(error);
+
+    const data = await res.json();
+
+    if (data.err) {
+      throw new Error(data.err);
+    }
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
   }
 };
 
