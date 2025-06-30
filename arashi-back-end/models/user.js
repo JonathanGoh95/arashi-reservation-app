@@ -14,13 +14,12 @@ const userSchema = new Schema({
       validator: isEmail,
       message: "Please enter a valid email address",
     },
-    //Reference: https://stackoverflow.com/questions/18022365/mongoose-validate-email-syntax
   },
   displayName: {
     type: String,
-    required: true,
-    minlength: 3,
-    maxlength: 50,
+    required: [true, "Display name is required"],
+    minlength: [3, `Display name must be at least 3 letters`],
+    maxlength: [50, "Display name cannot exceed 50 letters"],
   },
   hashedPassword: {
     type: String,
@@ -31,15 +30,24 @@ const userSchema = new Schema({
     type: Date,
     validate: {
       validator: function (value) {
-        return value < new Date();
-        //Reference same as above
+        const userBirthYear = Number(
+          value.toISOString().split("T")[0].split("-")[0]
+        );
+        const thisYear = Number(
+          new Date().toISOString().split("T")[0].split("-")[0]
+        );
+
+        value = thisYear - userBirthYear;
+
+        return value >= 18;
       },
-      message: "Your birthday must be in the past.",
+      message: "You must be at least 18 years old.",
     },
   },
+
   contactNumber: {
     type: String,
-    //Includes the case for international numbers
+    minlength: [8, `Contact number must be at least 8 numbers`],
   },
 });
 

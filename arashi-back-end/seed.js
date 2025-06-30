@@ -33,7 +33,7 @@ const createUsers = async () => {
   const usersData = [
     {
       displayName: "Joanne",
-      email: "joannekjy@hotmail.com",
+      email: "joanne123@hotmail.com",
       birthday: "2001-03-04",
       hashedPassword: bcrypt.hashSync("111", saltRounds),
       contactNumber: "88888888",
@@ -47,7 +47,7 @@ const createUsers = async () => {
     },
     {
       displayName: "Simon",
-      email: "simon123@gmail.com",
+      email: "simon666@gmail.com",
       birthday: "1996-07-16",
       hashedPassword: bcrypt.hashSync("666", saltRounds),
       contactNumber: "44444444",
@@ -67,7 +67,6 @@ const createBranches = async () => {
       address: "201 Victoria Street #01-09 Singapore 188067",
       contactNumber: "6601 6601",
       businessHours: "10:30 AM to 09:00 PM",
-      totalTables: 4,
       totalCapacity: 8,
     },
     {
@@ -75,7 +74,6 @@ const createBranches = async () => {
       address: "111 Somerset Rd #02-03 Singapore 238164",
       contactNumber: "6601 6603",
       businessHours: "10:30 AM to 09:00 PM",
-      totalTables: 4,
       totalCapacity: 8,
     },
     {
@@ -83,8 +81,7 @@ const createBranches = async () => {
       address: "10 Tampines Central 1 #03-11 Singapore 529536",
       contactNumber: "6601 6604",
       businessHours: "10:30 AM to 09:00 PM",
-      totalTables: 4,
-      //what will happen if someone make a reservations? will this reduce?
+
       totalCapacity: 8,
       //8 seats per slot
     },
@@ -93,7 +90,6 @@ const createBranches = async () => {
       address: "50 Jurong Gateway Rd #03-25 Singapore 608549",
       contactNumber: "6601 6605",
       businessHours: "10:30 AM to 09:00 PM",
-      totalTables: 4,
       totalCapacity: 8,
     },
     {
@@ -101,7 +97,6 @@ const createBranches = async () => {
       address: "930 Yishun Avenue 2 #04-03 Singapore 769098",
       contactNumber: "6601 6602",
       businessHours: "10:30 AM to 09:00 PM",
-      totalTables: 4,
       totalCapacity: 8,
     },
   ];
@@ -115,12 +110,13 @@ const createBranches = async () => {
 const createReservations = async () => {
   const users = await User.find({});
   const branches = await Branch.find({});
+  const reservationTime = ["11.00am", "1.00pm", "5.00pm", "7.00pm"];
 
   const reservationsData = [
     {
       reservationName: users[1].displayName,
-      reservationDate: "2025-06-29",
-      reservationTime: "11:00am",
+      reservationDate: "2025-07-29",
+      reservationTime: reservationTime[1],
       contactNumber: users[1].contactNumber,
       branch: branches[1]._id,
       pax: 2,
@@ -129,8 +125,8 @@ const createReservations = async () => {
     },
     {
       reservationName: users[2].displayName,
-      reservationDate: "2025-06-29",
-      reservationTime: "8:00pm",
+      reservationDate: "2025-07-23",
+      reservationTime: reservationTime[2],
       contactNumber: users[2].contactNumber,
       branch: branches[2]._id,
       pax: 2,
@@ -139,8 +135,8 @@ const createReservations = async () => {
     },
     {
       reservationName: users[0].displayName,
-      reservationDate: "2025-06-29",
-      reservationTime: "1:00pm",
+      reservationDate: "2025-07-12",
+      reservationTime: reservationTime[0],
       contactNumber: users[0].contactNumber,
       branch: branches[0]._id,
       pax: 2,
@@ -149,8 +145,8 @@ const createReservations = async () => {
     },
     {
       reservationName: users[0].displayName,
-      reservationDate: "2025-06-29",
-      reservationTime: "6:00pm",
+      reservationDate: "2025-08-11",
+      reservationTime: reservationTime[3],
       contactNumber: users[0].contactNumber,
       branch: branches[3]._id,
       pax: 2,
@@ -159,8 +155,8 @@ const createReservations = async () => {
     },
     {
       reservationName: users[0].displayName,
-      reservationDate: "2025-05-29",
-      reservationTime: "6:00pm",
+      reservationDate: "2025-07-29",
+      reservationTime: reservationTime[0],
       contactNumber: users[0].contactNumber,
       branch: branches[3]._id,
       pax: 2,
