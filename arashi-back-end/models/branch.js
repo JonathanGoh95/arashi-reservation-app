@@ -22,7 +22,7 @@ const branchSchema = new Schema({
   businessHours: {
     type: String,
     trim: true,
-    required: [true, "Business hour is required"],
+    required: [true, "Business hours are required"],
   },
   totalCapacity: {
     type: Number,

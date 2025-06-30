@@ -81,7 +81,6 @@ const createBranches = async () => {
       address: "10 Tampines Central 1 #03-11 Singapore 529536",
       contactNumber: "6601 6604",
       businessHours: "10:30 AM to 09:00 PM",
-
       totalCapacity: 8,
       //8 seats per slot
     },
