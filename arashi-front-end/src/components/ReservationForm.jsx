@@ -26,7 +26,7 @@ const ReservationForm = ({ reservationId }) => {
     reservationDate: minDate,
     reservationTime: timeSlots[0],
     contactNumber: user.contactNumber,
-    branch: branches[0],
+    branch: "",
     pax: "1",
     remarks: "",
     user: user._id,
@@ -56,6 +56,7 @@ const ReservationForm = ({ reservationId }) => {
         const branchesData = await indexBranch();
         setFormData({...formData, branch: branchesData[0].location})
         setBranches(branchesData);
+        console.log(branchesData)
       };
       fetchBranches();
   }, []);
@@ -79,9 +80,11 @@ const ReservationForm = ({ reservationId }) => {
     try {
       if (isEditing) {
         await editReservation(reservationId, formData);
+        console.log(formData)
         toast.success("Reservation Successfully Edited")
       } else {
         await createReservation(formData);
+        console.log(formData)
         toast.success("Reservation Successfully Created")
       }
       navigate(`/reservations/upcoming`);
@@ -206,12 +209,12 @@ const ReservationForm = ({ reservationId }) => {
           
         </div>
         <div className="is-flex is-justify-content-center">
-          <button className="button is-primary mx-4 my-3" type="submit">
+          <button className="button is-primary mx-4 my-3" type="submit" onClick={handleSubmit}>
             {isEditing ? "Update Reservation" : "Submit Reservation"}
           </button>
-          <button className="button is-danger mx-4 my-3" onClick={() => navigate(isEditing ? "/reservations/upcoming" : "/reservations")}>Back</button>
         </div>
       </form>
+      <button className="button is-danger mx-4 my-3" onClick={() => navigate(isEditing ? "/reservations/upcoming" : "/reservations")}>Back</button>
     </div>
     {/* Toastify Container for Visual Customization and Appearance in Browser */}
     <ToastContainer

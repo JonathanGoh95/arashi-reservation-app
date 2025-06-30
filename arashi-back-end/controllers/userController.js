@@ -25,9 +25,12 @@ const updateUser = async (req, res) => {
       res.status(403).send("Unauthorized User");
     }
 
-    const updatedUser = await User.findByIdAndUpdate(userId, req.body, {
-      new: true,
-    });
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      req.body,
+      { runValidators: true },
+      { new: true }
+    );
     res.status(200).json(updatedUser);
   } catch (error) {
     res.status(500).json({ err: error.message });

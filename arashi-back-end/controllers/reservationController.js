@@ -1,20 +1,6 @@
 const Reservation = require("../models/reservation.js");
 const Branch = require("../models/branch.js");
 
-// Create Reservations
-const createReservation = async (req, res) => {
-  try {
-    const branch = await Branch.findOne({ location: req.body.branch });
-    req.body.user = req.user._id;
-    req.body.branch = branch._id;
-
-    const reservation = await Reservation.create(req.body); // Create the new hoot document in the database
-    res.status(201).json(reservation);
-  } catch (err) {
-    res.status(500).json({ err: err.message });
-  }
-};
-
 // Read Past Reservations
 const viewPastReservations = async (req, res) => {
   try {
@@ -68,6 +54,20 @@ const viewOneReservation = async (req, res) => {
   }
 };
 
+// Create Reservations
+const createReservation = async (req, res) => {
+  try {
+    const branch = await Branch.findOne({ location: req.body.branch });
+    req.body.user = req.user._id;
+    req.body.branch = branch._id;
+
+    const reservation = await Reservation.create(req.body); // Create the new hoot document in the database
+    res.status(201).json(reservation);
+  } catch (err) {
+    res.status(500).json({ err: err.message });
+  }
+};
+
 // Edit Reservation
 const editReservation = async (req, res) => {
   try {
@@ -78,12 +78,13 @@ const editReservation = async (req, res) => {
     const reservation = await Reservation.findByIdAndUpdate(
       reservationId,
       req.body,
-      { new: true },
+      { runValidators: true },
+      { new: true }
     )
       .populate({ path: "user", select: "displayName" })
       .populate({ path: "branch", select: "location" });
 
-    res.status(201).json(reservation);
+    res.status(200).json(reservation);
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
