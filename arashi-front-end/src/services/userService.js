@@ -37,13 +37,19 @@ const updateUser = async (userId, userFormData) => {
       },
       body: JSON.stringify(userFormData),
     });
-    if (!res.ok) throw new Error("Failed to update user details");
+
     const data = await res.json();
+
+    // if (data.token) {
+    //   localStorage.setItem("token", data.token);
+    //   const payload = JSON.parse(atob(data.token.split(".")[1])).payload;
+    //   console.log(payload);
+    //   return data;
+    // }
 
     if (data.err) {
       throw new Error(data.err);
     }
-
     return data;
   } catch (err) {
     console.log(err);

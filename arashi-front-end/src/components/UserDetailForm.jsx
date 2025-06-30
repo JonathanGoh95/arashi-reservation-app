@@ -16,6 +16,7 @@ const UserDetailForm = ({userId}) => {
     password: "",
     passwordConf: "",
     birthday: "",
+    contactNumber: "",
   });
 
   const isEditing = userId ? true : false;
@@ -23,6 +24,7 @@ const UserDetailForm = ({userId}) => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       const userProfile = await getUser(userId);
+      console.log(userProfile)
       setFormData({
         displayName: userProfile.displayName,
         email: userProfile.email,
