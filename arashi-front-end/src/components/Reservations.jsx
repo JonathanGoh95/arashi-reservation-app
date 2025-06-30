@@ -22,7 +22,7 @@ const Reservations = () => {
   return (
     <>
       {!user ? (
-        <div className=" is-flex is-justify-content-center mt-4">
+        <div className=" is-flex is-justify-content-center mt-4 has-text-black">
           <div
             className="content card has-text-centered mb-6"
             style={{ width: "650px" }}
@@ -34,17 +34,17 @@ const Reservations = () => {
         </div>
       ) : (
         <div className="content">
-          <h1 className="has-text-centered m-4">
+          <h1 className="has-text-centered has-text-black is-italic m-4">
             {user.displayName}'s Reservations
           </h1>
           <div className="is-flex is-justify-content-space-evenly my-6">
-            <button className="button is-size-4 is-link" onClick={handlePast}>
+            <button className="button is-size-4 is-primary has-text-black" onClick={handlePast}>
               Past Reservations
             </button>
-            <button className="button is-size-4 is-link" onClick={handleUpcoming}>
+            <button className="button is-size-4 is-primary has-text-black" onClick={handleUpcoming}>
               Upcoming Reservations
             </button>
-            <button className="button is-size-4 is-link" onClick={handleNewReservation}>
+            <button className="button is-size-4 is-primary has-text-black" onClick={handleNewReservation}>
               Make a New Reservation
             </button>
           </div>

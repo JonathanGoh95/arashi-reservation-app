@@ -63,7 +63,7 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/edit" element={<EditProfile />} />
       </Routes>
-      <footer style={styleFooter} className="is-flex is-justify-content-center is-align-item-flex-end">
+      <footer style={styleFooter} className="is-flex is-justify-content-center is-align-item-flex-end has-text-black p-2">
         © 2025 ARASHI RESERVATIONS, ALL RIGHTS RESERVED
       </footer>
     </div>

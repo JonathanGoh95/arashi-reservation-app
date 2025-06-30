@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router";
 import * as reservationService from "../services/reservationService";
+import { ToastContainer, toast } from "react-toastify";
 
 const UpcomingReservations = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const UpcomingReservations = () => {
     setReservations(
       reservations.filter((reservation) => reservationId !== reservation._id),
     );
+    toast.success("Reservation Successfully Deleted")
   };
 
   const handleBack = () => {
@@ -37,12 +39,12 @@ const UpcomingReservations = () => {
   return (
     <>
       {!user ? (
-        <div className="content is-flex is-justify-content-center">
+        <div className="content is-flex is-justify-content-center has-text-black">
           <h2>You are not authorised to view this page</h2>
         </div>
       ) : (
         <div className="content">
-          <h1 className="has-text-centered m-5 is-size-1 m-6">
+          <h1 className="has-text-centered m-5 is-size-1 m-6 has-text-black">
             {user.displayName}'s Upcoming Reservations
           </h1>
 
@@ -53,8 +55,8 @@ const UpcomingReservations = () => {
           )}
 
           {!loading && reservations && reservations.length !== 0 && (
-              <div className="table-container is-centered is-flex is-flex-direction-row is-justify-content-space-around p-6 ">
-              <table className="table is-bordered has-text-centered is-size-5">
+              <div className="is-flex is-justify-content-center">
+              <table className="table is-bordered has-text-centered is-size-4">
                 <thead>
                   <tr>
                     <th>Reservation Name</th>
@@ -67,7 +69,7 @@ const UpcomingReservations = () => {
                     <th>Actions</th>
                   </tr>
                 </thead>
-                <tbody className="is-size-4">
+                <tbody className="is-size-5">
                   {reservations.map((reservation) => (
                     <tr key={reservation._id}>
                       <th>{reservation.reservationName}</th>
@@ -109,18 +111,31 @@ const UpcomingReservations = () => {
             )}
 
           {!loading && reservations && reservations.length === 0 && (
-            <h2 className="has-text-centered">
-              You do not have any <strong>upcoming</strong> reservations
+            <h2 className="has-text-centered has-text-black">
+              No Upcoming Reservations Found!
             </h2>
           )}
         </div>
       )}
 
       <div className="is-flex is-justify-content-center">
-        <button className="button" onClick={handleBack}>
+        <button className="button is-danger" onClick={handleBack}>
           Back
         </button>
       </div>
+      {/* Toastify Container for Visual Customization and Appearance in Browser */}
+      <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+      />
     </>
   );
 };

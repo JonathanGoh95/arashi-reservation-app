@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { signIn } from "../services/authService";
-
 import { UserContext } from "../contexts/UserContext";
+import { ToastContainer, toast } from "react-toastify";
 
 const SignInForm = () => {
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ const SignInForm = () => {
       console.log("signing in");
       const signedInUser = await signIn(formData);
       setUser(signedInUser);
+      toast.success("Sign In Successful")
       navigate(`/reservations`);
     } catch (err) {
       setMessage(err.message);
@@ -32,13 +33,14 @@ const SignInForm = () => {
   };
 
   return (
+    <>
     <div className="content is-flex is-flex-direction-column is-align-items-center is-size-4">
-      <h1>Sign In</h1>
-      <p>{message}</p>
+      <h1 className="has-text-black is-italic">Sign In</h1>
+      <p className="has-text-black is-italic">{message}</p>
       <section>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <div className="field">
-            <label className="label is-size-5">Email:</label>
+            <label className="label is-size-5 has-text-black">Email:</label>
             <input
               className="input"
               type="email"
@@ -51,7 +53,7 @@ const SignInForm = () => {
             />
           </div>
           <div className="field">
-            <label className="label is-size-5">Password:</label>
+            <label className="label is-size-5 has-text-black">Password:</label>
             <input
               className="input"
               type="password"
@@ -74,6 +76,20 @@ const SignInForm = () => {
         </form>
       </section>
     </div>
+    {/* Toastify Container for Visual Customization and Appearance in Browser */}
+    <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+    />
+    </>
   );
 };
 

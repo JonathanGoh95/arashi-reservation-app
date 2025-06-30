@@ -32,12 +32,12 @@ const Profile = () => {
           <p className="p-2">Contact Number: {user.contactNumber}</p>
           <div className="p-2">
             <button
-              className="button mx-4"
+              className="button mx-4 is-warning"
               onClick={() => navigate(`/profile/edit`)}
             >
               Edit Profile
             </button>
-            <button className="button mx-4" onClick={() => navigate("/")}>
+            <button className="button mx-4 is-danger" onClick={() => navigate("/")}>
               Back
             </button>
           </div>

@@ -7,7 +7,7 @@ import {
   viewOneReservation,
 } from "../services/reservationService";
 import { indexBranch } from "../services/branchService";
-
+import { ToastContainer, toast } from "react-toastify";
 
 const year = new Date().toISOString().split("T")[0].split("-")[0];
 const month = new Date().toISOString().split("T")[0].split("-")[1];
@@ -81,8 +81,10 @@ const ReservationForm = ({ reservationId }) => {
     try {
       if (isEditing) {
         await editReservation(reservationId, formData);
+        toast.success("Reservation Successfully Edited")
       } else {
         await createReservation(formData);
+        toast.success("Reservation Successfully Created")
       }
       navigate(`/reservations/upcoming`);
     } catch (err) {
@@ -91,12 +93,13 @@ const ReservationForm = ({ reservationId }) => {
   };
 
   return (
+    <>
     <div className="content is-flex is-flex-direction-column is-align-items-center is-size-4">
-      <h1 className="m-5">{isEditing ? "Edit Reservation" : "Make a Reservation"}</h1>
+      <h1 className="m-5 has-text-black">{isEditing ? "Edit Reservation" : "Make a Reservation"}</h1>
       <p>{message}</p>
       <form onSubmit={handleSubmit}>
         <div className="field">
-          <label className="label">
+          <label className="label has-text-black">
             Reservation Name:
             </label>
             <input className="input"
@@ -108,7 +111,7 @@ const ReservationForm = ({ reservationId }) => {
             ></input>
         </div>
         <div className="field">
-          <label className="label">
+          <label className="label has-text-black">
             Contact Number:
             </label>
             <input className="input"
@@ -120,7 +123,7 @@ const ReservationForm = ({ reservationId }) => {
             ></input>
         </div>
         <div className="field">
-          <label className="label">
+          <label className="label has-text-black">
             Pax:
             </label>
             <input className="input"
@@ -134,10 +137,10 @@ const ReservationForm = ({ reservationId }) => {
             ></input>
         </div>
         <div className="field">
-          <label className="label">
+          <label className="label has-text-black">
             Branch:
             </label>
-            <div className="select is-size-5">
+            <div className="select is-size-6">
             <select
               required
               type="string"
@@ -155,7 +158,7 @@ const ReservationForm = ({ reservationId }) => {
           </div>
         </div>
         <div className="field">
-          <label className="label">
+          <label className="label has-text-black">
             Reservation Date:
             </label>
             <input className="input"
@@ -168,10 +171,10 @@ const ReservationForm = ({ reservationId }) => {
             ></input>
         </div>
         <div className="field">
-          <label className="label">
-            Reservation Time:
+          <label className="label has-text-black">
+            Reservation Session:
             </label>
-            <div className="select is-size-5">
+            <div className="select is-size-6">
             <select
               required
               name="reservationTime"
@@ -190,7 +193,7 @@ const ReservationForm = ({ reservationId }) => {
           </div>
         </div>
         <div className="field">
-          <label className="label">
+          <label className="label has-text-black">
             Remarks (optional):
           </label>
             <textarea className="textarea"
@@ -202,13 +205,27 @@ const ReservationForm = ({ reservationId }) => {
           
         </div>
         <div className="is-flex is-justify-content-center">
-          <button className="button is-primary m-4" type="submit">
+          <button className="button is-primary mx-4 my-3" type="submit">
             {isEditing ? "Update Reservation" : "Submit Reservation"}
           </button>
-          <button className="button is-danger m-4" onClick={() => navigate(isEditing ? "/reservations/upcoming" : "/reservations")}>Back</button>
+          <button className="button is-danger mx-4 my-3" onClick={() => navigate(isEditing ? "/reservations/upcoming" : "/reservations")}>Back</button>
         </div>
       </form>
     </div>
+    {/* Toastify Container for Visual Customization and Appearance in Browser */}
+    <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+    />
+    </>
   );
 };
 

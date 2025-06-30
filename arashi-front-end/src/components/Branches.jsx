@@ -28,10 +28,10 @@ const Branches = () => {
 
   return (
     <div className="content">
-      <h1 className="is-flex is-justify-content-center m-4 is-size-2">
+      <h1 className="is-flex is-justify-content-center m-4 is-size-2 has-text-black">
         Find Us
       </h1>
-      <p className="has-text-centered has-text-grey">{user ? "" : "Login to make a reservation!"}</p>
+      <p className="has-text-centered has-text-black">{user ? "" : "Login to make a reservation!"}</p>
       {loading && (
         <div className="is-flex is-justify-content-center m-6 is-size-2">
           <progress className="is-link"/>
@@ -42,7 +42,7 @@ const Branches = () => {
           branches.map((branch) => (
             <div className="card columns m-2" key={branch._id}>
               <div className="card-content is-flex is-flex-direction-column is-justify-content-space-between has-text-centered">
-                <p className="is-size-4 has-text-weight-bold has-text-black">
+                <p className="is-size-4 has-text-weight-bold has-text-white">
                   {branch.location.split(" - ")[1]} @ {branch.location.split(" - ")[0]}
                 </p>
                 <p><span className="is-size-6 has-text-weight-semibold has-text-grey">-Address-</span><br/>{branch.address}</p>
