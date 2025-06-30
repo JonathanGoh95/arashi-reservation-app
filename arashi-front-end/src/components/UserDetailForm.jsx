@@ -78,7 +78,12 @@ const UserDetailForm = ({userId}) => {
     toast.success("Account Successfully Deleted")
   }
   const isFormInvalid = () => {
-    return !(displayName && email && password && password === passwordConf);
+    if(contactNumber.length === 0){
+      return !(displayName.length >2 && typeof email === email && password && password === passwordConf);
+    }
+    if(contactNumber.length > 0){
+      return !(displayName.length >2 && contactNumber.length > 7 );
+    }
   };
 
   const year = String(
@@ -90,17 +95,17 @@ const UserDetailForm = ({userId}) => {
 
   return (
     <>
-    <div className="content is-flex is-flex-direction-column is-align-items-center is-size-4">
+    <div className="content is-flex is-flex-direction-column is-align-items-center is-size-3">
       <h1 className="m-4 has-text-black is-italic">
         {isEditing ? "Edit your Profile" : "Sign Up as a New User"}
       </h1>
-      <p className="is-size-5 has-text-black is-italic">{message}</p>
-      <p className="is-size-5 has-text-black is-italic">Fields marked with * are required</p>
+      <p className="is-size-4 has-text-black is-italic">{message}</p>
+      <p className="is-size-4 has-text-black is-italic">Fields marked with * are required</p>
       <form onSubmit={handleSubmit}>
         <div className="field">
-          <label className="label is-size-5 has-text-black">Display Name*:</label>
+          <label className="label is-size-4 has-text-black">Display Name *:
           <input
-            className="input"
+            className="input is-size-5"
             type="text"
             id="displayName"
             value={displayName}
@@ -108,13 +113,15 @@ const UserDetailForm = ({userId}) => {
             onChange={handleChange}
             required
           />
+          </label>
         </div>
         {!isEditing && (
           <>
             <div className="field">
-              <label className="label is-size-5 has-text-black">Email*:</label>
+              <label className="label is-size-4 has-text-black">Email *: 
+                <p className="label is-size-6 has-text-dark-grey">Please note that email is not editable after sign up.</p>
               <input
-                className="input"
+                className="input is-size-5"
                 type="email"
                 id="email"
                 value={email}
@@ -122,11 +129,12 @@ const UserDetailForm = ({userId}) => {
                 onChange={handleChange}
                 required
               />
+              </label>
             </div>
             <div className="field">
-              <label className="label is-size-5 has-text-black">Password*:</label>
+              <label className="label is-size-4 has-text-black">Password *:
               <input
-                className="input"
+                className="input is-size-5"
                 type="password"
                 id="password"
                 value={password}
@@ -134,11 +142,12 @@ const UserDetailForm = ({userId}) => {
                 onChange={handleChange}
                 required
               />
-            </div>
+            </label>
+            </div>              
             <div className="field">
-              <label className="label is-size-5 has-text-black">Confirm Password*:</label>
+              <label className="label is-size-4 has-text-black">Confirm Password *:
               <input
-                className="input"
+                className="input is-size-5"
                 type="password"
                 id="confirm"
                 value={passwordConf}
@@ -146,13 +155,14 @@ const UserDetailForm = ({userId}) => {
                 onChange={handleChange}
                 required
               />
+              </label>
             </div>
           </>
         )}
         <div className="field">
-          <label className="label is-size-5 has-text-black">Birthday:</label>
+          <label className="label is-size-4 has-text-black">Birthday:
           <input
-            className="input"
+            className="input is-size-5"
             type="date"
             id="birthday"
             value={birthday}
@@ -160,25 +170,30 @@ const UserDetailForm = ({userId}) => {
             onChange={handleChange}
             max={min18}
           />
+          </label>
         </div>
         <div className="field">
-          <label className="label is-size-5 has-text-black">Contact Number:</label>
+          <label className="label is-size-4 has-text-black">Contact Number:
           <input
-            className="input"
+            className="input is-size-5"
             type="String"
             id="contactNumber"
             value={contactNumber}
             name="contactNumber"
             onChange={handleChange}
           />
+          </label>
         </div>
         {isEditing ? (
           <div className="is-flex is-justify-content-center">
-            <button className="button mx-3 mt-2 is-primary" type="submit">
+            <button className="button mx-3 mt-2 is-primary" type="submit" disabled={isFormInvalid()}>
               Update Profile
             </button>
             <button className="button mx-3 mt-2 is-danger" onClick={handleDelete}>
               Delete Profile
+            </button>
+            <button className="button mx-3 mt-2 is-grey" onClick={() => navigate("/profile")}>
+              Cancel
             </button>
           </div>
         ) : (
@@ -190,14 +205,14 @@ const UserDetailForm = ({userId}) => {
             >
               Sign Up
             </button>
-            <button className="button mx-3 mt-2 is-danger" onClick={() => navigate("/")}>
+            <button className="button mx-3 mt-2 is-grey" onClick={() => navigate("/profile")}>
               Cancel
             </button>
           </div>
         )}
       </form>
       {!isEditing && (
-        <Link className="box is-italic p-3 m-4 has-text-white is-size-5" to="/login">
+        <Link className="has-text-dark is-light is-italic p-3 m-4 is-size-4" to="/login">
           Already have an account? Login Here
         </Link>
       )}

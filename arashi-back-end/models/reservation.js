@@ -31,7 +31,7 @@ const reservationSchema = new Schema(
     reservationTime: {
       type: String,
       required: [true, "Please fill in the reservation time"],
-      enum: ["11.00am", "1.00pm", "5.00pm", "7.00pm"],
+      enum: ["11:00am", "1:00pm", "5:00pm", "7:00pm"],
     },
     contactNumber: {
       type: String,

@@ -109,7 +109,7 @@ const createBranches = async () => {
 const createReservations = async () => {
   const users = await User.find({});
   const branches = await Branch.find({});
-  const reservationTime = ["11.00am", "1.00pm", "5.00pm", "7.00pm"];
+  const reservationTime = ["11:00am", "1:00pm", "5:00pm", "7:00pm"];
 
   const reservationsData = [
     {

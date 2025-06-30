@@ -102,7 +102,7 @@ const ReservationForm = ({ reservationId }) => {
     <div className="content is-flex is-flex-direction-column is-align-items-center is-size-4">
       <h1 className="m-5 has-text-black">{isEditing ? "Edit Reservation" : "Make a Reservation"}</h1>
       <p>{message}</p>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}  style={{minWidth: "250px"}}>
         <div className="field">
           <label className="label has-text-black">
             Reservation Name:
@@ -148,7 +148,7 @@ const ReservationForm = ({ reservationId }) => {
             Branch:
             </label>
             <div className="select is-size-6">
-            <select
+            <select  style={{minWidth: "250px"}}
               required
               type="string"
               name="branch"
@@ -178,12 +178,12 @@ const ReservationForm = ({ reservationId }) => {
               onChange={handleChange}
             ></input>
         </div>
-        <div className="field">
+        <div className="field" >
           <label className="label has-text-black">
             Reservation Session:
             </label>
             <div className="select is-size-6">
-            <select
+            <select  style={{minWidth: "250px"}}
               required
               name="reservationTime"
               value={reservationTime}
@@ -218,7 +218,7 @@ const ReservationForm = ({ reservationId }) => {
           </button>
         </div>
       </form>
-      <button className="button is-danger mx-4 my-3" onClick={() => navigate(isEditing ? "/reservations/upcoming" : "/reservations")}>Back</button>
+      <button className="button is-grey mx-4 my-3" onClick={() => navigate(isEditing ? "/reservations/upcoming" : "/reservations")}>Back</button>
     </div>
     {/* Toastify Container for Visual Customization and Appearance in Browser */}
     <ToastContainer

@@ -119,7 +119,7 @@ const UpcomingReservations = () => {
       )}
 
       <div className="is-flex is-justify-content-center">
-        <button className="button is-danger" onClick={handleBack}>
+        <button className="button is-grey" onClick={handleBack}>
           Back
         </button>
       </div>

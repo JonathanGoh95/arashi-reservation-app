@@ -7,15 +7,15 @@ const Profile = () => {
   const { user } = useContext(UserContext);
 
   return (
-    <div className="is-flex is-justify-content-center">
+    <div className="is-flex is-justify-content-center is-size-5 p-5">
       {!user ? (
         <div className="content">
           <h1>Unauthorized User</h1>
         </div>
       ) : (
         <div
-          className="card content is-flex is-flex-direction-column is-align-items-center m-4 p-4"
-          style={{ width: "400px" }}
+          className="card content is-flex is-flex-direction-column is-align-items-center is-justify-content-center is-size-5 m-4 p-4"
+          style={{ width:"600px" , height: "500px"}}
         >
           <h1 className="mt-4">{user.displayName}'s Profile</h1>
           <p className="p-2">Display Name: {user.displayName}</p>
@@ -36,7 +36,7 @@ const Profile = () => {
             >
               Edit Profile
             </button>
-            <button className="button mx-4 is-danger" onClick={() => navigate("/")}>
+            <button className="button mx-4 is-grey" onClick={() => navigate("/")}>
               Back
             </button>
           </div>
