@@ -57,7 +57,7 @@ const Branches = () => {
                 <p><span className="is-size-6 has-text-weight-semibold has-text-grey">-Address-</span><br/>{branch.address}</p>
                 <p><span className="is-size-6 has-text-weight-semibold has-text-grey">-Tel-</span><br/>{branch.contactNumber}</p>
                 <p><span className="is-size-6 has-text-weight-semibold has-text-grey">-Nearest MRT Station-</span><br/>{branch.location.split(" - ")[0]}</p>
-                <p><span className="is-size-6 has-text-weight-semibold has-text-grey">-Business Hours-</span><br/>Opens from {branch.businessHours} Daily</p>
+                <p><span className="is-size-6 has-text-weight-semibold has-text-grey">-Business Hours-</span><br/>Opens Daily <br/> {branch.businessHours}</p>
                 <br/>
                 <p><span className="is-size-6 has-text-weight-semibold has-text-primary">-Booking Availability-</span><br/>{checkAvailability(branch)}</p>
                 <br/>
