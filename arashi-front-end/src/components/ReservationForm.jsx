@@ -21,7 +21,7 @@ const ReservationForm = ({ reservationId }) => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
   const [branches, setBranches] = useState("");
-  const timeSlots = ["11.00am", "1.00pm", "5.00pm", "7.00pm"];
+  const timeSlots = ["11:00am", "1:00pm", "5:00pm", "7:00pm"];
   const [message, setMessage] = useState("");
   const isEditing = reservationId ? true : false;
 
@@ -38,7 +38,7 @@ const ReservationForm = ({ reservationId }) => {
   useEffect(() => {
     if (isEditing) {
       const fetchReservation = async () => {
-        const reservation = await viewOneReservation(reservationId);
+        const reservation = await viewOneReservation(user._id,reservationId);
         setFormData({
           reservationName: reservation.reservationName,
           reservationDate: reservation.reservationDate.split("T")[0],
@@ -51,7 +51,7 @@ const ReservationForm = ({ reservationId }) => {
       };
       fetchReservation();
     }
-  }, [isEditing, reservationId]);
+  }, [user._id, isEditing, reservationId]);
 
   useEffect(() => {
       const fetchBranches = async () => {
@@ -81,13 +81,13 @@ const ReservationForm = ({ reservationId }) => {
     event.preventDefault();
     try {
       if (isEditing) {
-        await editReservation(reservationId, formData);
+        await editReservation(user._id,reservationId, formData);
         toast.success("Reservation Successfully Edited")
       } else {
-        await createReservation(formData);
+        await createReservation(user._id,formData);
         toast.success("Reservation Successfully Created")
       }
-      navigate(`/reservations/upcoming`);
+      setTimeout(() => {navigate(`/reservations/upcoming`)},2000);
     } catch (err) {
       setMessage(err.message);
     }
@@ -190,12 +190,12 @@ const ReservationForm = ({ reservationId }) => {
               onChange={handleChange}
             >
               <optgroup label="Lunch Session">
-                <option value="11.00am">11.00am</option>
-                <option value="1.00pm">1.00pm</option>
+                <option value="11:00am">11:00am</option>
+                <option value="1:00pm">1:00pm</option>
               </optgroup>
               <optgroup label="Dinner Session">
-                <option value="5.00pm">5.00pm</option>
-                <option value="7.00pm">7.00pm</option>
+                <option value="5:00pm">5:00pm</option>
+                <option value="7:00pm">7:00pm</option>
               </optgroup>
             </select>
           </div>
@@ -213,7 +213,7 @@ const ReservationForm = ({ reservationId }) => {
           
         </div>
         <div className="is-flex is-justify-content-center">
-          <button disabled={isFormInvalid()} className="button is-primary mx-4 my-3" type="submit" onClick={handleSubmit}>
+          <button disabled={isFormInvalid()} className="button is-primary mx-4 my-3" type="submit" >
             {isEditing ? "Update Reservation" : "Submit Reservation"}
           </button>
         </div>

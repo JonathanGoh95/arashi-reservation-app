@@ -1,10 +1,15 @@
 const Reservation = require("../models/reservation.js");
 const Branch = require("../models/branch.js");
+const { loadUser } = require("../middleware/utils");
 
-// Read Past Reservations
 const viewPastReservations = async (req, res) => {
   try {
     const { userId } = req.params;
+    const currentUser = loadUser(req);
+    if (currentUser._id !== userId) {
+      res.status(403).send("Unauthorized User");
+    }
+
     const today = new Date();
     const reservations = await Reservation.find({
       user: userId,
@@ -19,10 +24,14 @@ const viewPastReservations = async (req, res) => {
   }
 };
 
-// Read Upcoming Reservations
 const viewUpcomingReservations = async (req, res) => {
   try {
     const { userId } = req.params;
+    const currentUser = loadUser(req);
+    if (currentUser._id !== userId) {
+      res.status(403).send("Unauthorized User");
+    }
+
     const today = new Date();
     const reservations = await Reservation.find({
       user: userId,
@@ -37,9 +46,14 @@ const viewUpcomingReservations = async (req, res) => {
   }
 };
 
-// Read One ReservationAdd commentMore actions
 const viewOneReservation = async (req, res) => {
   try {
+    const { userId } = req.params;
+    const currentUser = loadUser(req);
+    if (currentUser._id !== userId) {
+      res.status(403).send("Unauthorized User");
+    }
+
     const { reservationId } = req.params;
     const reservation = await Reservation.findOne({
       _id: reservationId,
@@ -52,9 +66,14 @@ const viewOneReservation = async (req, res) => {
   }
 };
 
-// Create Reservations
 const createReservation = async (req, res) => {
   try {
+    const { userId } = req.params;
+    const currentUser = loadUser(req);
+    if (currentUser._id !== userId) {
+      res.status(403).send("Unauthorized User");
+    }
+
     const branch = await Branch.findOne({ location: req.body.branch });
     if (!branch) {
       throw new Error("Branch not found!");
@@ -78,9 +97,14 @@ const createReservation = async (req, res) => {
   }
 };
 
-// Edit Reservation
 const editReservation = async (req, res) => {
   try {
+    const { userId } = req.params;
+    const currentUser = loadUser(req);
+    if (currentUser._id !== userId) {
+      res.status(403).send("Unauthorized User");
+    }
+
     const { reservationId } = req.params;
     const branch = await Branch.findOne({ location: req.body.branch }); //check if can use branch id
     req.body.user = req.user._id;
@@ -99,9 +123,14 @@ const editReservation = async (req, res) => {
   }
 };
 
-// Delete Reservation
 const deleteReservation = async (req, res) => {
   try {
+    const { userId } = req.params;
+    const currentUser = loadUser(req);
+    if (currentUser._id !== userId) {
+      res.status(403).send("Unauthorized User");
+    }
+
     const { reservationId } = req.params;
     const deleteReservation =
       await Reservation.findByIdAndDelete(reservationId);

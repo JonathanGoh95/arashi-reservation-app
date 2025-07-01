@@ -10,11 +10,11 @@ const {
   deleteReservation,
 } = require("../controllers/reservationController.js");
 
-router.post("/new", verifyToken, createReservation);
+router.post("/:userId/new", verifyToken, createReservation);
 router.get("/:userId/past", verifyToken, viewPastReservations);
-router.get("/:reservationId/edit", verifyToken, viewOneReservation);
+router.get("/:userId/:reservationId/edit", verifyToken, viewOneReservation);
 router.get("/:userId/upcoming", verifyToken, viewUpcomingReservations);
-router.put("/:reservationId/edit", verifyToken, editReservation);
-router.delete("/:reservationId", verifyToken, deleteReservation);
+router.put("/:userId/:reservationId/edit", verifyToken, editReservation);
+router.delete("/:userId/:reservationId", verifyToken, deleteReservation);
 
 module.exports = router;

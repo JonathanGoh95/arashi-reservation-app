@@ -29,27 +29,32 @@ const getUser = async (userId) => {
 
 const updateUser = async (userId, userFormData) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/edit`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userFormData),
-    });
+    const currentUser = getUserFromToken();
+    if (currentUser._id !== userId) {
+      throw new Error("Unauthorized");
+    } else {
+      const res = await fetch(`${BASE_URL}/${userId}/edit`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userFormData),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (data.token) {
-      localStorage.setItem("token", data.token);
-      const payload = getUserFromToken();
-      return payload;
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        const payload = getUserFromToken();
+        return payload;
+      }
+
+      if (data.err) {
+        throw new Error(data.err);
+      }
+      return data;
     }
-
-    if (data.err) {
-      throw new Error(data.err);
-    }
-    return data;
   } catch (err) {
     console.log(err);
     throw new Error(err);
@@ -58,17 +63,22 @@ const updateUser = async (userId, userFormData) => {
 
 const deleteUser = async (userId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-    const data = await res.json();
-    if (data.err) {
-      throw new Error(data.err);
+    const currentUser = getUserFromToken();
+    if (currentUser._id !== userId) {
+      throw new Error("Unauthorized");
+    } else {
+      const res = await fetch(`${BASE_URL}/${userId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const data = await res.json();
+      if (data.err) {
+        throw new Error(data.err);
+      }
+      return data;
     }
-    return data;
   } catch (err) {
     console.log(err);
     throw new Error(err);

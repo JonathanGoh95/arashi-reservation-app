@@ -9,11 +9,6 @@ const User = require("./models/user.js");
 const Reservation = require("./models/reservation.js");
 const Branch = require("./models/branch.js");
 
-// install faker to fake data
-// const { faker } = require("@faker-js/faker");
-// install lodash libraries
-// const _ = require("lodash");
-
 const connect = async () => {
   await mongoose.connect(process.env.MONGODB_URI);
   console.log("Connected to MongoDB");
