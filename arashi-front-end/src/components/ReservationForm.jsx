@@ -73,6 +73,7 @@ const ReservationForm = ({ reservationId }) => {
   } = formData;
 
   const handleChange = (event) => {
+    setMessage("");
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
@@ -81,10 +82,10 @@ const ReservationForm = ({ reservationId }) => {
     try {
       if (isEditing) {
         await editReservation(user._id,reservationId, formData);
-        toast.success("Reservation Successfully Edited")
+        toast.success("Reservation Successfully Edited. Redirecting soon...")
       } else {
         await createReservation(user._id,formData);
-        toast.success("Reservation Successfully Created")
+        toast.success("Reservation Successfully Created. Redirecting soon...")
       }
       setTimeout(() => {
       navigate(`/reservations/upcoming`);
@@ -102,7 +103,7 @@ const ReservationForm = ({ reservationId }) => {
     <>
     <div className="content is-flex is-flex-direction-column is-align-items-center is-size-4">
       <h1 className="m-5 has-text-black">{isEditing ? "Edit Reservation" : "Make a Reservation"}</h1>
-      <p>{message}</p>
+      <p className="is-size-4 has-text-danger-45 is-italic px-3">{message}</p>
       <form onSubmit={handleSubmit}  style={{minWidth: "250px"}}>
         <div className="field">
           <label className="label has-text-black">

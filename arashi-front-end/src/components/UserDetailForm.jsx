@@ -56,14 +56,14 @@ const UserDetailForm = ({userId}) => {
       if (isEditing) {
         const updateProfile = await updateUser(userId, formData);
         setUser(updateProfile);
-        toast.success("Account Successfully Updated")
+        toast.success("Account Successfully Updated. Redirecting soon...")
         setTimeout(() => {
           navigate(`/profile`);
         }, 3000);
       } else {
         const newUser = await signUp(formData);
         setUser(newUser);
-        toast.success("Account Successfully Created")
+        toast.success("Account Successfully Created. Redirecting soon...")
         setTimeout(() => {
           navigate(`/reservations`);
         }, 3000);
@@ -112,8 +112,8 @@ const UserDetailForm = ({userId}) => {
       <h1 className="m-4 has-text-black is-italic">
         {isEditing ? "Edit your Profile" : "Sign Up as a New User"}
       </h1>
-      <p className="is-size-4 has-text-black is-italic">{message}</p>
       <p className="is-size-4 has-text-black is-italic">Fields marked with * are required</p>
+      <p className="is-size-4 has-text-danger-45 is-italic px-3">{message}</p>
       <form onSubmit={handleSubmit}>
         <div className="field">
           <label className="label is-size-4 has-text-black">Display Name *:
@@ -173,7 +173,7 @@ const UserDetailForm = ({userId}) => {
           </>
         )}
         <div className="field">
-          <label className="label is-size-4 has-text-black">Birthday:
+          <label className="label is-size-4 has-text-black">Birthday *:
           <input
             className="input is-size-5"
             type="date"

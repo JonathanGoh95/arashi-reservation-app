@@ -80,7 +80,9 @@ const createReservation = async (req, res) => {
     }
 
     if (branch.totalCapacity < req.body.pax) {
-      throw new Error("Not enough capcity at this branch!");
+      throw new Error(
+        "Not enough capcity at this branch! Please select another branch."
+      );
     }
 
     branch.totalCapacity -= req.body.pax;
@@ -106,7 +108,21 @@ const editReservation = async (req, res) => {
     }
 
     const { reservationId } = req.params;
-    const branch = await Branch.findOne({ location: req.body.branch }); //check if can use branch id
+
+    const branch = await Branch.findOne({ location: req.body.branch });
+    if (!branch) {
+      throw new Error("Branch not found!");
+    }
+
+    if (branch.totalCapacity < req.body.pax) {
+      throw new Error(
+        "Not enough capacity at this branch! Please select another branch."
+      );
+    }
+
+    branch.totalCapacity -= req.body.pax;
+    await branch.save();
+
     req.body.user = req.user._id;
     req.body.branch = branch._id;
     const reservation = await Reservation.findByIdAndUpdate(

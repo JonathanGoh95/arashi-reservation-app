@@ -22,7 +22,7 @@ const SignInForm = () => {
     try {
       const signedInUser = await signIn(formData);
       setUser(signedInUser);
-      toast.success("Sign In Successful")
+      toast.success("Sign In Successful. Redirecting soon...")
       setTimeout(() => {
       navigate(`/reservations/`);
       }, 1000);

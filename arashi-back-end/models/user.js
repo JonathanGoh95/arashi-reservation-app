@@ -51,7 +51,12 @@ const userSchema = new Schema({
 
   contactNumber: {
     type: String,
-    minlength: [8, `Contact number must be at least 8 numbers`],
+    validate: {
+      validator: function (value) {
+        if (value.length !== 0 && value.length < 8) return false;
+      },
+      message: "Contact number must be at least 8 numbers",
+    },
   },
 });
 
