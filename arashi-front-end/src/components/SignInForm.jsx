@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { signIn } from "../services/authService";
 import { UserContext } from "../contexts/UserContext";
 import { ToastContainer, toast } from "react-toastify";
+import isEmail from "validator/lib/isEmail";
 
 const SignInForm = () => {
   const navigate = useNavigate();
@@ -31,11 +32,20 @@ const SignInForm = () => {
     }
   };
 
+  const {
+    email,
+    password
+  } = formData;
+
+  const isFormInvalid = () => {
+        const result = isEmail(email) && password.length >2 && password
+        return !result;
+  };
   return (
     <>
     <div className="content is-flex is-flex-direction-column is-align-items-center is-size-4">
       <h1 className="has-text-black is-italic">Sign In</h1>
-      <p className="has-text-black is-italic">{message}</p>
+      <p className="is-size-4 has-text-danger-45 is-italic px-3">{message}</p>
       <section>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <div className="field">
@@ -65,7 +75,7 @@ const SignInForm = () => {
             />
           </div>
           <div className="is-flex is-justify-content-center">
-            <button className="button m-3 is-primary" type="submit">
+            <button disabled={isFormInvalid()} className="button m-3 is-primary" type="submit">
               Sign In
             </button>
             <button className="button m-3 is-danger" onClick={() => navigate("/")}>
