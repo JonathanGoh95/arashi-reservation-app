@@ -1,12 +1,14 @@
 import { useContext } from "react";
 import { Link } from "react-router";
 import { UserContext } from "../contexts/UserContext";
+import { toast } from "react-toastify";
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
   const handleSignOut = () => {
     localStorage.removeItem("token");
     setUser(null);
+    toast.success("You have signed out successfully")
   };
 
   return (

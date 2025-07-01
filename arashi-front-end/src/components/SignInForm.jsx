@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { signIn } from "../services/authService";
 import { UserContext } from "../contexts/UserContext";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import isEmail from "validator/lib/isEmail";
 
 const SignInForm = () => {
@@ -25,8 +25,8 @@ const SignInForm = () => {
       setUser(signedInUser);
       toast.success("Sign In Successful. Redirecting soon...")
       setTimeout(() => {
-      navigate(`/reservations/`);
-      }, 1000);
+        navigate(`/reservations/`);
+      }, 1500);
     } catch (err) {
       setMessage(err.message);
     }
@@ -85,19 +85,6 @@ const SignInForm = () => {
         </form>
       </section>
     </div>
-    {/* Toastify Container for Visual Customization and Appearance in Browser */}
-    <ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-    />
     </>
   );
 };

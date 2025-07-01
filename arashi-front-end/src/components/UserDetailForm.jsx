@@ -4,7 +4,7 @@ import { signUp } from "../services/authService";
 import { getUser, updateUser } from "../services/userService";
 import { UserContext } from "../contexts/UserContext";
 import { deleteUser } from "../services/userService";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import isEmail from "validator/lib/isEmail";
 
 const UserDetailForm = ({userId}) => {
@@ -59,14 +59,14 @@ const UserDetailForm = ({userId}) => {
         toast.success("Account Successfully Updated. Redirecting soon...")
         setTimeout(() => {
           navigate(`/profile`);
-        }, 3000);
+        }, 1500);
       } else {
         const newUser = await signUp(formData);
         setUser(newUser);
         toast.success("Account Successfully Created. Redirecting soon...")
         setTimeout(() => {
           navigate(`/reservations`);
-        }, 3000);
+        }, 1500);
       }
     } catch (err) {
       setMessage(err.message);
@@ -259,19 +259,6 @@ const UserDetailForm = ({userId}) => {
         </footer>
       </div>
     </div>
-    {/* Toastify Container for Visual Customization and Appearance in Browser */}
-    <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-    />
     </>
   );
 };

@@ -7,7 +7,7 @@ import {
   viewOneReservation,
 } from "../services/reservationService";
 import { indexBranch } from "../services/branchService";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const today = new Date();
 let tomorrow = new Date(today)
@@ -88,8 +88,8 @@ const ReservationForm = ({ reservationId }) => {
         toast.success("Reservation Successfully Created. Redirecting soon...")
       }
       setTimeout(() => {
-      navigate(`/reservations/upcoming`);
-      }, 3000);
+        navigate(`/reservations/upcoming`);
+      }, 1500);
     } catch (err) {
       setMessage(err.message);
     }
@@ -222,19 +222,6 @@ const ReservationForm = ({ reservationId }) => {
       </form>
       <button className="button is-grey mx-4 my-3" onClick={() => navigate(isEditing ? "/reservations/upcoming" : "/reservations")}>Back</button>
     </div>
-    {/* Toastify Container for Visual Customization and Appearance in Browser */}
-    <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-    />
     </>
   );
 };

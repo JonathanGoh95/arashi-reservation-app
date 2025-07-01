@@ -13,6 +13,7 @@ import EditReservation from "./components/EditReservation";
 import EditProfile from "./components/EditProfile";
 import UserDetailForm from "./components/UserDetailForm";
 import background from "../images/background.jpg"
+import { ToastContainer } from "react-toastify";
 
 const styleBackground = {
   position : "absolute",
@@ -68,6 +69,19 @@ const App = () => {
       </footer>
     </div>
     </div>
+    {/* Toastify Container for Visual Customization and Appearance in Browser */}
+      <ToastContainer
+          position="top-right"
+          autoClose={1500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+      />
     </>
   );
 };
