@@ -5,6 +5,7 @@ import { getUser, updateUser } from "../services/userService";
 import { UserContext } from "../contexts/UserContext";
 import { deleteUser } from "../services/userService";
 import { ToastContainer, toast } from "react-toastify";
+import isEmail from "validator/lib/isEmail";
 
 const UserDetailForm = ({userId}) => {
   const navigate = useNavigate();
@@ -78,11 +79,22 @@ const UserDetailForm = ({userId}) => {
     toast.success("Account Successfully Deleted")
   }
   const isFormInvalid = () => {
-    if(contactNumber.length === 0){
-      return !(displayName.length >2 && typeof email === email && password && password === passwordConf);
-    }
-    if(contactNumber.length > 0){
-      return !(displayName.length >2 && contactNumber.length > 7 );
+    if(isEditing){
+      if(contactNumber.length === 0 ){
+        const result = displayName.length >2 && birthday 
+        return !result;
+      }else{
+        const result = contactNumber.length >7 && displayName.length >2 && birthday
+        return !result;
+      }
+    }else{
+      if(contactNumber.length === 0 ){
+        const result = displayName.length >2 && birthday && isEmail(email) && password.length >2 && password === passwordConf
+        return !result;
+      }else{
+        const result = contactNumber.length >7 && displayName.length >2 && birthday && isEmail(email) && password.length >2 && password === passwordConf
+        return !result;
+      }
     }
   };
 

@@ -28,6 +28,10 @@ const userSchema = new Schema({
   },
   birthday: {
     type: Date,
+    required: [
+      true,
+      "Birthday is required. User must be at least 18 years old.",
+    ],
     validate: {
       validator: function (value) {
         const userBirthYear = Number(

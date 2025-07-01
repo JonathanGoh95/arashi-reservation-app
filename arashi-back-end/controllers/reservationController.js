@@ -67,8 +67,8 @@ const createReservation = async (req, res) => {
     branch.totalCapacity -= req.body.pax;
     await branch.save();
 
-    req.body.user = req.user._id;
-    req.body.branch = branch._id;
+    req.body.user = req.user;
+    req.body.branch = branch;
 
     const reservation = await Reservation.create(req.body); // Create the new hoot document in the database
 
