@@ -96,7 +96,7 @@ const ReservationForm = ({ reservationId }) => {
   };
 
   const isFormInvalid = () => {
-    return !(reservationName.length > 2 && reservationDate && reservationTime && contactNumber.length > 7 && branch && pax);
+    return !(reservationName.length > 2 && reservationDate && reservationTime && contactNumber?.length > 7 && branch && pax);
   };
 
   return (

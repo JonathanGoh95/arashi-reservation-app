@@ -132,7 +132,7 @@ const UserDetailForm = ({userId}) => {
           <>
             <div className="field">
               <label className="label is-size-4 has-text-black">Email *: 
-                <p className="label is-size-6 has-text-dark-grey">Please note that email is not editable after sign up.</p>
+                <p className="label is-size-6 has-text-black">Please note that email is not editable after sign up.</p>
               <input
                 className="input is-size-5"
                 type="email"
@@ -205,7 +205,7 @@ const UserDetailForm = ({userId}) => {
             <button className="button mx-3 mt-2 is-danger" type="button" onClick={() => setIsModalOpen(true)}>
               Delete Profile
             </button>
-            <button className="button mx-3 mt-2 is-grey" type="button" onClick={() => navigate("/profile")}>
+            <button className="button mx-3 mt-2 is-grey" type="button" onClick={() => navigate("/")}>
               Cancel
             </button>
           </div>
@@ -218,7 +218,7 @@ const UserDetailForm = ({userId}) => {
             >
               Sign Up
             </button>
-            <button className="button mx-3 mt-2 is-grey" onClick={() => navigate("/profile")}>
+            <button className="button mx-3 mt-2 is-grey" type="button" onClick={() => navigate("/")}>
               Cancel
             </button>
           </div>
