@@ -21,7 +21,7 @@ const ReservationForm = ({ reservationId }) => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
   const [branches, setBranches] = useState("");
-  const timeSlots = ["11.00am", "1.00pm", "5.00pm", "7.00pm"];
+  const timeSlots = ["11:00am", "1:00pm", "5:00pm", "7:00pm"];
   const [message, setMessage] = useState("");
   const isEditing = reservationId ? true : false;
 
@@ -58,7 +58,6 @@ const ReservationForm = ({ reservationId }) => {
         const branchesData = await indexBranch();
         setFormData({...formData, branch: branchesData[0].location})
         setBranches(branchesData);
-        console.log(branchesData)
       };
       fetchBranches();
   }, []);
@@ -87,14 +86,16 @@ const ReservationForm = ({ reservationId }) => {
         await createReservation(formData);
         toast.success("Reservation Successfully Created")
       }
+      setTimeout(() => {
       navigate(`/reservations/upcoming`);
+      }, 3000);
     } catch (err) {
       setMessage(err.message);
     }
   };
 
   const isFormInvalid = () => {
-    return !(reservationName.length >2 && reservationDate && reservationTime && contactNumber.length > 7 && branch && pax);
+    return !(reservationName.length > 2 && reservationDate && reservationTime && contactNumber.length > 7 && branch && pax);
   };
 
   return (
@@ -190,12 +191,12 @@ const ReservationForm = ({ reservationId }) => {
               onChange={handleChange}
             >
               <optgroup label="Lunch Session">
-                <option value="11.00am">11.00am</option>
-                <option value="1.00pm">1.00pm</option>
+                <option value="11:00am">11:00am</option>
+                <option value="1:00pm">1:00pm</option>
               </optgroup>
               <optgroup label="Dinner Session">
-                <option value="5.00pm">5.00pm</option>
-                <option value="7.00pm">7.00pm</option>
+                <option value="5:00pm">5:00pm</option>
+                <option value="7:00pm">7:00pm</option>
               </optgroup>
             </select>
           </div>
@@ -223,7 +224,7 @@ const ReservationForm = ({ reservationId }) => {
     {/* Toastify Container for Visual Customization and Appearance in Browser */}
     <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
