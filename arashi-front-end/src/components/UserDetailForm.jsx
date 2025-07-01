@@ -11,6 +11,7 @@ const UserDetailForm = ({userId}) => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     displayName: "",
     email: "",
@@ -25,7 +26,6 @@ const UserDetailForm = ({userId}) => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       const userProfile = await getUser(userId);
-      console.log("getProfile", userProfile)
       setFormData({
         displayName: userProfile.displayName,
         email: userProfile.email,
@@ -54,29 +54,30 @@ const UserDetailForm = ({userId}) => {
     evt.preventDefault();
     try {
       if (isEditing) {
-        console.log("editing");
         const updateProfile = await updateUser(userId, formData);
         setUser(updateProfile);
-        navigate(`/profile`);
         toast.success("Account Successfully Updated")
+        setTimeout(() => {
+          navigate(`/profile`);
+        }, 3000);
       } else {
-        console.log("signing up");
         const newUser = await signUp(formData);
         setUser(newUser);
-        navigate(`/reservations`);
+        toast.success("Account Successfully Created")
+        setTimeout(() => {
+          navigate(`/reservations`);
+        }, 3000);
       }
     } catch (err) {
       setMessage(err.message);
     }
   };
 
-  const handleDelete = async (evt) => {
-    evt.preventDefault();
-    console.log("deleting account");
+  const handleDelete = async () => {
     await deleteUser(userId);
     setUser("");
+    localStorage.removeItem("token")
     navigate(`/`);
-    toast.success("Account Successfully Deleted")
   }
   const isFormInvalid = () => {
     if(isEditing){
@@ -201,10 +202,10 @@ const UserDetailForm = ({userId}) => {
             <button className="button mx-3 mt-2 is-primary" type="submit" disabled={isFormInvalid()}>
               Update Profile
             </button>
-            <button className="button mx-3 mt-2 is-danger" onClick={handleDelete}>
+            <button className="button mx-3 mt-2 is-danger" type="button" onClick={() => setIsModalOpen(true)}>
               Delete Profile
             </button>
-            <button className="button mx-3 mt-2 is-grey" onClick={() => navigate("/profile")}>
+            <button className="button mx-3 mt-2 is-grey" type="button" onClick={() => navigate("/profile")}>
               Cancel
             </button>
           </div>
@@ -229,10 +230,39 @@ const UserDetailForm = ({userId}) => {
         </Link>
       )}
     </div>
+    <div className={`modal ${isModalOpen ? 'is-active' : ''}`}>
+      <div className="modal-background" onClick={() => setIsModalOpen(false)}></div>
+
+      <div className="modal-card">
+        <header className="modal-card-head">
+          <p className="modal-card-title">Confirm Profile Deletion</p>
+          <button className="delete" aria-label="close" onClick={() => setIsModalOpen(false)}></button>
+        </header>
+
+        <section className="modal-card-body">
+          <p>This action cannot be undone. Are you sure you want to continue?</p>
+        </section>
+
+        <footer className="modal-card-foot is-flex is-justify-content-center">
+          <button
+            className="button is-danger mr-2"
+            onClick={() => {
+              handleDelete()
+              setIsModalOpen(false);
+            }}
+          >
+            Confirm
+          </button>
+          <button className="button ml-2" onClick={() => setIsModalOpen(false)}>
+            Cancel
+          </button>
+        </footer>
+      </div>
+    </div>
     {/* Toastify Container for Visual Customization and Appearance in Browser */}
     <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

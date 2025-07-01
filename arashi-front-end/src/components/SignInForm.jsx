@@ -18,15 +18,14 @@ const SignInForm = () => {
   };
 
   const handleSubmit = async (evt) => {
-    console.log("submitting");
-
     evt.preventDefault();
     try {
-      console.log("signing in");
       const signedInUser = await signIn(formData);
       setUser(signedInUser);
       toast.success("Sign In Successful")
-      navigate(`/reservations`);
+      setTimeout(() => {
+      navigate(`/reservations/`);
+      }, 1000);
     } catch (err) {
       setMessage(err.message);
     }
@@ -79,7 +78,7 @@ const SignInForm = () => {
     {/* Toastify Container for Visual Customization and Appearance in Browser */}
     <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

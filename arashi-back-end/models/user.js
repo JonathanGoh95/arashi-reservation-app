@@ -1,4 +1,4 @@
-const { isEmail, isLength } = require("validator");
+const { isEmail } = require("validator");
 const mongoose = require("mongoose");
 
 const { Schema, model } = mongoose;
