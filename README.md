@@ -23,6 +23,8 @@
 - Mongoose JS
 - JSON Web Token (JWT) Authentication
 - BCrypt for Password Encryption
+- Bulma CSS
+- React Toastify
 - Git & GitHub
 
 ## User Stories
@@ -86,3 +88,6 @@
 
 ### Bulma CSS References:
 - https://bulma.io/documentation/ (Inclusive of ALL components used under Bulma CSS)
+
+### React Toastify References:
+- https://www.npmjs.com/package/react-toastify
