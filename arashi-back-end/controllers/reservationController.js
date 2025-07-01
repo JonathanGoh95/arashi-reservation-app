@@ -73,7 +73,6 @@ const createReservation = async (req, res) => {
     if (currentUser._id !== userId) {
       res.status(403).send("Unauthorized User");
     }
-
     const branch = await Branch.findOne({ location: req.body.branch });
     if (!branch) {
       throw new Error("Branch not found!");
@@ -109,22 +108,36 @@ const editReservation = async (req, res) => {
 
     const { reservationId } = req.params;
 
+    const reservationItem = await Reservation.findById(reservationId);
+    if (!reservationItem) {
+      throw new Error("Reservation not found!");
+    }
+
     const branch = await Branch.findOne({ location: req.body.branch });
     if (!branch) {
       throw new Error("Branch not found!");
     }
 
-    if (branch.totalCapacity < req.body.pax) {
-      throw new Error(
-        "Not enough capacity at this branch! Please select another branch."
-      );
+    if (reservationItem.pax !== req.body.pax) {
+      if (reservationItem.pax < req.body.pax) {
+        const diff = req.body.pax - reservationItem.pax;
+        if (branch.totalCapacity < diff) {
+          throw new Error(
+            "Not enough capacity at this branch! Please select another branch."
+          );
+        } else {
+          branch.totalCapacity -= diff;
+          await branch.save();
+        }
+      } else {
+        const diff = reservationItem.pax - req.body.pax;
+        branch.totalCapacity += diff;
+        await branch.save();
+      }
     }
 
-    branch.totalCapacity -= req.body.pax;
-    await branch.save();
-
-    req.body.user = req.user._id;
-    req.body.branch = branch._id;
+    req.body.user = req.user;
+    req.body.branch = branch;
     const reservation = await Reservation.findByIdAndUpdate(
       reservationId,
       req.body,
@@ -146,10 +159,26 @@ const deleteReservation = async (req, res) => {
     if (currentUser._id !== userId) {
       res.status(403).send("Unauthorized User");
     }
-
     const { reservationId } = req.params;
+
+    const reservationItem = await Reservation.findById(reservationId);
+    if (!reservationItem) {
+      throw new Error("Reservation not found!");
+    }
+
+    const branch = await Branch.findById({
+      _id: reservationItem.branch,
+    });
+    if (!branch) {
+      throw new Error("Branch not found!");
+    }
+
+    branch.totalCapacity += reservationItem.pax;
+    await branch.save();
+
     const deleteReservation =
       await Reservation.findByIdAndDelete(reservationId);
+
     res.status(200).json(deleteReservation);
   } catch (err) {
     res.status(500).json({ err: err.message });
