@@ -2,13 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router";
 import * as reservationService from "../services/reservationService";
-import { ToastContainer, toast } from "react-toastify";
 
 const UpcomingReservations = () => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
   const [reservations, setReservations] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedReservationId, setSelectedReservationId] = useState(null);
 
   useEffect(() => {
     const fetchUpcomingReservations = async () => {
@@ -29,7 +30,6 @@ const UpcomingReservations = () => {
     setReservations(
       reservations.filter((reservation) => reservationId !== reservation._id),
     );
-    toast.success("Reservation Successfully Deleted")
   };
 
   const handleBack = () => {
@@ -97,7 +97,8 @@ const UpcomingReservations = () => {
                           </button>
                           <button
                             className="button is-danger ml-2"
-                            onClick={() => handleDelete(reservation._id)}
+                            onClick={() => {setSelectedReservationId(reservation._id);
+                              setIsModalOpen(true)}}
                           >
                             Delete
                           </button>
@@ -107,7 +108,36 @@ const UpcomingReservations = () => {
                   ))}
                 </tbody>
               </table>
+              <div className={`modal ${isModalOpen ? 'is-active' : ''}`}>
+                <div className="modal-background" onClick={() => setIsModalOpen(false)}></div>
+
+                <div className="modal-card">
+                  <header className="modal-card-head">
+                    <p className="modal-card-title">Confirm Reservation Deletion</p>
+                    <button className="delete" aria-label="close" onClick={() => setIsModalOpen(false)}></button>
+                  </header>
+
+                  <section className="modal-card-body">
+                    <p>This action cannot be undone. Are you sure you want to continue?</p>
+                  </section>
+
+                  <footer className="modal-card-foot is-flex is-justify-content-center">
+                    <button
+                      className="button is-danger mr-2"
+                      onClick={() => {
+                        handleDelete(selectedReservationId)
+                        setIsModalOpen(false);
+                      }}
+                    >
+                      Confirm
+                    </button>
+                    <button className="button ml-2" onClick={() => setIsModalOpen(false)}>
+                      Cancel
+                    </button>
+                  </footer>
+                </div>
               </div>
+            </div>
             )}
 
           {!loading && reservations && reservations.length === 0 && (
@@ -123,19 +153,6 @@ const UpcomingReservations = () => {
           Back
         </button>
       </div>
-      {/* Toastify Container for Visual Customization and Appearance in Browser */}
-      <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-      />
     </>
   );
 };
