@@ -38,7 +38,7 @@ const ReservationForm = ({ reservationId }) => {
   useEffect(() => {
     if (isEditing) {
       const fetchReservation = async () => {
-        const reservation = await viewOneReservation(reservationId);
+        const reservation = await viewOneReservation(user._id,reservationId);
         setFormData({
           reservationName: reservation.reservationName,
           reservationDate: reservation.reservationDate.split("T")[0],
@@ -51,7 +51,7 @@ const ReservationForm = ({ reservationId }) => {
       };
       fetchReservation();
     }
-  }, [isEditing, reservationId]);
+  }, [user._id, isEditing, reservationId]);
 
   useEffect(() => {
       const fetchBranches = async () => {
@@ -80,10 +80,10 @@ const ReservationForm = ({ reservationId }) => {
     event.preventDefault();
     try {
       if (isEditing) {
-        await editReservation(reservationId, formData);
+        await editReservation(user._id,reservationId, formData);
         toast.success("Reservation Successfully Edited")
       } else {
-        await createReservation(formData);
+        await createReservation(user._id,formData);
         toast.success("Reservation Successfully Created")
       }
       setTimeout(() => {
@@ -214,7 +214,7 @@ const ReservationForm = ({ reservationId }) => {
           
         </div>
         <div className="is-flex is-justify-content-center">
-          <button disabled={isFormInvalid()} className="button is-primary mx-4 my-3" type="submit" onClick={handleSubmit}>
+          <button disabled={isFormInvalid()} className="button is-primary mx-4 my-3" type="submit" >
             {isEditing ? "Update Reservation" : "Submit Reservation"}
           </button>
         </div>
