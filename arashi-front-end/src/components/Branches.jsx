@@ -16,7 +16,7 @@ const Branches = () => {
       setBranches(branchData);
     };
     fetchAllBranches();
-  }, []);
+  }, [branches]);
 
   const handleClick = () => {
     if (user) {
@@ -26,6 +26,15 @@ const Branches = () => {
     }
   };
 
+  const checkAvailability = (branch) =>{
+    if(branch.totalCapacity === 0){
+      return "No slots available!"
+    } else if (branch.totalCapacity <3){
+      return "Limited availability!"
+    } else {
+      return "Open for bookings!"
+    }
+  }
   return (
     <div className="content">
       <h1 className="is-flex is-justify-content-center m-4 is-size-2 has-text-black">
@@ -49,6 +58,10 @@ const Branches = () => {
                 <p><span className="is-size-6 has-text-weight-semibold has-text-grey">-Tel-</span><br/>{branch.contactNumber}</p>
                 <p><span className="is-size-6 has-text-weight-semibold has-text-grey">-Nearest MRT Station-</span><br/>{branch.location.split(" - ")[0]}</p>
                 <p><span className="is-size-6 has-text-weight-semibold has-text-grey">-Business Hours-</span><br/>Opens from {branch.businessHours} Daily</p>
+                <br/>
+                <p><span className="is-size-6 has-text-weight-semibold has-text-primary">-Booking Availability-</span><br/>{checkAvailability(branch)}</p>
+                <br/>
+               
                 <div className="is-flex is-justify-content-center">
                   <button className="button is-primary" onClick={handleClick}>
                     Reserve Now
